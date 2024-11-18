@@ -1,6 +1,0 @@
-# ESLint 무시 파일
-node_modules
-.next
-build
-dist
-
