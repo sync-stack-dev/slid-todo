@@ -1,0 +1,40 @@
+{
+  "env": {
+    // 브라우저 전역 변수 사용 가능
+    "browser": true,
+    // ES2021 문법 사용 가능
+    "es2021": true,
+    // Node.js 전역 변수 사용 가능
+    "node": true
+  },
+  "extends": [
+    "next/core-web-vitals",
+    // TypeScript 규칙
+    "plugin:@typescript-eslint/recommended",
+    // Prettier와 충돌하는 ESLint 규칙 비활성화
+    "prettier"
+  ],
+  // TypeScript 파서 사용
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      // JSX 문법 사용 가능
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  // 사용할 플러그인들
+  "plugins": ["@typescript-eslint", "prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-explicit-any": "warn"
+  },
+  "settings": {
+    "react": {
+      // React 버전 자동 감지
+      "version": "detect"
+    }
+  }
+}
