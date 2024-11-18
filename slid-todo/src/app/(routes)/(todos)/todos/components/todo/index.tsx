@@ -1,25 +1,18 @@
 "use client";
 
-import { getTodos } from "@/actions/todo/todos";
-import { useInfiniteQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
+import { useTodosInfinite } from "@/hooks/use-todos";
 import TodoHeader from "./todo-header";
 import TodoFilter from "./todo-filter";
 import TodoItem from "./todo-item";
 import { TabType, getFilteredTodos } from "./utils";
-import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
 
 const TodoList = () => {
   const [activeTab, setActiveTab] = useState<TabType>("all");
   const { ref, inView } = useInView();
-
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-    queryKey: ["todos"],
-    queryFn: ({ pageParam = 0 }) => getTodos(pageParam),
-    getNextPageParam: (lastPage) => lastPage.nextCursor,
-    initialPageParam: 0,
-  });
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useTodosInfinite();
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -29,10 +22,7 @@ const TodoList = () => {
 
   if (isLoading) return <div>Loading...</div>;
 
-  // 모든 페이지의 todos를 하나의 배열로 합치기
   const allTodos = data?.pages.flatMap((page) => page.todos) || [];
-  console.log("전체 데이터:", allTodos);
-
   const displayTodos = getFilteredTodos(allTodos, activeTab);
 
   return (
