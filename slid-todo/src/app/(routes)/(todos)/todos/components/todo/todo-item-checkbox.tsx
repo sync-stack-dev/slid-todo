@@ -8,6 +8,7 @@ interface TodoItemCheckboxProps {
 const TodoItemCheckbox = ({ todo }: TodoItemCheckboxProps) => {
   const handleCheckboxChange = async (checked: boolean) => {
     console.log("Todo status changed:", todo.id, checked);
+    // TODO: 상태 변경 로직 구현
   };
 
   return (
