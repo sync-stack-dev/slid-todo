@@ -1,6 +1,6 @@
 // components/todo/todo-list/todo-item-actions.tsx
 import { Todo } from "@/actions/todo/types";
-import { Link, MoreHorizontal, Pencil, Copy, FileText } from "lucide-react";
+import { Link, MoreHorizontal, Copy, FileText, Notebook } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,12 +32,11 @@ const TodoItemActions = ({ todo }: TodoItemActionsProps) => {
           <FileText className="w-4 h-4" />
         </button>
       )}
-      {todo.isTemplate && (
+      {todo.noteId && (
         <button className="p-1 hover:bg-gray-100 rounded">
-          <Pencil className="w-4 h-4" />
+          <Notebook className="w-4 h-4" />
         </button>
       )}
-
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button className="p-1 hover:bg-gray-100 rounded">
