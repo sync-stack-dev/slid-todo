@@ -3,14 +3,21 @@ import { MoreHorizontal } from "lucide-react";
 import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { MenuItems } from "./menu-items";
 import { Todo } from "@/actions/todo/types";
+import { useTodoActions } from "@/hooks/todo/use-todo-actions";
 
 interface MoreMenuProps {
   todo: Todo;
-  onEdit?: () => void;
-  onDelete?: () => void;
 }
 
-export const MoreMenu = ({ todo, onEdit, onDelete }: MoreMenuProps) => {
+export const MoreMenu = ({ todo }: MoreMenuProps) => {
+  const { deleteTodo } = useTodoActions(todo);
+
+  const handleDelete = () => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      deleteTodo();
+    }
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -18,7 +25,7 @@ export const MoreMenu = ({ todo, onEdit, onDelete }: MoreMenuProps) => {
           <MoreHorizontal className="w-4 h-4" data-cy="more-button" />
         </Button>
       </DropdownMenuTrigger>
-      <MenuItems onEdit={onEdit} onDelete={onDelete} />
+      <MenuItems onDelete={handleDelete} />
     </DropdownMenu>
   );
 };
