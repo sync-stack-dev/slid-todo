@@ -2,11 +2,15 @@ import { DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-
 
 interface MenuItemsProps {
   onDelete: () => void;
+  onEdit: () => void;
 }
 
-export const MenuItems = ({ onDelete }: MenuItemsProps) => {
+export const MenuItems = ({ onEdit, onDelete }: MenuItemsProps) => {
   return (
     <DropdownMenuContent align="end">
+      <DropdownMenuItem onClick={onEdit} className="cursor-pointer">
+        수정하기
+      </DropdownMenuItem>
       <DropdownMenuItem
         onClick={onDelete}
         className="text-red-600 cursor-pointer"

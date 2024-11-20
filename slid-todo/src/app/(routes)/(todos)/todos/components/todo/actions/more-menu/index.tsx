@@ -4,6 +4,7 @@ import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu
 import { MenuItems } from "./menu-items";
 import { Todo } from "@/actions/todo/types";
 import { useTodoActions } from "@/hooks/todo/use-todo-actions";
+import { useConfirmModal } from "@/stores/use-confirm-modal-store";
 
 interface MoreMenuProps {
   todo: Todo;
@@ -11,11 +12,19 @@ interface MoreMenuProps {
 
 export const MoreMenu = ({ todo }: MoreMenuProps) => {
   const { deleteTodo } = useTodoActions(todo);
+  const { onOpen } = useConfirmModal();
 
   const handleDelete = () => {
-    if (window.confirm("정말 삭제하시겠습니까?")) {
-      deleteTodo();
-    }
+    onOpen({
+      title: "정말 삭제하시겠습니까?",
+      confirmText: "삭제",
+      variant: "danger",
+      onConfirm: deleteTodo,
+    });
+  };
+
+  const handleEdit = () => {
+    console.log("수정하기");
   };
 
   return (
@@ -25,7 +34,7 @@ export const MoreMenu = ({ todo }: MoreMenuProps) => {
           <MoreHorizontal className="w-4 h-4" data-cy="more-button" />
         </Button>
       </DropdownMenuTrigger>
-      <MenuItems onDelete={handleDelete} />
+      <MenuItems onDelete={handleDelete} onEdit={handleEdit} />
     </DropdownMenu>
   );
 };
