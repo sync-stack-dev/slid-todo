@@ -14,6 +14,7 @@ export interface Todo {
   teamId: string;
   updatedAt: string;
   createdAt: string;
+  description?: string;
 }
 
 export interface TodosResponse {

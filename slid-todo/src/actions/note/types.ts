@@ -17,6 +17,8 @@ export interface Note {
   userId: number;
   teamId: string;
   content: string;
+  linkUrl: string;
+  fileUrl: string;
 }
 
 export interface NotesResponse {

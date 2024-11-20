@@ -5,7 +5,7 @@ import { MenuItems } from "./menu-items";
 import { Todo } from "@/actions/todo/types";
 import { useTodoActions } from "@/hooks/todo/use-todo-actions";
 import { useConfirmModal } from "@/stores/use-confirm-modal-store";
-
+import { useFormModal } from "@/stores/use-form-modal-store";
 interface MoreMenuProps {
   todo: Todo;
 }
@@ -13,10 +13,12 @@ interface MoreMenuProps {
 export const MoreMenu = ({ todo }: MoreMenuProps) => {
   const { deleteTodo } = useTodoActions(todo);
   const { onOpen } = useConfirmModal();
+  const { onOpen: onOpenFormModal } = useFormModal();
 
   const handleDelete = () => {
     onOpen({
-      title: "정말 삭제하시겠습니까?",
+      title: `할 일을 삭제하시겠어요?`,
+      description: "삭제한 할 일은 복구할 수 없습니다.",
       confirmText: "삭제",
       variant: "danger",
       onConfirm: deleteTodo,
@@ -24,7 +26,20 @@ export const MoreMenu = ({ todo }: MoreMenuProps) => {
   };
 
   const handleEdit = () => {
-    console.log("수정하기");
+    onOpenFormModal({
+      type: "todo",
+      mode: "edit",
+      defaultValues: {
+        id: todo.id,
+        title: todo.title,
+        description: todo.description,
+        done: todo.done,
+        file: todo.fileUrl,
+        link: todo.linkUrl,
+        goal: todo.goal,
+      },
+      onSubmit: (data) => console.log(data),
+    });
   };
 
   return (
