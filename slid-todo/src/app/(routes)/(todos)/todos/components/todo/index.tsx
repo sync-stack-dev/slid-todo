@@ -27,7 +27,7 @@ const TodoList = () => {
   const todoData = data as TodoData;
 
   return (
-    <div className="flex flex-col p-8 space-y-2">
+    <div className="flex flex-col p-8 space-y-2 h-full">
       <TodoHeader totalCount={todoData?.pages[0].totalCount || 0} />
       <TodoFilter activeTab={activeTab} onTabChange={setActiveTab} />
       <TodoListContent data={todoData!} activeTab={activeTab} />

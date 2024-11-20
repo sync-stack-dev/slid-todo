@@ -26,21 +26,11 @@ const TodoActions = ({ todo }: TodoActionsProps) => {
     }
   };
 
-  const handleEdit = () => {
-    // TODO: 수정 기능 구현
-    console.log("Edit todo:", todo.id);
-  };
-
-  const handleDelete = () => {
-    // TODO: 삭제 기능 구현
-    console.log("Delete todo:", todo.id);
-  };
-
   return (
     <>
       <div className="ml-auto flex items-center gap-2 text-gray-400">
         <ActionButtons todo={todo} onNoteClick={handleNoteClick} />
-        <MoreMenu todo={todo} onEdit={handleEdit} onDelete={handleDelete} />
+        <MoreMenu todo={todo} />
       </div>
       <NoteViewer
         isOpen={isNoteOpen}

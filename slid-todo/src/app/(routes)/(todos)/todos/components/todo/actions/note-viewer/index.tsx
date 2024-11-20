@@ -1,4 +1,4 @@
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { Note } from "@/actions/note/types";
 import { Todo } from "@/actions/todo/types";
 import { NoteHeader } from "./note-header";
@@ -19,11 +19,12 @@ export const NoteViewer = ({ isOpen, onOpenChange, todo, noteData }: NoteViewerP
         side="right"
         data-cy="note-sheet"
         className={cn(
-          "w-[95vw] md:w-[800px] sm:max-w-[800px]",
+          "w-full sm:w-[95vw] md:w-[800px] sm:max-w-[800px]", // 모바일에서만 w-full 적용
           "p-0",
           "[&_button[type='button']]:hidden",
         )}
       >
+        <SheetTitle className="sr-only">{todo.title} 노트</SheetTitle>
         <NoteHeader todo={todo} noteData={noteData} onClose={() => onOpenChange(false)} />
         <NoteContent noteData={noteData} />
       </SheetContent>
