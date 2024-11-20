@@ -1,6 +1,13 @@
 "use client";
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogClose,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useFormModal, ModalType, ModalMode } from "@/stores/use-form-modal-store";
@@ -27,6 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useConfirmModal } from "@/stores/use-confirm-modal-store";
 const schema = z.object({
   title: z
     .string()
@@ -59,6 +67,7 @@ const titles: Record<ModalType, Record<ModalMode, string>> = {
 
 export const FormModal = () => {
   const { isOpen, data, onSubmit: handleFormSubmit, onClose } = useFormModal();
+  const { onOpen: openConfirm } = useConfirmModal();
   const [activeField, setActiveField] = useState<"file" | "link" | null>("file");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedLink, setSelectedLink] = useState<string>("");
@@ -155,10 +164,29 @@ export const FormModal = () => {
       console.error("폼 제출 실패:", error);
     }
   };
+  const handleCloseAttempt = (open: boolean) => {
+    // ESC 키나 바깥 영역 클릭으로 닫을 때만 확인 모달 표시
+    if (!open) {
+      openConfirm({
+        title: "정말 나가시겠어요?",
+        description: "작성된 내용이 모두 삭제됩니다.",
+        confirmText: "나가기",
+        variant: "danger",
+        onConfirm: () => {
+          onClose();
+        },
+      });
+      return false;
+    }
+  };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[400px] p-0 gap-0">
+    <Dialog open={isOpen} onOpenChange={handleCloseAttempt}>
+      <DialogContent className="max-w-[400px] p-0 gap-0 z-[50] pointer-events-none">
+        <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+          <X className="h-4 w-4" onClick={() => handleCloseAttempt(false)} />
+          <span className="sr-only">Close</span>
+        </DialogClose>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <DialogHeader className="p-4 space-y-0">
@@ -167,6 +195,11 @@ export const FormModal = () => {
                   <h2 className="text-base font-medium">{titles[data.type][data.mode]}</h2>
                 </div>
               </DialogTitle>
+              <DialogDescription className="sr-only">
+                {data.type === "todo"
+                  ? "할 일을 생성하거나 수정합니다"
+                  : "노트를 생성하거나 수정합니다"}
+              </DialogDescription>
             </DialogHeader>
 
             <div className="p-4 space-y-4">
