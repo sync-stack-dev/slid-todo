@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -6,12 +7,13 @@ import { Todo } from "@/actions/todo/types";
 import { useTodoActions } from "@/hooks/todo/use-todo-actions";
 import { useConfirmModal } from "@/stores/use-confirm-modal-store";
 import { useFormModal } from "@/stores/use-form-modal-store";
+
 interface MoreMenuProps {
   todo: Todo;
 }
 
 export const MoreMenu = ({ todo }: MoreMenuProps) => {
-  const { deleteTodo } = useTodoActions(todo);
+  const { deleteTodo, updateTodo } = useTodoActions(todo);
   const { onOpen } = useConfirmModal();
   const { onOpen: onOpenFormModal } = useFormModal();
 
@@ -32,13 +34,33 @@ export const MoreMenu = ({ todo }: MoreMenuProps) => {
       defaultValues: {
         id: todo.id,
         title: todo.title,
-        description: todo.description,
+        description: todo.description || "",
         done: todo.done,
-        file: todo.fileUrl,
-        link: todo.linkUrl,
-        goal: todo.goal,
+        file: todo.fileUrl || "", // fileUrl을 file로 매핑
+        link: todo.linkUrl || "", // linkUrl을 link로 매핑
+        goal: todo.goal
+          ? {
+              id: todo.goal.id,
+              title: todo.goal.title,
+            }
+          : undefined,
       },
-      onSubmit: (data) => console.log(data),
+      onSubmit: async (data) => {
+        try {
+          // FormModal에서 받은 데이터를 Todo 형식으로 변환
+          await updateTodo({
+            ...todo,
+            title: data.title,
+            description: data.description,
+            done: data.done,
+            fileUrl: data.file, // file을 fileUrl로 다시 매핑
+            linkUrl: data.link, // link를 linkUrl로 다시 매핑
+            goal: data.goal,
+          });
+        } catch (error) {
+          console.error("할 일 수정 실패:", error);
+        }
+      },
     });
   };
 

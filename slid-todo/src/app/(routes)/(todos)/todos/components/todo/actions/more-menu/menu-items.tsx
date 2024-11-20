@@ -1,3 +1,4 @@
+"use client";
 import { DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 interface MenuItemsProps {
