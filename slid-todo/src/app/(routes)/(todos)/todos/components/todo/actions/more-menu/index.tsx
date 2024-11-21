@@ -28,16 +28,17 @@ export const MoreMenu = ({ todo }: MoreMenuProps) => {
   };
 
   const handleEdit = () => {
+    // console.log("Original todo:", todo);
+
     onOpenFormModal({
       type: "todo",
       mode: "edit",
       defaultValues: {
         id: todo.id,
         title: todo.title,
-        description: todo.description || "",
         done: todo.done,
-        file: todo.fileUrl || "", // fileUrl을 file로 매핑
-        link: todo.linkUrl || "", // linkUrl을 link로 매핑
+        link: todo.linkUrl,
+        file: todo.fileUrl,
         goal: todo.goal
           ? {
               id: todo.goal.id,
@@ -47,16 +48,13 @@ export const MoreMenu = ({ todo }: MoreMenuProps) => {
       },
       onSubmit: async (data) => {
         try {
-          // FormModal에서 받은 데이터를 Todo 형식으로 변환
-          await updateTodo({
-            ...todo,
-            title: data.title,
-            description: data.description,
-            done: data.done,
-            fileUrl: data.file, // file을 fileUrl로 다시 매핑
-            linkUrl: data.link, // link를 linkUrl로 다시 매핑
-            goal: data.goal,
-          });
+          const updateData = {
+            ...data,
+            fileUrl: data.file || todo.fileUrl,
+          };
+
+          console.log("Update data:", updateData);
+          await updateTodo(updateData);
         } catch (error) {
           console.error("할 일 수정 실패:", error);
         }

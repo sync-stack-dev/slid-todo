@@ -1,13 +1,33 @@
-// components/todo/todo-list/todo-header.tsx
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { useFormModal } from "@/stores/use-form-modal-store";
+import { useTodoActions } from "@/hooks/todo/use-todo-actions";
+
 interface TodoHeaderProps {
   totalCount: number;
 }
 
 const TodoHeader = ({ totalCount }: TodoHeaderProps) => {
+  const { onOpen: onOpenFormModal } = useFormModal();
+  const { createTodo } = useTodoActions();
+
+  const handleOpenFormModal = () => {
+    onOpenFormModal({
+      type: "todo",
+      mode: "create",
+      onSubmit: (data) => {
+        createTodo(data);
+      },
+    });
+  };
+
   return (
     <div className="flex justify-between items-center mb-4">
       <h2 className="text-lg">모든 할 일 ({totalCount})</h2>
-      <button className="text-blue-500 text-sm">+ 할일 추가</button>
+      <Button variant="outline" className="text-sm" onClick={handleOpenFormModal}>
+        + 할 일 추가
+      </Button>
     </div>
   );
 };

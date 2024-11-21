@@ -52,6 +52,7 @@ export const FormModal = () => {
             />
             <FormContent
               type={data.type}
+              mode={data.mode}
               activeField={activeField}
               selectedFile={selectedFile}
               onFileSelect={handleFileSelect}

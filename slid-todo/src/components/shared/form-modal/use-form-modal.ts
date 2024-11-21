@@ -47,7 +47,13 @@ export const useFormModalLogic = () => {
     setSelectedFile(null);
     form.setValue("file", "");
   };
-
+  const handleClose = () => {
+    form.reset();
+    setSelectedFile(null);
+    setActiveField("file");
+    onClose();
+  };
+  // useFormModalLogic.ts
   const handleSubmit = async (formData: FormSchema) => {
     if (!data) return;
 
@@ -66,32 +72,27 @@ export const useFormModalLogic = () => {
         fileUrl = response.data.url;
       }
 
+      console.log("Form Data done value:", formData.done);
+
       const submitData = {
         title: formData.title,
-        description: formData.description,
-        done: formData.done,
-        fileUrl: fileUrl || formData.file,
-        goal: formData.goal,
-        link: formData.link,
+        done: Boolean(formData.done),
+        ...(fileUrl && { fileUrl }),
+        ...(formData.link && { linkUrl: formData.link }),
+        ...(formData.goal?.id && { goalId: formData.goal.id }),
       };
 
-      let response;
-      if (data.mode === "edit" && data.defaultValues?.id) {
-        response = await instance.patch(`/${data.type}s/${data.defaultValues.id}`, submitData);
-      } else {
-        response = await instance.post(`/${data.type}s`, submitData);
-      }
+      console.log("Submit Data:", submitData);
 
       if (handleFormSubmit) {
-        await handleFormSubmit(response.data);
+        await handleFormSubmit(submitData);
       }
 
-      onClose();
+      handleClose();
     } catch (error) {
       console.error("폼 제출 실패:", error);
     }
   };
-
   return {
     form,
     activeField,

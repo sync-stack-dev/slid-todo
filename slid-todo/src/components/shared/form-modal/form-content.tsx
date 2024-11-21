@@ -9,6 +9,7 @@ import { GoalField } from "./components/goal-field";
 
 interface FormContentProps {
   type: ModalType;
+  mode: "create" | "edit";
   activeField: ActiveField;
   selectedFile: File | null;
   onFileSelect: (file: File) => void;
@@ -18,6 +19,7 @@ interface FormContentProps {
 
 export const FormContent = ({
   type,
+  mode,
   activeField,
   selectedFile,
   onFileSelect,
@@ -27,7 +29,7 @@ export const FormContent = ({
   return (
     <div className="p-4 space-y-4">
       <TitleField />
-      <DoneField />
+      {mode === "edit" && <DoneField />}
       <AttachmentField
         activeField={activeField}
         selectedFile={selectedFile}
