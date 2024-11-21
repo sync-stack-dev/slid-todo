@@ -8,13 +8,19 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 
-
 //import { Button } from "@/components/ui/button";
 import SubmitButton from "./Submit-button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { login } from "@/actions/auth/login";
-import { loginSchema, LoginFormValues } from "./validation/loginSchema"; // 유효성검사 코드, 분리된 파일에서 가져오기
+import { loginSchema, LoginFormValues } from "./utils/validation"; // 유효성검사 코드, 분리된 파일에서 가져오기
 
 // const loginSchema = z.object({
 //   email: z.string().email("올바른 이메일 주소를 입력해주세요"),
@@ -23,7 +29,6 @@ import { loginSchema, LoginFormValues } from "./validation/loginSchema"; // 유�
 
 // type LoginFormValues = z.infer<typeof loginSchema>;
 
-
 const LoginForm = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +36,6 @@ const LoginForm = () => {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-
       email: "", // 기본값 설정
       password: "",
     },
@@ -66,14 +70,12 @@ const LoginForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-
-                 <FormLabel>이메일</FormLabel> 
+                <FormLabel>이메일</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     type="email"
                     placeholder="이메일을 입력해 주세요"
-
                     className="h-12 rounded-xl"
                     disabled={isLoading}
                     autoComplete="email"
@@ -89,8 +91,7 @@ const LoginForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-
-                <FormLabel>비밀번호</FormLabel> 
+                <FormLabel>비밀번호</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -106,7 +107,7 @@ const LoginForm = () => {
             )}
           />
         </div>
-            <SubmitButton isLoading={isLoading}/>
+        <SubmitButton isLoading={isLoading} />
         {/* <Button
           type="submit"
           className="w-full h-12 bg-gray-500 hover:bg-blue-600"
