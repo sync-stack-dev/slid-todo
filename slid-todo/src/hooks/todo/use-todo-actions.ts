@@ -70,7 +70,6 @@ export const useTodoActions = (todo?: Todo) => {
         goalId: updatedTodo.goalId || null,
       };
 
-      // undefined 값 제거
       const cleanedData = Object.fromEntries(
         Object.entries(requestData).filter(([_, value]) => value !== undefined),
       );
@@ -87,9 +86,28 @@ export const useTodoActions = (todo?: Todo) => {
       toast.error("수정에 실패했습니다.");
     },
   });
+
+  const { mutate: updateTodoDone } = useMutation({
+    mutationFn: async (done: boolean) => {
+      if (!todo?.id) return;
+      await instance.patch(`/todos/${todo.id}`, { done });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["todos"], // todos로 시작하는 모든 쿼리 무효화
+      });
+
+      toast.success("할 일 상태가 업데이트되었습니다.");
+    },
+    onError: () => {
+      toast.error("상태 업데이트에 실패했습니다.");
+    },
+  });
+
   return {
     createTodo,
     deleteTodo,
     updateTodo,
+    updateTodoDone,
   };
 };
