@@ -29,7 +29,7 @@ export const useGoals = (options: UseGoalsOptions = {}) => {
     },
     enabled: options.enabled,
     retry: false,
-    staleTime: 1000 * 60 * 5, // 5분
+    staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 30,
   });
 };
