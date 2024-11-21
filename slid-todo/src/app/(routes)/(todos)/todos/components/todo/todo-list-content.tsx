@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { useTodosInfinite } from "@/hooks/use-todos";
+import { useTodosInfinite } from "@/hooks/todo/use-todos";
 import TodoItem from "./todo-item";
 import { InfiniteScrollTrigger } from "./infinite-scroll-trigger";
 import { getFilteredTodos, TabType } from "./utils";
