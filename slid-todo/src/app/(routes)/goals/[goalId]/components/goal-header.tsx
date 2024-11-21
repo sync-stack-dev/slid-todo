@@ -3,6 +3,7 @@ import { Goal as GoalSvg } from "../../../../../../public/svgs";
 import { Goal } from "@/actions/goal/types";
 import { Progress } from "@/components/ui/progress";
 import { MoreMenu } from "./more-menu";
+
 const GoalHeader = ({ goal, progress }: { goal: Goal; progress: number }) => {
   return (
     <div className="flex flex-col gap-2 max-w-[1200px] max-h-[136px] bg-white rounded-lg p-4">

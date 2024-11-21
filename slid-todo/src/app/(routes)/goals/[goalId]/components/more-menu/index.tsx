@@ -6,6 +6,7 @@ import { MenuItems } from "./menu-items";
 import { Goal } from "@/actions/goal/types";
 import { useConfirmModal } from "@/stores/use-confirm-modal-store";
 import { useGoalActions } from "@/hooks/goals/use-goal-actions";
+import { useFormModal } from "@/stores/use-form-modal-store";
 
 interface MoreMenuProps {
   goal: Goal;
@@ -13,7 +14,8 @@ interface MoreMenuProps {
 
 export const MoreMenu = ({ goal }: MoreMenuProps) => {
   const { onOpen } = useConfirmModal();
-  const { deleteGoal } = useGoalActions(goal);
+  const { onOpen: onOpenFormModal } = useFormModal();
+  const { deleteGoal, updateGoal } = useGoalActions(goal);
 
   const handleDelete = () => {
     onOpen({
@@ -22,8 +24,26 @@ export const MoreMenu = ({ goal }: MoreMenuProps) => {
       confirmText: "삭제",
       variant: "danger",
       onConfirm: () => {
-        console.log("Deleting goal:", goal.id); // 삭제 시도 로깅
+        console.log("Deleting goal:", goal.id);
         deleteGoal();
+      },
+    });
+  };
+
+  const handleEdit = () => {
+    onOpenFormModal({
+      type: "goal",
+      mode: "edit",
+      defaultValues: {
+        id: goal.id,
+        title: goal.title,
+      },
+      onSubmit: async (data) => {
+        try {
+          await updateGoal(data.title);
+        } catch (error) {
+          console.error("목표 수정 실패:", error);
+        }
       },
     });
   };
@@ -35,7 +55,7 @@ export const MoreMenu = ({ goal }: MoreMenuProps) => {
           <MoreHorizontal className="w-4 h-4" />
         </Button>
       </DropdownMenuTrigger>
-      <MenuItems onDelete={handleDelete} onEdit={() => {}} />
+      <MenuItems onDelete={handleDelete} onEdit={handleEdit} />
     </DropdownMenu>
   );
 };

@@ -1,6 +1,7 @@
 import { Goal } from "@/actions/goal/types";
 import { instance } from "@/lib/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 interface CreateGoalRequest {
@@ -13,7 +14,7 @@ interface UpdateGoalRequest {
 
 export const useGoalActions = (goal?: Goal) => {
   const queryClient = useQueryClient();
-
+  const router = useRouter();
   const { mutate: createGoal } = useMutation({
     mutationFn: async (newGoal: CreateGoalRequest) => {
       const response = await instance.post("/goals", newGoal);
@@ -29,16 +30,17 @@ export const useGoalActions = (goal?: Goal) => {
   });
 
   const { mutate: updateGoal } = useMutation({
-    mutationFn: async (updatedGoal: UpdateGoalRequest) => {
+    mutationFn: async (title: string) => {
       if (!goal?.id) return;
-      await instance.patch(`/goals/${goal.id}`, updatedGoal);
+      await instance.patch(`goals/${goal.id}`, { title });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["goals"] });
       toast.success("목표가 수정되었습니다.");
     },
-    onError: () => {
-      toast.error("목표 수정에 실패했습니다.");
+    onError: (error: any) => {
+      const errorMessage = error.response?.data?.message || "목표 수정에 실패했습니다.";
+      toast.error(errorMessage);
     },
   });
 
