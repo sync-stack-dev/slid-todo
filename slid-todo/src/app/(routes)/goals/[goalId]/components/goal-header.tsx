@@ -16,7 +16,10 @@ const GoalHeader = ({ goal, progress }: { goal: Goal; progress: number }) => {
       </div>
       <div className="flex flex-col gap-2 mt-4">
         <p className="text-sm font-semibold">Progress</p>
-        <Progress value={progress} className="w-full h-2" /> {/* h-4 h-2 중복 제거 */}
+        <div className="w-full flex h-2 items-center gap-4">
+          <Progress value={progress} className="w-full h-2" />
+          <p className="text-sm font-semibold">{progress}%</p>
+        </div>
       </div>
     </div>
   );
