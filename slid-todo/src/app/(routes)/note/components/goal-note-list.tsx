@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import GoalNoteCard from "./goal-note-card";
+import NoteCard from "./note-card";
 import { Note } from "@/types/note";
 
 const GoalNoteList = () => {
@@ -22,6 +22,7 @@ const GoalNoteList = () => {
       },
       userId: 0,
       teamId: "이건 어디에 쓰지",
+      content: "test",
     },
     {
       todo: {
@@ -39,13 +40,14 @@ const GoalNoteList = () => {
       },
       userId: 0,
       teamId: "이건 어디에 쓰지",
+      content: "test",
     },
   ]);
 
   return (
     <div className="grid gap-2.5 grid-cols-1 ">
       {noteList.map((note: Note) => (
-        <GoalNoteCard key={note.id} note={note} />
+        <NoteCard key={note.id} note={note} />
       ))}
     </div>
   );

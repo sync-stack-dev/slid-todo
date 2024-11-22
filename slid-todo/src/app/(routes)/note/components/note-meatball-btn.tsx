@@ -12,7 +12,7 @@ interface MeatballBtnProps {
   noteId: number;
 }
 
-const GoalMeatballBtn = ({ noteId }: MeatballBtnProps) => {
+const NoteMeatballBtn = ({ noteId }: MeatballBtnProps) => {
   //  TODO : id 를 이용한 수정 및 삭제 기능 구현
 
   return (
@@ -29,4 +29,4 @@ const GoalMeatballBtn = ({ noteId }: MeatballBtnProps) => {
   );
 };
 
-export default GoalMeatballBtn;
+export default NoteMeatballBtn;
