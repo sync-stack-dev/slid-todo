@@ -1,4 +1,4 @@
-import { Goal } from "@/actions/goal/types";
+import { Goal } from "@/types/goal";
 import { instance } from "@/lib/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";

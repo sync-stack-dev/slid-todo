@@ -27,10 +27,9 @@ export const useUserQuery = () => {
     queryKey: ["user"],
     queryFn: async () => {
       const { data } = await instance.get<User>("/user");
-      // 서버에서 받아온 데이터를 Zustand store에 저장
       useUserStore.getState().setUser(data);
       return data;
     },
-    staleTime: 1000 * 60 * 5, // 5분간 캐시 유지
+    staleTime: 1000 * 60 * 5,
   });
 };

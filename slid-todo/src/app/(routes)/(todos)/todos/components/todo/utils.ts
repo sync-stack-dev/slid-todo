@@ -1,5 +1,5 @@
 // components/todo/todo-list/utils.ts
-import { Todo } from "@/actions/todo/types";
+import { Todo } from "@/types/todo";
 
 export type TabType = "all" | "todo" | "done";
 

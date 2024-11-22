@@ -1,6 +1,6 @@
 import React from "react";
 import { Goal as GoalSvg } from "../../../../../../public/svgs";
-import { Goal } from "@/actions/goal/types";
+import { Goal } from "@/types/goal";
 import { Progress } from "@/components/ui/progress";
 import { MoreMenu } from "./more-menu";
 

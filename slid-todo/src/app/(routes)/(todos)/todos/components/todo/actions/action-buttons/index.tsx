@@ -1,4 +1,4 @@
-import { Todo } from "@/actions/todo/types";
+import { Todo } from "@/types/todo";
 import { CopyButton } from "./copy-button";
 import { LinkButton } from "./link-button";
 import { FileButton } from "./file-button";

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { MenuItems } from "./menu-items";
-import { Goal } from "@/actions/goal/types";
+import { Goal } from "@/types/goal";
 import { useConfirmModal } from "@/stores/use-confirm-modal-store";
 import { useGoalActions } from "@/hooks/goals/use-goal-actions";
 import { useFormModal } from "@/stores/use-form-modal-store";

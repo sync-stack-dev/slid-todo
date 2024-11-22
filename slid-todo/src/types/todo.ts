@@ -1,4 +1,3 @@
-// actions/todo/types.ts
 export interface Todo {
   noteId: number;
   done: boolean;

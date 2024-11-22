@@ -1,5 +1,5 @@
 "use client";
-import { Goal } from "@/actions/goal/types";
+import { Goal } from "@/types/goal";
 
 const GoalList = ({ goal }: { goal: Goal }) => {
   return <div>{goal.title}</div>;

@@ -4,9 +4,9 @@ import { redirect } from "next/navigation";
 
 export default function GoalLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = cookies();
-  const loginStorage = cookieStore.get("login-storage");
+  const accessToken = cookieStore.get("accessToken");
 
-  if (!loginStorage) {
+  if (!accessToken) {
     redirect("/login");
   }
 

@@ -1,5 +1,5 @@
 import { Goal } from "../../../../../../public/svgs";
-import { Goal as GoalType } from "@/actions/goal/types";
+import { Goal as GoalType } from "@/types/goal";
 
 export const GoalHeader = ({ goal }: { goal: GoalType }) => {
   return (

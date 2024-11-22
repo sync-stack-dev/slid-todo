@@ -1,4 +1,4 @@
-import { Todo } from "@/actions/todo/types";
+import { Todo } from "@/types/todo";
 import { instance } from "@/lib/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";

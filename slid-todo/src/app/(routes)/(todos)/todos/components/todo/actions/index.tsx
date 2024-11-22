@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Todo } from "@/actions/todo/types";
-import { Note } from "@/actions/note/types";
+import { Todo } from "@/types/todo";
+import { Note } from "@/types/note";
 import { instance } from "@/lib/axios";
 import toast from "react-hot-toast";
 import { ActionButtons } from "./action-buttons";

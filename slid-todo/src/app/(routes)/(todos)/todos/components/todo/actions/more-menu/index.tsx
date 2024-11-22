@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { MenuItems } from "./menu-items";
-import { Todo } from "@/actions/todo/types";
+import { Todo } from "@/types/todo";
 import { useTodoActions } from "@/hooks/todo/use-todo-actions";
 import { useConfirmModal } from "@/stores/use-confirm-modal-store";
 import { useFormModal } from "@/stores/use-form-modal-store";
