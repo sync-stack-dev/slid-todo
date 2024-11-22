@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import GoalNoteCard from "./goal-note-card";
-import { Note } from "../types";
+import { Note } from "@/types/note";
 
 const GoalNoteList = () => {
   // TODO : 목표 리스트 API 로 받아와서 GoalNoteCard 전달
@@ -32,7 +32,7 @@ const GoalNoteList = () => {
       updatedAt: "2024-11-22T00:00:29.732Z",
       createdAt: "2024-11-22T00:00:29.732Z",
       title: "자바스크립트를 시작하기 전 준비물",
-      id: 0,
+      id: 1,
       goal: {
         title: "자바스크립트로 웹 서비스 만들기",
         id: 1,
@@ -43,13 +43,11 @@ const GoalNoteList = () => {
   ]);
 
   return (
-    <>
-      <div>
-        {noteList.map((note: Note) => (
-          <GoalNoteCard key={note.id} note={note} />
-        ))}
-      </div>
-    </>
+    <div className="grid gap-2.5 grid-cols-1 ">
+      {noteList.map((note: Note) => (
+        <GoalNoteCard key={note.id} note={note} />
+      ))}
+    </div>
   );
 };
 
