@@ -1,4 +1,4 @@
-import { Todo } from "@/actions/todo/types";
+import { Todo } from "@/types/todo";
 import TodoActions from "./actions";
 import TodoItemCheckbox from "./todo-item-checkbox";
 

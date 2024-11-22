@@ -1,9 +1,9 @@
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
-import { Note } from "@/actions/note/types";
-import { Todo } from "@/actions/todo/types";
+import { Note } from "@/types/note";
+import { Todo } from "@/types/todo";
 import { NoteHeader } from "./note-header";
 import { NoteContent } from "./note-content";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/cn";
 
 interface NoteViewerProps {
   isOpen: boolean;

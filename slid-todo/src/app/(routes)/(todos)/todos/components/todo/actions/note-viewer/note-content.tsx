@@ -1,4 +1,4 @@
-import { Note } from "@/actions/note/types";
+import { Note } from "@/types/note";
 import Link from "next/link";
 
 interface NoteContentProps {

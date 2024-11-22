@@ -9,6 +9,10 @@ export const FORM_TITLES: Record<ModalType, Record<ModalMode, string>> = {
     create: "노트 생성",
     edit: "노트 수정",
   },
+  goal: {
+    create: "목표 생성",
+    edit: "목표 수정",
+  },
 };
 
 export const PLACEHOLDER_TEXT = {

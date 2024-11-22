@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type ModalType = "todo" | "note";
+export type ModalType = "todo" | "note" | "goal";
 export type ModalMode = "create" | "edit";
 
 export interface FormData {

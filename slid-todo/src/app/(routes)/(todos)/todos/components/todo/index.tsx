@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useTodosInfinite } from "@/hooks/use-todos";
+import { useTodosInfinite } from "@/hooks/todo/use-todos";
 import TodoHeader from "./todo-header";
 import TodoFilter from "./todo-filter";
 import { TodoListContent } from "./todo-list-content";
 import { TabType } from "./utils";
-import { Todo } from "@/actions/todo/types";
+import { Todo } from "@/types/todo";
 
 interface TodoPage {
   todos: Todo[];

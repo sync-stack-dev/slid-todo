@@ -1,5 +1,5 @@
 import { Checkbox } from "@/components/ui/checkbox";
-import { Todo } from "@/actions/todo/types";
+import { Todo } from "@/types/todo";
 import { useTodoActions } from "@/hooks/todo/use-todo-actions";
 
 interface TodoItemCheckboxProps {
