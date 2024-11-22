@@ -40,9 +40,7 @@ next-env.d.ts
 #test
 /src/app/(routes)/test/**
 
-# Cypress (추후 해제)
-cypress/
-cypress.config.ts
+
 
 # IDE
 .vscode/

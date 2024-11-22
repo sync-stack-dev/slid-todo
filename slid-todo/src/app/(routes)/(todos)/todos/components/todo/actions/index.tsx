@@ -29,10 +29,11 @@ const TodoActions = ({ todo }: TodoActionsProps) => {
   return (
     <>
       <div className="ml-auto flex items-center gap-2 text-gray-400">
-        <ActionButtons todo={todo} onNoteClick={handleNoteClick} />
+        <ActionButtons data-cy="action-buttons" todo={todo} onNoteClick={handleNoteClick} />
         <MoreMenu todo={todo} />
       </div>
       <NoteViewer
+        data-cy="note-viewer"
         isOpen={isNoteOpen}
         onOpenChange={setIsNoteOpen}
         todo={todo}

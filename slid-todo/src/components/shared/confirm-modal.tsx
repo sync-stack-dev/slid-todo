@@ -8,7 +8,10 @@ export const ConfirmModal = () => {
   if (!isOpen || !data) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center"
+      data-cy="confirm-modal"
+    >
       <div
         className="absolute inset-0 bg-black/50 z-[9999] pointer-events-auto"
         onClick={onClose}

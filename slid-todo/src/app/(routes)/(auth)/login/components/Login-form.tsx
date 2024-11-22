@@ -49,7 +49,13 @@ const LoginForm = () => {
         router.refresh();
         toast.success("로그인 성공!");
       },
-      onError: (error: Error) => {
+      onError: (error: any) => {
+        console.log("로그인 에러:", error);
+        console.log("에러 메시지:", error.message);
+        if (error.response) {
+          console.log("에러 응답 데이터:", error.response.data);
+        }
+
         toast.error(error.message);
       },
     });
