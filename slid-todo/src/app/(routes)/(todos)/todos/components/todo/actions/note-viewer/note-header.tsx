@@ -2,7 +2,7 @@ import { X } from "lucide-react";
 import { Note } from "@/types/note";
 import { Todo } from "@/types/todo";
 import { cn } from "@/utils/cn";
-import { Goal } from "../../../../../../../../../public/svgs";
+import { Goal } from "@/public/svgs";
 
 interface NoteHeaderProps {
   todo: Todo;
