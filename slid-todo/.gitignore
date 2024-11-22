@@ -27,6 +27,7 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+
 # vercel
 .vercel
 
@@ -35,3 +36,16 @@ yarn-error.log*
 next-env.d.ts
 
 *storybook.log
+
+#test
+/src/app/(routes)/test/**
+
+# Cypress (추후 해제)
+cypress/
+cypress.config.ts
+
+# IDE
+.vscode/
+
+# test folder (추후 폴더 자체를 삭제)
+/src/app/(route)/test/**
