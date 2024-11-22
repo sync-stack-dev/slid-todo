@@ -91,7 +91,7 @@ const LoginForm = () => {
                     {...field}
                     type="password"
                     placeholder="비밀번호를 입력해 주세요"
-                    className="h-12"
+                    className="h-12 rounded-xl"
                     disabled={isLoading}
                     autoComplete="current-password"
                   />

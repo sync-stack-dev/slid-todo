@@ -10,7 +10,6 @@ const LoginPage = () => {
           <div className="mb-8">
             <Image src="/imgs/logo.png" alt="Slid to-do" width={270} height={89} priority />
           </div>
-
           <LoginForm />
         </div>
       </Container>
