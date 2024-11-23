@@ -18,8 +18,8 @@ export const useFormModalLogic = () => {
       title: "",
       description: "",
       done: false,
-      file: "",
-      link: "",
+      fileUrl: "",
+      linkUrl: "",
       goal: undefined,
     },
   });
@@ -30,9 +30,9 @@ export const useFormModalLogic = () => {
         title: data.defaultValues.title || "",
         description: data.defaultValues.description || "",
         done: data.defaultValues.done || false,
-        file: data.defaultValues.file || "",
+        fileUrl: data.defaultValues.fileUrl || "",
+        linkUrl: data.defaultValues.linkUrl || "",
         goal: data.defaultValues.goal,
-        link: data.defaultValues.link || "",
       });
     }
   }, [data?.defaultValues, form]);
@@ -45,7 +45,7 @@ export const useFormModalLogic = () => {
 
   const handleFileRemove = () => {
     setSelectedFile(null);
-    form.setValue("file", "");
+    form.setValue("fileUrl", "");
   };
   const handleClose = () => {
     form.reset();
@@ -78,7 +78,7 @@ export const useFormModalLogic = () => {
         title: formData.title,
         done: Boolean(formData.done),
         ...(fileUrl && { fileUrl }),
-        ...(formData.link && { linkUrl: formData.link }),
+        ...(formData.linkUrl && { linkUrl: formData.linkUrl }),
         ...(formData.goal?.id && { goalId: formData.goal.id }),
       };
 

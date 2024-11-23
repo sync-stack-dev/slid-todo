@@ -7,8 +7,8 @@ export const schema = z.object({
     .max(30, { message: "제목은 최대 30자입니다." }),
   description: z.string().optional(),
   done: z.boolean().default(false),
-  file: z.string().optional(),
-  link: z.string().optional(),
+  fileUrl: z.string().optional(),
+  linkUrl: z.string().optional(),
   goal: z
     .object({
       id: z.number(),

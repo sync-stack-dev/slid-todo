@@ -1,7 +1,7 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Todo } from "@/types/todo";
 import { useTodoActions } from "@/hooks/todo/use-todo-actions";
-
+import { devLog } from "@/utils/dev-log";
 interface TodoItemCheckboxProps {
   todo: Todo;
 }
@@ -10,9 +10,8 @@ const TodoItemCheckbox = ({ todo }: TodoItemCheckboxProps) => {
   const { updateTodoDone } = useTodoActions(todo);
 
   const handleCheckboxChange = async (checked: boolean) => {
-    const isChecked = checked === true;
-    console.log("Todo status changed:", todo.id, isChecked);
-    updateTodoDone(isChecked); // mutation 호출
+    devLog("Todo status changed:", todo.id, checked);
+    updateTodoDone(checked);
   };
 
   return (

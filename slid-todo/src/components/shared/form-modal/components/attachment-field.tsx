@@ -28,7 +28,7 @@ export const AttachmentField = ({
   return (
     <FormField
       control={control}
-      name="link"
+      name="linkUrl"
       render={({ field }) => (
         <FormItem>
           <FormLabel>자료</FormLabel>
@@ -72,7 +72,7 @@ export const AttachmentField = ({
                     input.click();
                   }}
                 >
-                  {PLACEHOLDER_TEXT.file}
+                  {PLACEHOLDER_TEXT.fileUrl}
                 </div>
               )}
 
@@ -87,7 +87,9 @@ export const AttachmentField = ({
                 </div>
               )}
 
-              {activeField === "link" && <Input placeholder={PLACEHOLDER_TEXT.link} {...field} />}
+              {activeField === "link" && (
+                <Input placeholder={PLACEHOLDER_TEXT.linkUrl} {...field} />
+              )}
             </div>
           </FormControl>
           <FormMessage />
