@@ -4,7 +4,7 @@ import Container from "@/components/ui/container";
 
 const LoginPage = () => {
   return (
-    <div className="bg-white">
+    <div className="bg-white w-full">
       <Container>
         <div className="flex justify-center mb-8 flex-col items-center h-screen">
           <div className="mb-8">
