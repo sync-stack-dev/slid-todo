@@ -17,6 +17,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useLoginMutation } from "@/hooks/auth/use-login-mutation"; // 변경된 부분
 import { loginSchema, LoginFormValues } from "./utils/validation"; // 유효성검사 코드, 분리된 파일에서 가져오기
@@ -30,6 +38,9 @@ import { loginSchema, LoginFormValues } from "./utils/validation"; // 유효성�
 
 const LoginForm = () => {
   const router = useRouter();
+  const { mutate: login, status, isError, error } = useLoginMutation(); // 변경된 부분
+
+  const isLoading = status === "pending"; // isLoading 정의
   const { mutate: login, status, isError, error } = useLoginMutation(); // 변경된 부분
 
   const isLoading = status === "pending"; // isLoading 정의
@@ -49,13 +60,7 @@ const LoginForm = () => {
         router.refresh();
         toast.success("로그인 성공!");
       },
-      onError: (error: any) => {
-        console.log("로그인 에러:", error);
-        console.log("에러 메시지:", error.message);
-        if (error.response) {
-          console.log("에러 응답 데이터:", error.response.data);
-        }
-
+      onError: (error: Error) => {
         toast.error(error.message);
       },
     });
@@ -70,6 +75,7 @@ const LoginForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
+                <FormLabel>이메일</FormLabel>
                 <FormLabel>이메일</FormLabel>
                 <FormControl>
                   <Input
@@ -92,6 +98,7 @@ const LoginForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>비밀번호</FormLabel>
+                <FormLabel>비밀번호</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -108,9 +115,10 @@ const LoginForm = () => {
           />
         </div>
         <SubmitButton isLoading={isLoading} />
+        <SubmitButton isLoading={isLoading} />
         {/* <Button
           type="submit"
-          className="w-full h-12 bg-gray-500 hover:bg-blue-600"
+          className="w-full h-12 bg-blue-500 hover:bg-blue-600"
           disabled={isLoading}
         >
           로그인하기 

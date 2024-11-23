@@ -1,26 +1,24 @@
-interface NoteTodo {
-  id: number;
-  title: string;
-  done: boolean;
-}
-
-interface NoteGoal {
+interface Goal {
   id: number;
   title: string;
 }
 
 export interface Note {
-  todo: NoteTodo;
+  todo: {
+    done: boolean;
+    title: string;
+    id: number;
+  };
   updatedAt: string;
   createdAt: string;
   title: string;
   id: number;
-  goal: NoteGoal;
+  goal: Goal;
   userId: number;
   teamId: string;
   content: string;
-  linkUrl?: string;
-  fileUrl?: string;
+  linkUrl: string;
+  fileUrl: string;
 }
 
 export interface NotesResponse {
