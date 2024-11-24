@@ -12,7 +12,7 @@ export default function GoalLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <SidebarProvider>
-      <div className="w-full h-full">{children}</div>
+      <div className="w-full h-full bg-[#F1F5F9] rounded-lg">{children}</div>
     </SidebarProvider>
   );
 }

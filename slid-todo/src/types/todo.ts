@@ -1,8 +1,8 @@
 export interface Todo {
-  noteId: number;
+  noteId?: number;
   done: boolean;
-  linkUrl: string;
-  fileUrl: string;
+  linkUrl?: string;
+  fileUrl?: string;
   title: string;
   id: number;
   goal: {
@@ -17,9 +17,9 @@ export interface Todo {
 }
 
 export interface TodosResponse {
-  todos: Todo[];
-  nextCursor: number;
-  totalCount: number;
+  todos?: Todo[];
+  nextCursor?: number;
+  totalCount?: number;
 }
 
 export interface GetTodosParams {

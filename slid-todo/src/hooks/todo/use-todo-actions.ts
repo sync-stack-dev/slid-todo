@@ -44,14 +44,17 @@ export const useTodoActions = (todo?: Todo) => {
 
   const { mutate: deleteTodo } = useMutation({
     mutationFn: async () => {
-      if (!todo?.id) return;
+      if (!todo) {
+        throw new Error("투두 오브젝트가 존재하지 않습니다.");
+      }
       await instance.delete(`/todos/${todo.id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
       toast.success("할 일이 삭제되었습니다.");
     },
-    onError: () => {
+    onError: (error) => {
+      console.error("API Error:", error);
       toast.error("삭제에 실패했습니다.");
     },
   });

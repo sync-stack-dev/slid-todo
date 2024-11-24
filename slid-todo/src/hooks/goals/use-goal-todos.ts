@@ -1,27 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { instance } from "@/lib/axios";
-
-interface Todo {
-  id: number;
-  title: string;
-  done: boolean;
-  noteId?: number;
-  linkUrl?: string;
-  fileUrl?: string;
-  goal?: {
-    id: number;
-    title: string;
-  };
-  userId: number;
-  teamId: string;
-  updatedAt: string;
-  createdAt: string;
-}
+import { Todo } from "@/types/todo";
 
 interface TodosResponse {
   totalCount: number;
   nextCursor: number;
   todos: Todo[];
+  done: boolean;
 }
 
 interface UseGoalTodosParams {
@@ -45,5 +30,24 @@ export const useGoalTodos = ({ goalId, done, cursor, size = 20 }: UseGoalTodosPa
       });
       return data;
     },
+  });
+};
+
+export const useGoalTodosInfinite = (goalId: number, done?: boolean) => {
+  return useInfiniteQuery({
+    queryKey: ["todos", goalId, done, "infinite"],
+    queryFn: async ({ pageParam = 0 }) => {
+      const { data } = await instance.get<TodosResponse>(`/todos`, {
+        params: {
+          goalId,
+          cursor: pageParam || undefined,
+          done,
+          size: 20,
+        },
+      });
+      return data;
+    },
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    initialPageParam: 0,
   });
 };
