@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
 import SubmitButton from "./Submit-button";
 import {
     Form,
@@ -15,11 +16,14 @@ import {
   } from "@/components/ui/form";
   import { Input } from "@/components/ui/input";
   import { PasswordInput } from "@/components/ui/password-input";
+  import { useSignupMutation } from "@/hooks/auth/use-signup-mutation";
   import { SignupSchema, SignupFormValues } from "./utils/validation";
 
 
-const SignupForm = () => {
 
+const SignupForm = () => {
+  const router = useRouter();
+  const { mutate: Signup, status, isError, error } = useSignupMutation();
   const isLoading = status === "pending"; // isLoading 
     
   const form = useForm<SignupFormValues>({
@@ -33,9 +37,27 @@ const SignupForm = () => {
     mode: 'onBlur', // 입력후 포커스 이동시 유효성 검사 하도록 설정.
   });
 
+
+const onSubmit = (data: SignupFormValues) => {
+  Signup(data, {
+    onSuccess: () => {
+      router.push("/login");
+      router.refresh();
+      toast.success("회원가입 성공!");
+    },
+    onError: (error: any) => {
+      if (error) {
+        console.log("회원가입 에러:", error.response.data);
+        form.setError("email", { message: error.response.data.message });
+      }
+      toast.error(error.response.data.message);
+    },
+  });
+};
+
     return(
         <Form  {...form}>
-          <form  className="w-full max-w-sm space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-sm space-y-4">
              <div className="space-y-2">
              <FormField 
                 control={form.control}
