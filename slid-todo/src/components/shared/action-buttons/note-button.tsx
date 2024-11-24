@@ -10,7 +10,11 @@ export const NoteButton = ({ onClick }: NoteButtonProps) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="ghost" onClick={onClick} className="p-1 hover:bg-gray-100 rounded">
+        <Button
+          variant="ghost"
+          onClick={onClick}
+          className="p-1 hover:bg-gray-100 rounded-full aspect-square"
+        >
           <Notebook className="w-4 h-4" data-cy="note-button" />
         </Button>
       </TooltipTrigger>

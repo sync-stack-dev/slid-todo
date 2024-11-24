@@ -1,11 +1,10 @@
 "use client";
 import { useGoal } from "@/hooks/goals/use-goal";
-import { useGoalTodos } from "@/hooks/goals/use-goal-todos";
 import { useParams } from "next/navigation";
-import GoalHeader from "./components/goal-header";
-import ViewNotesButton from "./components/view-notes-button";
+import { GoalHeader } from "./components/goal-header";
+import { ViewNotesButton } from "./components/view-notes-button";
 import { GoalListContent } from "./components/goal-list-content";
-import Loading from "@/components/shared/loading";
+import { Loading } from "@/components/shared/loading";
 
 const GoalPage = () => {
   const { goalId } = useParams();

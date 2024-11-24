@@ -12,7 +12,7 @@ export default function TodosLayout({ children }: { children: React.ReactNode })
 
   return (
     <SidebarProvider>
-      <div className="w-full h-full ">{children}</div>
+      <div className="w-full">{children}</div>
     </SidebarProvider>
   );
 }

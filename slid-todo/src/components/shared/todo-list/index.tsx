@@ -20,8 +20,8 @@ export const TodoList = ({ todos, observerRef, isLoading }: TodoListProps) => {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto h-[500px]">
-      <div className="space-y-1">
+    <div className="overflow-y-auto">
+      <div>
         {todos.map((todo) => (
           <TodoItem key={todo.id} todo={todo} />
         ))}

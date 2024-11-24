@@ -3,7 +3,7 @@ import { Goal as GoalSvg } from "@/public/svgs";
 import { Goal } from "@/types/goal";
 import { Progress } from "@/components/ui/progress";
 
-const GoalHeader = ({ goal, progress }: { goal: Goal; progress: number }) => {
+export const GoalHeader = ({ goal, progress }: { goal: Goal; progress: number }) => {
   return (
     <div className="flex flex-col gap-2 max-w-[1200px] max-h-[136px] bg-white rounded-lg px-4 py-4">
       <div className="flex items-center justify-between">
@@ -22,5 +22,3 @@ const GoalHeader = ({ goal, progress }: { goal: Goal; progress: number }) => {
     </div>
   );
 };
-
-export default GoalHeader;

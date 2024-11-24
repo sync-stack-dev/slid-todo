@@ -11,7 +11,7 @@ interface ActionButtonsProps {
 
 export const ActionButtons = ({ linkUrl, fileUrl, hasNote, onNoteClick }: ActionButtonsProps) => {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center">
       {linkUrl && <LinkButton url={linkUrl} />}
       {fileUrl && <FileButton url={fileUrl} />}
       {hasNote && onNoteClick && <NoteButton onClick={onNoteClick} />}

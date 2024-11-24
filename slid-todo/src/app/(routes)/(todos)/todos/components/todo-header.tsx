@@ -24,8 +24,12 @@ const TodoHeader = ({ totalCount }: TodoHeaderProps) => {
 
   return (
     <div className="flex justify-between items-center mb-4">
-      <h2 className="text-lg">모든 할 일 ({totalCount})</h2>
-      <Button variant="outline" className="text-sm" onClick={handleOpenFormModal}>
+      <h2 className="text-lg leading-7 font-pretendard-semibold">모든 할 일 ({totalCount})</h2>
+      <Button
+        variant="default"
+        className="text-sm text-blue-500 font-semibold bg-transparent hover:bg-transparent "
+        onClick={handleOpenFormModal}
+      >
         + 할 일 추가
       </Button>
     </div>

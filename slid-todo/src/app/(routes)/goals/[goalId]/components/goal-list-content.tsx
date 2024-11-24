@@ -61,11 +61,7 @@ export const GoalListContent = () => {
       </div>
       <div className="w-full bg-slate-200 rounded-lg p-4">
         <h2>Done</h2>
-        <TodoList
-          todos={doneTodos}
-          observerRef={doneRef} // done 리스트용 ref 사용
-          isLoading={isFetchingDoneNextPage}
-        />
+        <TodoList todos={doneTodos} observerRef={doneRef} isLoading={isFetchingDoneNextPage} />
       </div>
     </div>
   );

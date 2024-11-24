@@ -50,9 +50,11 @@ export const NoteViewer = ({ isOpen, onOpenChange, todo, noteData }: NoteViewerP
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
       <SheetContent
         side="right"
-        data-cy="note-sheet"
+        data-cy="te-sheet"
         className={cn(
-          "w-full sm:w-[95vw] md:w-[800px] sm:max-w-[800px]", // 모바일에서만 w-full 적용
+          "w-full",
+          "sm:w-[95%] md:w-[95%] lg:w-[800px]",
+          "sm:max-w-[800px]",
           "p-0",
           "[&_button[type='button']]:hidden",
         )}

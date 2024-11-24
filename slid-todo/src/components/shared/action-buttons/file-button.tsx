@@ -12,7 +12,11 @@ export const FileButton = ({ url }: FileButtonProps) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="ghost" className="p-1 hover:bg-gray-100 rounded" title={url}>
+        <Button
+          variant="ghost"
+          className="p-1 hover:bg-gray-100 rounded-full aspect-square"
+          title={url}
+        >
           <a
             href={ensureHttps(url)}
             download={fileName}
