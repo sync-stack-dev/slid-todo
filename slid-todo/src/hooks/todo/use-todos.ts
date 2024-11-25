@@ -28,7 +28,6 @@ export const useTodosOnce = () => {
       const response = await instance.get<TodosResponse>("/todos", {
         params: {
           size,
-          cursor: 0,
         },
       });
       return response.data;
