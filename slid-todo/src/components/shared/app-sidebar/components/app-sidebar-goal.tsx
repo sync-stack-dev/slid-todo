@@ -1,19 +1,19 @@
+import { useGoals } from "@/hooks/goals/use-goals";
 import { Flag } from "lucide-react";
-import { useState } from "react";
+import { Loading } from "../../loading";
+import { Goal } from "@/types/goal";
 
 const AppSidebarGoal = () => {
-  const [goals, setGoals] = useState([
-    {
-      id: 1,
-      name: "자바스크립트로 웹 서비스 만들기",
-    },
-    {
-      id: 2,
-      name: "디자인 시스템 강의 듣기",
-    },
-  ]);
+  const { data, isLoading } = useGoals();
 
-  // TODO : 목표 리스트 API -> by userInfo
+  if (isLoading) return <Loading />;
+
+  if (!data)
+    return (
+      <>
+        <div>목표 없음</div>
+      </>
+    );
 
   return (
     <div className="px-5 py-2">
@@ -23,9 +23,9 @@ const AppSidebarGoal = () => {
       </div>
 
       <div className="text-sm text-slate-700">
-        {goals.map((goal: any) => (
+        {data.goals.map((goal: Goal) => (
           <div key={goal.id} className="p-1">
-            · {goal.name}
+            · {goal.title}
           </div>
         ))}
       </div>
