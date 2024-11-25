@@ -1,6 +1,5 @@
 import AppSidebar from "@/components/shared/app-sidebar/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { GoalProvider } from "@/context/goal-context";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
