@@ -30,9 +30,9 @@ export const useGoalActions = (goal?: Goal) => {
   });
 
   const { mutate: updateGoal } = useMutation({
-    mutationFn: async (title: string) => {
-      if (!goal?.id) return;
-      await instance.patch(`goals/${goal.id}`, { title });
+    mutationFn: async ({ goalId, title }: { goalId: number; title: string }) => {
+      if (!goalId) return;
+      await instance.patch(`goals/${goalId}`, { title });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["goals"] });
@@ -43,12 +43,10 @@ export const useGoalActions = (goal?: Goal) => {
       toast.error(errorMessage);
     },
   });
-
   const { mutate: deleteGoal } = useMutation({
-    mutationFn: async () => {
-      if (!goal?.id) return;
-      // /goals/{goalId} 대신 goals/{goalId} 형식으로 수정
-      await instance.delete(`goals/${goal.id}`);
+    mutationFn: async (goalId: number) => {
+      if (!goalId) return;
+      await instance.delete(`goals/${goalId}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["goals"] });

@@ -8,7 +8,7 @@ import { useFormModal } from "@/stores/use-form-modal-store";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Todo } from "@/types/todo";
 import { Note } from "@/types/note";
-
+import { Goal } from "@/types/goal";
 interface MoreMenuProps {
   /** 삭제 관련 설정 */
   onDelete: {
@@ -22,9 +22,9 @@ interface MoreMenuProps {
   /** 수정 관련 설정 */
   onEdit: {
     /** 수정할 항목의 타입 */
-    type: "todo" | "note";
+    type: "todo" | "note" | "goal";
     /** 수정할 데이터 */
-    data: Todo | Note;
+    data: Todo | Note | Goal;
     /** 수정 실행 함수 */
     action: (data: any) => Promise<void>;
   };
