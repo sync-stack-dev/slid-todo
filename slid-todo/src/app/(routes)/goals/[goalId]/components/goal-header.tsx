@@ -3,7 +3,6 @@ import { Goal as GoalSvg } from "@/public/svgs";
 import { Goal } from "@/types/goal";
 import { Progress } from "@/components/ui/progress";
 import { MoreMenu } from "@/components/shared/more-menu";
-import { useConfirmModal } from "@/stores/use-confirm-modal-store";
 import { useGoalActions } from "@/hooks/goals/use-goal-actions";
 
 export const GoalHeader = ({ goal, progress }: { goal: Goal; progress: number }) => {
