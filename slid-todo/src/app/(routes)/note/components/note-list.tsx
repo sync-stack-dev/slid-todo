@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
-import NoteCard from "./note-card";
 import { Note } from "@/types/note";
+import NoteCardAction from "./note-card-action";
 
-const GoalNoteList = () => {
+const NoteList = () => {
   // TODO : 목표 리스트 API 로 받아와서 GoalNoteCard 전달
   const [noteList, setNoteList] = useState([
     {
@@ -47,10 +47,10 @@ const GoalNoteList = () => {
   return (
     <div className="grid gap-2.5 grid-cols-1 ">
       {noteList.map((note: Note) => (
-        <NoteCard key={note.id} note={note} />
+        <NoteCardAction key={note.id} note={note} />
       ))}
     </div>
   );
 };
 
-export default GoalNoteList;
+export default NoteList;
