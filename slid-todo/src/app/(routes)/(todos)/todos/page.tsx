@@ -1,12 +1,11 @@
 import React from "react";
-import TodoList from "./components/todo";
-// import { AppSidebar } from "./components/sidebar";
+import TodoList from "./components";
+
 const TodosPage = () => {
   return (
-    <div className="flex h-screen w-screen bg-[#F1F5F9]">
-      {/* <AppSidebar /> */}
-      <div className="flex-1 h-full p-4">
-        <div className="h-full w-full bg-white rounded-2xl max-w-[800px] max-h-[988px] overflow-y-auto">
+    <div className="flex bg-[#F1F5F9] h-full">
+      <div className="flex-1">
+        <div className="rounded-2xl w-full max-w-[800px] mx-auto h-full lg:mx-16">
           <TodoList />
         </div>
       </div>

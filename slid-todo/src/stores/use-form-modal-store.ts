@@ -8,8 +8,8 @@ export interface FormData {
   title: string;
   description?: string;
   done?: boolean;
-  file?: string;
-  link?: string;
+  fileUrl?: string;
+  linkUrl?: string;
   goal?: {
     id: number;
     title: string;

@@ -1,8 +1,8 @@
-import { Note } from "../../../../../../public/svgs";
+import { Note } from "@/public/svgs";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
-const ViewNotesButton = () => {
+export const ViewNotesButton = () => {
   return (
     <Link
       href={`/`}
@@ -16,5 +16,3 @@ const ViewNotesButton = () => {
     </Link>
   );
 };
-
-export default ViewNotesButton;
