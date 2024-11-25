@@ -2,6 +2,7 @@
 import { Note } from "@/types/note";
 import NoteCardAction from "./note-card-action";
 import { useNoteList } from "@/hooks/note/use-note";
+import { Loading } from "@/components/shared/loading";
 
 interface NoteListProps {
   goalId: number;
@@ -11,9 +12,7 @@ const NoteList = ({ goalId }: NoteListProps) => {
 
   if (!goalId) return <div>빈화면</div>;
 
-  if (!data) {
-    return <div>노 리스트요</div>;
-  }
+  if (!data) return <Loading />;
 
   return (
     <div className="grid gap-2.5 grid-cols-1 ">
