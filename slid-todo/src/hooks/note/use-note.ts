@@ -11,7 +11,6 @@ export const useNoteList = (goalId: number) => {
         params: {
           goalId,
           size,
-          cursor: 0,
         },
       });
       return response.data;
