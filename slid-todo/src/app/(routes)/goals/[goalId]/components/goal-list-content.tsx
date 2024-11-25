@@ -54,7 +54,7 @@ export const GoalListContent = () => {
   const doneTodos = doneData?.pages.flatMap((page) => page.todos) || [];
 
   return (
-    <div className="mt-4 flex gap-4">
+    <div className="mt-4 flex flex-col lg:flex-row gap-4 max-w-[1200px]">
       <div className="w-full bg-white rounded-lg p-4">
         <h2>Todo</h2>
         <TodoList todos={todos} observerRef={todoRef} isLoading={isFetchingNextPage} />
