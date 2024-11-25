@@ -17,13 +17,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <body className="font-pretendard-medium font-medium antialiased">
         <Providers>
-          <SidebarProvider>
-            <AppSidebar />
-            <ToastProvider />
-            {children}
-            <ConfirmModal />
-            <FormModal />
-          </SidebarProvider>
+          <ToastProvider />
+          {children}
+          <ConfirmModal />
+          <FormModal />
         </Providers>
       </body>
     </html>
