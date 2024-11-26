@@ -7,7 +7,7 @@ import { ActionButtons } from "@/components/shared/action-buttons";
 import { MoreMenu } from "@/components/shared/more-menu";
 import { NoteViewer } from "@/components/shared/note-viewer";
 import { useTodoActions } from "@/hooks/todo/use-todo-actions";
-import { devLog } from "@/utils/dev-log";
+
 interface TodoActionsProps {
   todo: Todo;
 }
@@ -27,7 +27,6 @@ const TodoActions = ({ todo }: TodoActionsProps) => {
       toast.error("노트 조회에 실패했습니다.");
     }
   };
-  // devLog("actions todo-list Item : ", todo);
   return (
     <>
       <div className="ml-auto flex items-center gap-2 text-gray-400">
@@ -50,7 +49,7 @@ const TodoActions = ({ todo }: TodoActionsProps) => {
             type: "todo",
             data: todo,
             action: async (data) => {
-              devLog("actions submit data : ", data);
+              console.log("actions submit data : ", data);
               await updateTodo(data);
             },
           }}
