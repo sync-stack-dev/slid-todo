@@ -3,11 +3,8 @@ describe("Todo 앱", () => {
     cy.visit("/");
   });
 
-  it("할 일 목록이 표시되어야 한다", () => {
-    cy.get("h2").contains("모든 할 일");
-  });
-
-  it("할 일 추가 버튼이 있어야 한다", () => {
-    cy.contains("+ 할일 추가").should("exist");
+  // TODO : main 화면 변경되면 바꿔줘야함.
+  it("초기화면이 렌더링된다.", () => {
+    cy.get("h1").contains("Hello World");
   });
 });
