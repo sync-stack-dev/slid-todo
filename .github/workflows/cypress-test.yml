@@ -3,10 +3,10 @@ name: Cypress Tests using Cypress Docker Image
 
 on:
   push:
-  workflow_call:  
+  workflow_call:
 
 jobs:
-  e2e-test:
+  component-test:
     runs-on: ubuntu-22.04
     container:
       image: cypress/browsers:node-22.11.0-chrome-130.0.6723.69-1-ff-132.0-edge-130.0.2849.56-1
