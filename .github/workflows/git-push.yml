@@ -20,9 +20,9 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.JS_GITHUB_KEY }}
         with:
-          source-directory: 'output'
-          destination-github-username: 'catmaker'
-          destination-repository-name: 'code-it-2'
+          source-directory: "output"
+          destination-github-username: "catmaker"
+          destination-repository-name: "code-it-2"
           user-email: ${{ secrets.JS_ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
