@@ -4,8 +4,6 @@ on: push
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
-    container:
-      image: cypress/browsers:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,5 +16,5 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
-          working-directory: slid-todo # 여기서 'slid-todo'를 지정
+          working-directory: slid-todo
           start: npm start
