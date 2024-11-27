@@ -4,7 +4,6 @@ import { useFormModal } from "@/stores/use-form-modal-store";
 import { Button } from "@/components/ui/button";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConfirmModal } from "@/components/shared/confirm-modal";
-import { useConfirmModal } from "@/stores/use-confirm-modal-store";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,18 +20,6 @@ queryClient.setQueryData(["goals"], {
     { id: 2, title: "목표 2" },
     { id: 3, title: "목표 3" },
   ],
-});
-
-// Mock confirm modal store
-const confirmStore = useConfirmModal.getState();
-useConfirmModal.setState({
-  ...confirmStore,
-  onOpen: ({ onConfirm, ...data }) => {
-    confirmStore.onOpen({ onConfirm, ...data });
-  },
-  onClose: () => {
-    confirmStore.onClose();
-  },
 });
 
 /**

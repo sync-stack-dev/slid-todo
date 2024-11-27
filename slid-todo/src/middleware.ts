@@ -11,18 +11,18 @@ export function middleware(req: NextRequest) {
   response.headers.set("X-Content-Type-Options", "nosniff");
   response.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
 
-  console.error(`[${new Date().toISOString()}] ${req.method} ${pathname}`);
+  console.info(`[${new Date().toISOString()}] ${req.method} ${pathname}`);
 
   const isProtectedPath = protectedPath.some((path) => pathname.startsWith(path));
   const isAuthOnlyPath = authOnlyPath.some((path) => pathname.startsWith(path));
 
   if (isProtectedPath && !accessToken) {
-    console.error(`[Middleware] ⛔️ 접근 거부: ${pathname}`);
+    console.error(`[Middleware] 접근 거부: ${pathname}`);
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
   if (isAuthOnlyPath && accessToken) {
-    console.error(`[Middleware] ⛔️ 리다이렉트: ${pathname} -> /dashboard`);
+    console.error(`[Middleware] 리다이렉트: ${pathname} -> /dashboard`);
     return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 }

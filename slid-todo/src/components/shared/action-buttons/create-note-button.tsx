@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button";
-import { Notebook } from "lucide-react";
+import {
+  FilePlus, // 새 문서
+} from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-
-interface NoteButtonProps {
+import { Button } from "@/components/ui/button";
+interface CreateNoteButtonProps {
   onClick?: () => void;
 }
-
-export const NoteButton = ({ onClick }: NoteButtonProps) => {
+export const CreateNoteButton = ({ onClick }: CreateNoteButtonProps) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -15,10 +15,10 @@ export const NoteButton = ({ onClick }: NoteButtonProps) => {
           onClick={onClick}
           className="p-1 hover:bg-gray-100 rounded-full aspect-square"
         >
-          <Notebook className="w-4 h-4" data-cy="note-button" />
+          <FilePlus className="h-4 w-4" data-cy="create-note-button" />
         </Button>
       </TooltipTrigger>
-      <TooltipContent>노트 열기</TooltipContent>
+      <TooltipContent>노트 작성</TooltipContent>
     </Tooltip>
   );
 };

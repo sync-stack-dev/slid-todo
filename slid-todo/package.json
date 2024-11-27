@@ -12,7 +12,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "test:e2e": "npm run build && start cmd /k \"npm run start\" && cypress open",
+    "cypress:run": "npm run build && npm run start && cypress run"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
