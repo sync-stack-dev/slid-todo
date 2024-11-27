@@ -7,7 +7,7 @@ on:
 
 jobs:
   cypress-test:
-    uses: ./cypress-test.yml
+    uses: ./cypress-test.yml@main
 
   # deploy-production:
   # uses: ./vercel-deploy.yml
