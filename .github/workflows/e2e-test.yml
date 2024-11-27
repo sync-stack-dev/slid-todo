@@ -13,6 +13,10 @@ jobs:
           cd slid-todo
           npm install
 
+      - name: Build Next.js app
+        run: npm run build
+        working-directory: slid-todo
+
       - name: Cypress run
         uses: cypress-io/github-action@v5
         with:
