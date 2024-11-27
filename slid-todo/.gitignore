@@ -42,8 +42,8 @@ next-env.d.ts
 /src/app/(routes)/test/**
 
 # Cypress (추후 해제)
-# cypress/
-# cypress.config.ts
+cypress/screenshots
+cypress.config.ts
 
 # IDE
 .vscode/
