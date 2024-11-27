@@ -1,24 +1,19 @@
-name: End-to-end tests
+name: Cypress Tests using Cypress Docker Image
 
 on: push
+
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
+    container:
+      image: cypress/browsers:node-22.11.0-chrome-130.0.6723.69-1-ff-132.0-edge-130.0.2849.56-1
+      options: --user 1001
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Install npm dependencies
-        run: |
-          cd slid-todo
-          npm install
-
-      - name: Build Next.js app
-        run: npm run build
-        working-directory: slid-todo
-
       - name: Cypress run
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
-          working-directory: slid-todo
+          build: npm run build
           start: npm start
+          browser: chrome
