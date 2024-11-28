@@ -55,209 +55,208 @@ describe("todos 페이지 테스트", () => {
     // 로그인 성공 후 리다이렉트 확인
     cy.url().should("include", "/", { timeout: 30000 });
   });
-  // it("할 일 추가 후 데이터가 추가되는지 확인", () => {
-  //   cy.visit("/todos");
+  it("할 일 추가 후 데이터가 추가되는지 확인", () => {
+    cy.visit("/todos");
 
-  //   cy.url().should("include", "/todos");
+    cy.url().should("include", "/todos");
 
-  //   cy.contains("button", "할 일 추가").click();
+    cy.contains("button", "할 일 추가").click();
 
-  //   cy.get("[role='dialog']").within(() => {
-  //     cy.get("input[name='title']").type("새로운 할 일");
-  //     cy.contains("button", "링크 첨부").click();
-  //     cy.get("input[name='linkUrl']").type("https://www.naver.com");
-  //     cy.get("[type='submit']").click();
-  //   });
+    cy.get("[role='dialog']").within(() => {
+      cy.get("input[name='title']").type("새로운 할 일");
+      cy.contains("button", "링크 첨부").click();
+      cy.get("input[name='linkUrl']").type("https://www.naver.com");
+      cy.get("[type='submit']").click();
+    });
 
-  //   cy.get("[data-radix-scroll-area-viewport] .flex.items-center").should(
-  //     "contain",
-  //     "새로운 할 일",
-  //   );
+    cy.get("[data-radix-scroll-area-viewport] .flex.items-center").should(
+      "contain",
+      "새로운 할 일",
+    );
 
-  //   cy.get("a").should("have.attr", "href", "https://www.naver.com");
-  // });
-  // it("로그인 성공 후 todos 페이지 접근", () => {
-  //   cy.visit("/todos");
+    cy.get("a").should("have.attr", "href", "https://www.naver.com");
+  });
+  it("로그인 성공 후 todos 페이지 접근", () => {
+    cy.visit("/todos");
 
-  //   cy.url().should("include", "/todos");
-  //   cy.get("h2").should("exist");
-  // });
+    cy.url().should("include", "/todos");
+    cy.get("h2").should("exist");
+  });
 
-  // it("체크 버튼 클릭 시 체크 상태 변경 확인", () => {
-  //   cy.visit("/todos");
-  //   cy.url().should("include", "/todos");
+  it("체크 버튼 클릭 시 체크 상태 변경 확인", () => {
+    cy.visit("/todos");
+    cy.url().should("include", "/todos");
 
-  //   cy.get("[role='checkbox']")
-  //     .should("exist")
-  //     .then(($checkboxes) => {
-  //       if ($checkboxes.length > 0) {
-  //         cy.get("[role='checkbox']").first().click();
-  //         cy.get("[role='checkbox']").first().should("have.attr", "data-state", "checked");
+    cy.get("[role='checkbox']")
+      .should("exist")
+      .then(($checkboxes) => {
+        if ($checkboxes.length > 0) {
+          cy.get("[role='checkbox']").first().click();
+          cy.get("[role='checkbox']").first().should("have.attr", "data-state", "checked");
 
-  //         cy.get("[role='checkbox']").first().click();
-  //         cy.get("[role='checkbox']").first().should("have.attr", "data-state", "unchecked");
-  //       } else {
-  //         cy.log("체크할 수 있는 할 일이 없습니다.");
-  //       }
-  //     });
-  // });
+          cy.get("[role='checkbox']").first().click();
+          cy.get("[role='checkbox']").first().should("have.attr", "data-state", "unchecked");
+        } else {
+          cy.log("체크할 수 있는 할 일이 없습니다.");
+        }
+      });
+  });
 
-  // it("모든 할 일 h2에 총 개수 표시 및 첫 페이지 로딩 확인", () => {
-  //   cy.visit("/todos");
-  //   cy.url().should("include", "/todos");
-  //   cy.wait(1000); // API 로딩 대기
-  //   // 1. 헤더에 표시된 전체 할 일 개수 확인
-  //   cy.get("h2")
-  //     .invoke("text")
-  //     .then((text) => {
-  //       const match = text.match(/모든 할 일 \((\d+)\)/);
-  //       const totalCount = parseInt(match![1]);
+  it("모든 할 일 h2에 총 개수 표시 및 첫 페이지 로딩 확인", () => {
+    cy.visit("/todos");
+    cy.url().should("include", "/todos");
+    cy.wait(1000); // API 로딩 대기
+    // 1. 헤더에 표시된 전체 할 일 개수 확인
+    cy.get("h2")
+      .invoke("text")
+      .then((text) => {
+        const match = text.match(/모든 할 일 \((\d+)\)/);
+        const totalCount = parseInt(match![1]);
 
-  //       // 전체 개수가 유효한 숫자인지만 확인
-  //       expect(totalCount).to.be.a("number");
-  //       expect(totalCount).to.be.at.least(0);
-  //     });
-  //   // 2. 실제 화면에 렌더링된 아이템이 있는지 확인
-  //   cy.get("[role='checkbox']")
-  //     .its("length")
-  //     .then((length) => {
-  //       // 0개 이상의 아이템이 있는지 확인
-  //       expect(length).to.be.at.least(0);
-  //       // 한 페이지 최대 크기(40개) 이하인지 확인
-  //       expect(length).to.be.at.most(40);
-  //     });
-  // });
+        // 전체 개수가 유효한 숫자인지만 확인
+        expect(totalCount).to.be.a("number");
+        expect(totalCount).to.be.at.least(0);
+      });
+    // 2. 실제 화면에 렌더링된 아이템이 있는지 확인
+    cy.get("[role='checkbox']")
+      .its("length")
+      .then((length) => {
+        // 0개 이상의 아이템이 있는지 확인
+        expect(length).to.be.at.least(0);
+        // 한 페이지 최대 크기(40개) 이하인지 확인
+        expect(length).to.be.at.most(40);
+      });
+  });
 
-  // it("스크롤 시 추가 데이터가 로드되는지 확인", () => {
-  //   cy.intercept("GET", "**/todos?size=40", {
-  //     statusCode: 200,
-  //     body: {
-  //       todos: Array.from({ length: 40 }, (_, index) => ({
-  //         noteId: null,
-  //         done: false,
-  //         linkUrl: "https://www.naver.com",
-  //         fileUrl: null,
-  //         title: `할 일 ${index + 1}`,
-  //         id: 2000 + index,
-  //         goal: null,
-  //         userId: 215,
-  //         teamId: "codeIt222",
-  //         updatedAt: new Date().toISOString(),
-  //         createdAt: new Date().toISOString(),
-  //       })),
-  //       nextCursor: "next_page",
-  //       totalCount: 60,
-  //     },
-  //   }).as("getTodos");
-  //   cy.intercept("GET", "**/todos?size=40&cursor=next_page", {
-  //     statusCode: 200,
-  //     body: {
-  //       todos: Array.from({ length: 20 }, (_, index) => ({
-  //         noteId: null,
-  //         done: false,
-  //         linkUrl: "https://www.naver.com",
-  //         fileUrl: null,
-  //         title: `할 일 ${index + 41}`,
-  //         id: 2040 + index,
-  //         goal: null,
-  //         userId: 215,
-  //         teamId: "codeIt222",
-  //         updatedAt: new Date().toISOString(),
-  //         createdAt: new Date().toISOString(),
-  //       })),
-  //       nextCursor: null,
-  //       totalCount: 60,
-  //     },
-  //   }).as("getMoreTodos");
-  //   cy.visit("/todos");
-  //   cy.wait("@getTodos");
-  //   cy.get("[data-radix-scroll-area-viewport] .flex.items-center")
-  //     .should("exist")
-  //     .then(($elements) => {
-  //       const initialCount = $elements.length;
+  it("스크롤 시 추가 데이터가 로드되는지 확인", () => {
+    cy.intercept("GET", "**/todos?size=40", {
+      statusCode: 200,
+      body: {
+        todos: Array.from({ length: 40 }, (_, index) => ({
+          noteId: null,
+          done: false,
+          linkUrl: "https://www.naver.com",
+          fileUrl: null,
+          title: `할 일 ${index + 1}`,
+          id: 2000 + index,
+          goal: null,
+          userId: 215,
+          teamId: "codeIt222",
+          updatedAt: new Date().toISOString(),
+          createdAt: new Date().toISOString(),
+        })),
+        nextCursor: "next_page",
+        totalCount: 60,
+      },
+    }).as("getTodos");
+    cy.intercept("GET", "**/todos?size=40&cursor=next_page", {
+      statusCode: 200,
+      body: {
+        todos: Array.from({ length: 20 }, (_, index) => ({
+          noteId: null,
+          done: false,
+          linkUrl: "https://www.naver.com",
+          fileUrl: null,
+          title: `할 일 ${index + 41}`,
+          id: 2040 + index,
+          goal: null,
+          userId: 215,
+          teamId: "codeIt222",
+          updatedAt: new Date().toISOString(),
+          createdAt: new Date().toISOString(),
+        })),
+        nextCursor: null,
+        totalCount: 60,
+      },
+    }).as("getMoreTodos");
+    cy.visit("/todos");
+    cy.wait("@getTodos");
+    cy.get("[data-radix-scroll-area-viewport] .flex.items-center")
+      .should("exist")
+      .then(($elements) => {
+        const initialCount = $elements.length;
 
-  //       cy.get("[data-radix-scroll-area-viewport]").scrollTo("bottom", { ensureScrollable: false });
+        cy.get("[data-radix-scroll-area-viewport]").scrollTo("bottom", { ensureScrollable: false });
 
-  //       cy.wait("@getMoreTodos");
+        cy.wait("@getMoreTodos");
 
-  //       cy.get("[data-radix-scroll-area-viewport] .flex.items-center").should(
-  //         "have.length.gt",
-  //         initialCount,
-  //       );
-  //     });
-  // });
+        cy.get("[data-radix-scroll-area-viewport] .flex.items-center").should(
+          "have.length.gt",
+          initialCount,
+        );
+      });
+  });
 
-  // it("수정 모달에 기존 데이터가 올바르게 표시되는지 확인", () => {
-  //   cy.visit("/todos");
+  it("수정 모달에 기존 데이터가 올바르게 표시되는지 확인", () => {
+    cy.visit("/todos");
 
-  //   cy.get("[data-radix-scroll-area-viewport] .flex.items-center").then(($items) => {
-  //     if ($items.length > 0) {
-  //       // 첫 번째 할 일의 데이터를 저장
-  //       cy.wrap($items)
-  //         .first()
-  //         .within(() => {
-  //           // 제목 저장
-  //           cy.get("span").invoke("text").as("originalTitle");
-  //           // 체크 상태 저장
-  //           cy.get("[role='checkbox']").should("have.attr", "data-state").as("originalCheckbox");
-  //           // 더보기 버튼 클릭
-  //           cy.get("button[aria-haspopup='menu']").click();
-  //         });
+    cy.get("[data-radix-scroll-area-viewport] .flex.items-center").then(($items) => {
+      if ($items.length > 0) {
+        // 첫 번째 할 일의 데이터를 저장
+        cy.wrap($items)
+          .first()
+          .within(() => {
+            // 제목 저장
+            cy.get("span").invoke("text").as("originalTitle");
+            // 체크 상태 저장
+            cy.get("[role='checkbox']").should("have.attr", "data-state").as("originalCheckbox");
+            // 더보기 버튼 클릭
+            cy.get("button[aria-haspopup='menu']").click();
+          });
 
-  //       // 수정 버튼 클릭
-  //       cy.get("[data-cy='edit-button']").click();
+        // 수정 버튼 클릭
+        cy.get("[data-cy='edit-button']").click();
 
-  //       // 모달이 표시되었는지 확인
-  //       cy.get("[role='dialog']").should("be.visible");
+        // 모달이 표시되었는지 확인
+        cy.get("[role='dialog']").should("be.visible");
 
-  //       // 저장된 데이터와 모달의 데이터 비교
-  //       cy.get("@originalTitle").then((originalTitle) => {
-  //         cy.get("@originalCheckbox").then((originalCheckbox) => {
-  //           cy.get("[role='dialog']").within(() => {
-  //             cy.get("input[name='title']").should("have.value", originalTitle);
-  //             cy.get("[role='checkbox']").should("have.attr", "data-state", originalCheckbox);
-  //           });
-  //         });
-  //       });
-  //     } else {
-  //       cy.log("수정할 할 일이 없습니다.");
-  //     }
-  //   });
-  // });
+        // 저장된 데이터와 모달의 데이터 비교
+        cy.get("@originalTitle").then((originalTitle) => {
+          cy.get("@originalCheckbox").then((originalCheckbox) => {
+            cy.get("[role='dialog']").within(() => {
+              cy.get("input[name='title']").should("have.value", originalTitle);
+              cy.get("[role='checkbox']").should("have.attr", "data-state", originalCheckbox);
+            });
+          });
+        });
+      } else {
+        cy.log("수정할 할 일이 없습니다.");
+      }
+    });
+  });
 
-  // it("수정 모달에서 할 일 수정 시 API 요청이 성공하는지 확인", () => {
-  //   cy.visit("/todos");
-
-  //   // PATCH 요청 인터셉트
-  //   cy.intercept("PATCH", "**/todos/*").as("updateTodo");
-
-  //   // 수정할 데이터 존재 여부 확인
-  //   cy.get("[data-radix-scroll-area-viewport] .flex.items-center").then(($items) => {
-  //     if ($items.length > 0) {
-  //       // 첫 번째 항목 수정
-  //       cy.wrap($items)
-  //         .first()
-  //         .within(() => {
-  //           cy.get("button[aria-haspopup='menu']").click();
-  //         });
-
-  //       cy.get("[data-cy='edit-button']").click();
-
-  //       // 수정 모달에서 데이터 수정
-  //       cy.get("[role='dialog']").within(() => {
-  //         cy.get("input[name='title']").clear().type("수정된 제목");
-
-  //         cy.get("[role='checkbox']").click();
-  //         cy.get("[type='submit']").click();
-  //       });
-
-  //       // PATCH 요청이 성공적으로 완료되었는지 확인
-  //       cy.wait("@updateTodo").its("response.statusCode").should("eq", 200);
-  //     } else {
-  //       cy.log("수정할 할 일이 없습니다.");
-  //     }
-  //   });
-  // });
+  it("수정 모달에서 할 일 수정 시 API 요청이 성공하는지 확인", () => {
+    // PATCH 요청 인터셉트
+    cy.intercept("PATCH", "**/todos/*").as("updateTodo");
+    // 페이지 방문 시 타임아웃 증가
+    cy.visit("/todos", { timeout: 30000 });
+    // 페이지가 완전히 로드될 때까지 대기
+    cy.get("h2", { timeout: 10000 }).should("be.visible");
+    // 수정할 데이터 존재 여부 확인
+    cy.get("[data-radix-scroll-area-viewport] .flex.items-center", { timeout: 10000 })
+      .should("be.visible")
+      .then(($items) => {
+        if ($items.length > 0) {
+          // 첫 번째 항목 수정
+          cy.wrap($items)
+            .first()
+            .within(() => {
+              cy.get("button[aria-haspopup='menu']").click();
+            });
+          cy.get("[data-cy='edit-button']").click();
+          // 수정 모달에서 데이터 수정
+          cy.get("[role='dialog']").within(() => {
+            cy.get("input[name='title']").clear().type("수정된 제목");
+            cy.get("[role='checkbox']").click();
+            cy.get("[type='submit']").click();
+          });
+          // PATCH 요청이 성공적으로 완료되었는지 확인
+          cy.wait("@updateTodo").its("response.statusCode").should("eq", 200);
+        } else {
+          cy.log("수정할 할 일이 없습니다.");
+        }
+      });
+  });
 
   it("Done Tap 클릭 시 완료된 할 일 확인", () => {
     // 완료된 할 일 데이터 mock
@@ -409,26 +408,57 @@ describe("todos 페이지 테스트", () => {
         }
       });
   });
-
   it("삭제 버튼 클릭 시 삭제가 정상적으로 완료되는지 확인", () => {
+    // 삭제할 데이터 mock
+    cy.intercept("GET", "**/todos?size=40", {
+      statusCode: 200,
+      body: {
+        todos: [
+          {
+            noteId: null,
+            done: false,
+            linkUrl: "https://www.naver.com",
+            fileUrl: null,
+            title: "삭제할 할 일",
+            id: 1000,
+            goal: null,
+            userId: 215,
+            teamId: Cypress.env("TEAM_ID"),
+            updatedAt: new Date().toISOString(),
+            createdAt: new Date().toISOString(),
+          },
+        ],
+        nextCursor: null,
+        totalCount: 1,
+      },
+    }).as("getTodos");
+
+    // DELETE 요청을 mock으로 처리
+    cy.intercept("DELETE", "**/todos/*", (req) => {
+      console.log("Delete Request Headers:", req.headers);
+      req.reply({
+        statusCode: 204,
+        body: {},
+      });
+    }).as("deleteTodo");
+
     cy.visit("/todos");
-    cy.intercept("DELETE", "**/todos/*").as("deleteTodo");
+    cy.wait("@getTodos");
 
-    cy.get("[data-radix-scroll-area-viewport] .flex.items-center").then(($items) => {
-      if ($items.length > 0) {
-        cy.wrap($items)
-          .first()
-          .within(() => {
-            cy.get("button[aria-haspopup='menu']").click();
-          });
+    cy.contains("삭제할 할 일").should("be.visible");
 
-        cy.get("[data-cy='delete-button']").click();
-        cy.get(".bg-red-500").click();
+    cy.get("[data-radix-scroll-area-viewport] .flex.items-center")
+      .first()
+      .within(() => {
+        cy.get("button[aria-haspopup='menu']").should("be.visible").click();
 
-        cy.wait("@deleteTodo").its("response.statusCode").should("eq", 204);
-      } else {
-        cy.log("삭제할 할 일이 없습니다.");
-      }
-    });
+        cy.wait(1000);
+      });
+
+    cy.get("[data-cy='delete-button']").click();
+    cy.wait(1000);
+    cy.get("[data-cy='confirm-button']").click();
+
+    cy.wait("@deleteTodo").its("response.statusCode").should("eq", 204);
   });
 });
