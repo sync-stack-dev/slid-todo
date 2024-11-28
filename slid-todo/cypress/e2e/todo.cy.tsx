@@ -21,42 +21,24 @@ describe("todos 페이지 테스트", () => {
       .should("be.visible", { timeout: 30000 })
       .type(testEmail, { delay: 100 });
 
-    cy.wait(1000);
-
     cy.get("[role='password']")
       .should("be.visible", { timeout: 30000 })
       .type(testPassword, { delay: 100 });
 
-    cy.wait(1000);
-
     cy.get("[data-cy='login-button']").should("be.visible", { timeout: 30000 }).click();
 
-    cy.wait("@loginRequest", { timeout: 30000 });
+    cy.wait("@loginRequest").then((interception) => {
+      expect(interception.response?.statusCode).to.eq(201);
+    });
+
+    cy.getCookie("accessToken").should("exist");
 
     cy.url().should("include", "/", { timeout: 30000 });
 
-    cy.wait(5000);
-
-    cy.window().then((win) => {
-      const storage = win.localStorage.getItem("login-storage");
-      expect(storage).to.not.be.null;
-
-      const accessToken = win.document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("accessToken="));
-      expect(accessToken).to.not.be.undefined;
-    });
-
-    cy.wait(2000);
-
+    // todos 페이지로 이동
     cy.visit("/todos", { timeout: 30000 });
-
-    cy.wait(3000);
-
     cy.url().should("include", "/todos", { timeout: 30000 });
     cy.wait("@getTodos", { timeout: 30000 });
-
-    cy.wait(2000);
   });
 
   it("할 일 추가 후 데이터가 추가되는지 확인", () => {
