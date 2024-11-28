@@ -1,26 +1,39 @@
 describe("todos 페이지 테스트", () => {
   beforeEach(() => {
+    // 로그인 API 인터셉트
     cy.intercept("POST", "**/auth/login").as("loginRequest");
+    cy.intercept("GET", "**/todos*").as("getTodos");
 
     cy.visit("/login");
 
-    // 환경변수에서 테스트 계정 정보 가져오기
     const testEmail = Cypress.env("TEST_EMAIL");
     const testPassword = Cypress.env("TEST_PASSWORD");
 
-    // 환경변수 존재 확인
     if (!testEmail || !testPassword) {
       throw new Error("Test credentials are not set in environment variables");
     }
 
+    // 로그인
     cy.get('input[placeholder="이메일을 입력해 주세요"]').should("be.visible").type(testEmail);
 
     cy.get("[role='password']").should("be.visible").type(testPassword);
 
     cy.get("[data-cy='login-button']").should("be.visible").click();
 
-    cy.wait("@loginRequest");
+    // 로그인 요청 완료 대기
+    cy.wait("@loginRequest").its("response.statusCode").should("eq", 201);
+
+    // 홈페이지로 리다이렉션 대기
     cy.url().should("include", "/", { timeout: 10000 });
+
+    // todos 페이지로 이동
+    cy.visit("/todos");
+
+    // todos 페이지 로드 확인
+    cy.url().should("include", "/todos", { timeout: 10000 });
+
+    // todos API 응답 대기
+    cy.wait("@getTodos", { timeout: 10000 });
   });
 
   it("할 일 추가 후 데이터가 추가되는지 확인", () => {
