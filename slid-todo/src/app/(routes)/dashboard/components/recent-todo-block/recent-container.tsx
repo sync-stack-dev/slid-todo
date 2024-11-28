@@ -2,8 +2,6 @@ import { useRecentTodos } from "@/hooks/todo/use-todos";
 import TodoItem from "@/components/shared/todo-list/todo-item";
 
 
-
-
 const RecentContainer = () => {
   const { data, error, isLoading, isError } = useRecentTodos();
 
