@@ -43,7 +43,6 @@ next-env.d.ts
 
 # Cypress (추후 해제)
 cypress/screenshots
-cypress.config.ts
 
 # IDE
 .vscode/
