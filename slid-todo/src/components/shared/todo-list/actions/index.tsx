@@ -7,7 +7,6 @@ import { ActionButtons } from "@/components/shared/action-buttons";
 import { MoreMenu } from "@/components/shared/more-menu";
 import { NoteViewer } from "@/components/shared/note-viewer";
 import { useTodoActions } from "@/hooks/todo/use-todo-actions";
-import { devLog } from "@/utils/dev-log";
 interface TodoActionsProps {
   todo: Todo;
 }
@@ -16,7 +15,6 @@ const TodoActions = ({ todo }: TodoActionsProps) => {
   const [isNoteOpen, setIsNoteOpen] = useState(false);
   const [noteData, setNoteData] = useState<Note | null>(null);
   const { deleteTodo, updateTodo } = useTodoActions(todo);
-
   const handleNoteClick = async () => {
     try {
       const response = await instance.get(`/notes/${todo.noteId}`);
@@ -27,7 +25,14 @@ const TodoActions = ({ todo }: TodoActionsProps) => {
       toast.error("노트 조회에 실패했습니다.");
     }
   };
-  // devLog("actions todo-list Item : ", todo);
+  const handleCreateNote = async () => {
+    try {
+      toast.success(`/notes/create/todoId/${todo.id}`);
+    } catch (error) {
+      console.error("노트 생성 페이지 이동 실패:", error);
+      toast.error("노트 생성 페이지로 이동할 수 없습니다.");
+    }
+  };
   return (
     <>
       <div className="ml-auto flex items-center gap-2 text-gray-400">
@@ -37,6 +42,7 @@ const TodoActions = ({ todo }: TodoActionsProps) => {
           fileUrl={todo.fileUrl}
           hasNote={!!todo.noteId}
           onNoteClick={handleNoteClick}
+          onCreateNote={handleCreateNote}
         />
         <MoreMenu
           onDelete={{
@@ -50,7 +56,7 @@ const TodoActions = ({ todo }: TodoActionsProps) => {
             type: "todo",
             data: todo,
             action: async (data) => {
-              devLog("actions submit data : ", data);
+              console.log("actions submit data : ", data);
               await updateTodo(data);
             },
           }}

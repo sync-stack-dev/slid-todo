@@ -12,7 +12,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "test:e2e": "npm run build && start cmd /k \"npm run start\" && cypress open",
+    "cypress:run": "npm run build && npm run start && cypress run"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -56,7 +57,10 @@
     "@cypress/webpack-preprocessor": "^6.0.2",
     "@storybook/addon-essentials": "^8.4.4",
     "@storybook/addon-interactions": "^8.4.4",
+    "@storybook/addon-links": "^8.4.5",
     "@storybook/addon-onboarding": "^8.4.4",
+    "@storybook/addon-styling-webpack": "^1.0.1",
+    "@storybook/addon-themes": "^8.4.5",
     "@storybook/blocks": "^8.4.4",
     "@storybook/nextjs": "^8.4.4",
     "@storybook/react": "^8.4.4",

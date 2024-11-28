@@ -6,9 +6,8 @@ export const Loading = () => {
       <Lottie
         animationData={loadingAnimation}
         loop={true}
-        autoplay={true} // autoplay 추가
+        autoplay={true}
         style={{ width: 200, height: 200 }}
-        // 디버깅을 위한 추가 props
         onLoadedImages={() => {
           console.log("Images loaded");
         }}

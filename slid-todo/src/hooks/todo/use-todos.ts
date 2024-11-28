@@ -51,10 +51,9 @@ export const useRecentTodos = () => {
       const response = await instance.get<TodosResponse>("/todos", {
         params: {
           size,
-    
         },
       });
-      console.log('Response Data이거임?:', response.data);
+     
       if (response.data?.todos) {
         // `todos` 배열이 있을 경우 생성일 기준으로 최신 4개만 가져옴
         const latestTodos = response.data.todos

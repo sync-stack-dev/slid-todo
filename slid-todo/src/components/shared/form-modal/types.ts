@@ -14,7 +14,8 @@ export const schema = z.object({
       id: z.number(),
       title: z.string(),
     })
-    .optional(),
+    .optional()
+    .nullable(),
 });
 
 export const goalSchema = z.object({
