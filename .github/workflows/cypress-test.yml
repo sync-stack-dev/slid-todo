@@ -44,8 +44,14 @@ jobs:
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
+        env:
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
         with:
           build: npm run build
           start: npm start
           browser: chrome
           working-directory: slid-todo
+          wait-on: http://localhost:3000
+          wait-on-timeout: 120
