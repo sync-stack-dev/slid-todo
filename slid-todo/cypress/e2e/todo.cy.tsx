@@ -34,21 +34,21 @@ describe("todos 페이지 테스트", () => {
     console.log("TEST_EMAIL:", testEmail);
 
     cy.get('input[placeholder="이메일을 입력해 주세요"]')
-      .should("be.visible", { timeout: 5000 })
-      .type(testEmail, { delay: 100 });
+      .should("be.visible", { timeout: 3000 })
+      .type(testEmail, { delay: 50 });
 
     cy.get("[role='password']")
-      .should("be.visible", { timeout: 5000 })
-      .type(testPassword, { delay: 100 });
+      .should("be.visible", { timeout: 3000 })
+      .type(testPassword, { delay: 50 });
 
-    cy.get("[data-cy='login-button']").should("be.visible", { timeout: 5000 }).click();
+    cy.get("[data-cy='login-button']").should("be.visible", { timeout: 3000 }).click();
 
-    cy.wait("@loginRequest", { timeout: 5000 }).then((interception) => {
+    cy.wait("@loginRequest", { timeout: 3000 }).then((interception) => {
       console.log("Login Response:", interception.response);
       expect(interception.response?.statusCode).to.eq(201);
     });
 
-    cy.url().should("include", "/", { timeout: 5000 });
+    cy.url().should("include", "/", { timeout: 3000 });
   });
   it("할 일 추가 후 데이터가 추가되는지 확인", () => {
     cy.visit("/todos");
