@@ -41,11 +41,13 @@ next-env.d.ts
 #test
 /src/app/(routes)/test/**
 
-# Cypress (추후 해제)
-cypress/screenshots
+# Cypress
+cypress.env.json
 
 # IDE
 .vscode/
 
 # test folder (추후 폴더 자체를 삭제)
 /src/app/(route)/test/**
+
+

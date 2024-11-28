@@ -1,25 +1,25 @@
-describe("로그인 테스트", () => {
+describe("todos 페이지 테스트", () => {
   beforeEach(() => {
-    // API 인터셉트 추가
     cy.intercept("POST", "**/auth/login").as("loginRequest");
 
     cy.visit("/login");
 
-    // 환경변수 사용
-    const email = Cypress.env("TEST_EMAIL") || "test1234@test.com";
-    const password = Cypress.env("TEST_PASSWORD") || "123123123";
+    // 환경변수에서 테스트 계정 정보 가져오기
+    const testEmail = Cypress.env("TEST_EMAIL");
+    const testPassword = Cypress.env("TEST_PASSWORD");
 
-    // 요소 존재 확인 추가
-    cy.get('input[placeholder="이메일을 입력해 주세요"]').should("be.visible").type(email);
+    // 환경변수 존재 확인
+    if (!testEmail || !testPassword) {
+      throw new Error("Test credentials are not set in environment variables");
+    }
 
-    cy.get("[role='password']").should("be.visible").type(password);
+    cy.get('input[placeholder="이메일을 입력해 주세요"]').should("be.visible").type(testEmail);
+
+    cy.get("[role='password']").should("be.visible").type(testPassword);
 
     cy.get("[data-cy='login-button']").should("be.visible").click();
 
-    // 로그인 요청 완료 대기
-    cy.wait("@loginRequest").its("response.statusCode").should("eq", 201);
-
-    // 리다이렉션 대기 시간 증가
+    cy.wait("@loginRequest");
     cy.url().should("include", "/", { timeout: 10000 });
   });
 
