@@ -3,7 +3,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default function TodosLayout({ children }: { children: React.ReactNode }) {
+export default function NotesLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = cookies();
   const accessToken = cookieStore.get("accessToken");
 

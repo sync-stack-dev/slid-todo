@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "@/providers/react-query";
 import { ToastProvider } from "@/providers/toast-provider";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import AppSidebar from "@/components/shared/app-sidebar/app-sidebar";
 import { ConfirmModal } from "@/components/shared/confirm-modal";
 import { FormModal } from "@/components/shared/form-modal/index";
 
@@ -17,13 +15,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <body className="font-pretendard-medium font-medium antialiased">
         <Providers>
-          <SidebarProvider>
-            <AppSidebar />
-            <ToastProvider />
-            {children}
-            <ConfirmModal />
-            <FormModal />
-          </SidebarProvider>
+          <ToastProvider />
+          {children}
+          <ConfirmModal />
+          <FormModal />
         </Providers>
       </body>
     </html>

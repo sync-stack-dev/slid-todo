@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  build-jisu:
     runs-on: ubuntu-latest
     container: pandoc/latex
     steps:
@@ -20,10 +20,34 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.JS_GITHUB_KEY }}
         with:
-          source-directory: 'output'
-          destination-github-username: 'catmaker'
-          destination-repository-name: 'code-it-2'
+          source-directory: "output"
+          destination-github-username: "catmaker"
+          destination-repository-name: "code-it-2"
           user-email: ${{ secrets.JS_ACCOUNT_EMAIL }}
+          commit-message: ${{ github.event.commits[0].message }}
+          target-branch: main
+      - name: Test get variable exported by push-to-another-repository
+        run: echo $DESTINATION_CLONED_DIRECTORY
+
+  build-sunghan:
+    runs-on: ubuntu-latest
+    container: pandoc/latex
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install mustache (to update the date)
+        run: apk add ruby && gem install mustache
+      - name: creates output
+        run: sh ./build.sh
+      - name: Pushes to another repository
+        id: push_directory
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.SH_GITHUB_KEY }}
+        with:
+          source-directory: "output"
+          destination-github-username: "s-ggul"
+          destination-repository-name: "code-it-2"
+          user-email: ${{ secrets.SH_ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main
       - name: Test get variable exported by push-to-another-repository

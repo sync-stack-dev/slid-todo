@@ -1,15 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { useUserQuery } from "@/stores/use-user-store";
 import { Plus } from "lucide-react";
-import { useState } from "react";
 
 const AppSidebarUserInfo = () => {
-  // TODO : User 정보 연동
-  const [user, setUser] = useState({
-    name: "체다치즈",
-    email: "chedacheese@slid.kr",
-  });
+  const { data: user, isError } = useUserQuery();
 
-  // TODO : User 정보 연동 -> localStorage
+  if (isError || !user) return <div>뭔가 잘못됐다.</div>;
 
   // TODO : logout
 
