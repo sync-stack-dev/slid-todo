@@ -7,9 +7,9 @@ describe("todos 페이지 테스트", () => {
       throw new Error("TEAM_ID is not set in environment variables");
     }
 
-    Cypress.config("defaultCommandTimeout", 30000);
-    Cypress.config("pageLoadTimeout", 30000);
-    Cypress.config("requestTimeout", 30000);
+    Cypress.config("defaultCommandTimeout", 20000);
+    Cypress.config("pageLoadTimeout", 20000);
+    Cypress.config("requestTimeout", 20000);
 
     // 인터셉트 패턴을 더 유연하게 변경
     cy.intercept({
@@ -23,7 +23,7 @@ describe("todos 페이지 테스트", () => {
     cy.clearCookies();
     cy.clearLocalStorage();
 
-    cy.visit("/login", { timeout: 30000 });
+    cy.visit("/login", { timeout: 20000 });
 
     const testEmail = Cypress.env("TEST_EMAIL");
     const testPassword = Cypress.env("TEST_PASSWORD");
@@ -37,23 +37,23 @@ describe("todos 페이지 테스트", () => {
 
     // 로그인 프로세스
     cy.get('input[placeholder="이메일을 입력해 주세요"]')
-      .should("be.visible", { timeout: 30000 })
+      .should("be.visible", { timeout: 20000 })
       .type(testEmail, { delay: 100 });
 
     cy.get("[role='password']")
-      .should("be.visible", { timeout: 30000 })
+      .should("be.visible", { timeout: 20000 })
       .type(testPassword, { delay: 100 });
 
-    cy.get("[data-cy='login-button']").should("be.visible", { timeout: 30000 }).click();
+    cy.get("[data-cy='login-button']").should("be.visible", { timeout: 20000 }).click();
 
     // 로그인 요청 대기 및 확인
-    cy.wait("@loginRequest", { timeout: 30000 }).then((interception) => {
+    cy.wait("@loginRequest", { timeout: 20000 }).then((interception) => {
       console.log("Login Response:", interception.response);
       expect(interception.response?.statusCode).to.eq(201);
     });
 
     // 로그인 성공 후 리다이렉트 확인
-    cy.url().should("include", "/", { timeout: 30000 });
+    cy.url().should("include", "/", { timeout: 20000 });
   });
   it("할 일 추가 후 데이터가 추가되는지 확인", () => {
     cy.visit("/todos");
@@ -231,9 +231,9 @@ describe("todos 페이지 테스트", () => {
     // 페이지 방문 시 타임아웃 증가
     cy.visit("/todos", { timeout: 30000 });
     // 페이지가 완전히 로드될 때까지 대기
-    cy.get("h2", { timeout: 10000 }).should("be.visible");
+    cy.get("h2", { timeout: 5000 }).should("be.visible");
     // 수정할 데이터 존재 여부 확인
-    cy.get("[data-radix-scroll-area-viewport] .flex.items-center", { timeout: 10000 })
+    cy.get("[data-radix-scroll-area-viewport] .flex.items-center", { timeout: 5000 })
       .should("be.visible")
       .then(($items) => {
         if ($items.length > 0) {
