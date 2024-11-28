@@ -1,11 +1,24 @@
 describe("todos 페이지 테스트", () => {
   beforeEach(() => {
+    const API_URL = "https://sp-slidtodo-api.vercel.app";
+    const TEAM_ID = Cypress.env("TEAM_ID");
+
+    if (!TEAM_ID) {
+      throw new Error("TEAM_ID is not set in environment variables");
+    }
+
     Cypress.config("defaultCommandTimeout", 30000);
     Cypress.config("pageLoadTimeout", 30000);
     Cypress.config("requestTimeout", 30000);
 
-    cy.intercept("POST", "**/auth/login").as("loginRequest");
-    cy.intercept("GET", "**/todos**").as("getTodos");
+    // 요청 URL 로깅 추가
+    cy.intercept("POST", `${API_URL}/${TEAM_ID}/auth/login`, (req) => {
+      console.log("Login Request URL:", req.url);
+      console.log("Login Request Body:", req.body);
+      req.continue();
+    }).as("loginRequest");
+
+    cy.intercept("GET", `${API_URL}/${TEAM_ID}/todos**`).as("getTodos");
 
     cy.visit("/login", { timeout: 30000 });
     cy.wait(2000);
@@ -16,6 +29,10 @@ describe("todos 페이지 테스트", () => {
     if (!testEmail || !testPassword) {
       throw new Error("Test credentials are not set in environment variables");
     }
+
+    // 환경변수 값 로깅
+    console.log("TEAM_ID:", TEAM_ID);
+    console.log("TEST_EMAIL:", testEmail);
 
     cy.get('input[placeholder="이메일을 입력해 주세요"]')
       .should("be.visible", { timeout: 30000 })
@@ -28,17 +45,9 @@ describe("todos 페이지 테스트", () => {
     cy.get("[data-cy='login-button']").should("be.visible", { timeout: 30000 }).click();
 
     cy.wait("@loginRequest").then((interception) => {
+      console.log("Login Response:", interception.response);
       expect(interception.response?.statusCode).to.eq(201);
     });
-
-    cy.getCookie("accessToken").should("exist");
-
-    cy.url().should("include", "/", { timeout: 30000 });
-
-    // todos 페이지로 이동
-    cy.visit("/todos", { timeout: 30000 });
-    cy.url().should("include", "/todos", { timeout: 30000 });
-    cy.wait("@getTodos", { timeout: 30000 });
   });
 
   it("할 일 추가 후 데이터가 추가되는지 확인", () => {

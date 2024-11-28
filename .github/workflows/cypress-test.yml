@@ -48,6 +48,8 @@ jobs:
           TEAM_ID: ${{ secrets.TEAM_ID }}
           TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+          NEXT_PUBLIC_API_URL: https://sp-slidtodo-api.vercel.app
+
         with:
           build: npm run build
           start: npm start
