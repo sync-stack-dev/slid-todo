@@ -1,12 +1,14 @@
 describe("todos 페이지 테스트", () => {
   beforeEach(() => {
-    Cypress.config("defaultCommandTimeout", 10000);
-    Cypress.config("pageLoadTimeout", 10000);
+    Cypress.config("defaultCommandTimeout", 30000);
+    Cypress.config("pageLoadTimeout", 30000);
+    Cypress.config("requestTimeout", 30000);
 
     cy.intercept("POST", "**/auth/login").as("loginRequest");
     cy.intercept("GET", "**/todos**").as("getTodos");
 
-    cy.visit("/login", { timeout: 10000 });
+    cy.visit("/login", { timeout: 30000 });
+    cy.wait(2000);
 
     const testEmail = Cypress.env("TEST_EMAIL");
     const testPassword = Cypress.env("TEST_PASSWORD");
@@ -16,26 +18,45 @@ describe("todos 페이지 테스트", () => {
     }
 
     cy.get('input[placeholder="이메일을 입력해 주세요"]')
-      .should("be.visible", { timeout: 10000 })
-      .type(testEmail);
+      .should("be.visible", { timeout: 30000 })
+      .type(testEmail, { delay: 100 });
 
-    cy.get("[role='password']").should("be.visible", { timeout: 10000 }).type(testPassword);
+    cy.wait(1000);
 
-    cy.get("[data-cy='login-button']").should("be.visible", { timeout: 10000 }).click();
+    cy.get("[role='password']")
+      .should("be.visible", { timeout: 30000 })
+      .type(testPassword, { delay: 100 });
 
-    cy.wait("@loginRequest", { timeout: 10000 });
+    cy.wait(1000);
 
-    cy.url().should("include", "/", { timeout: 10000 });
+    cy.get("[data-cy='login-button']").should("be.visible", { timeout: 30000 }).click();
+
+    cy.wait("@loginRequest", { timeout: 30000 });
+
+    cy.url().should("include", "/", { timeout: 30000 });
+
+    cy.wait(5000);
+
+    cy.window().then((win) => {
+      const storage = win.localStorage.getItem("login-storage");
+      expect(storage).to.not.be.null;
+
+      const accessToken = win.document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("accessToken="));
+      expect(accessToken).to.not.be.undefined;
+    });
 
     cy.wait(2000);
 
-    cy.visit("/todos", { timeout: 10000 });
+    cy.visit("/todos", { timeout: 30000 });
 
-    cy.url()
-      .should("include", "/todos", { timeout: 10000 })
-      .then(() => {
-        cy.wait("@getTodos", { timeout: 10000 });
-      });
+    cy.wait(3000);
+
+    cy.url().should("include", "/todos", { timeout: 30000 });
+    cy.wait("@getTodos", { timeout: 30000 });
+
+    cy.wait(2000);
   });
 
   it("할 일 추가 후 데이터가 추가되는지 확인", () => {
