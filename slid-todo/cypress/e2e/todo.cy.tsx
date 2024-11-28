@@ -1,15 +1,28 @@
 describe("로그인 테스트", () => {
   beforeEach(() => {
+    // API 인터셉트 추가
+    cy.intercept("POST", "**/auth/login").as("loginRequest");
+
     cy.visit("/login");
 
-    cy.get('input[placeholder="이메일을 입력해 주세요"]').type("test1234@test.com");
-    cy.get("[role='password']").type("123123123");
-    cy.get("[data-cy='login-button']").click();
+    // 환경변수 사용
+    const email = Cypress.env("TEST_EMAIL") || "test1234@test.com";
+    const password = Cypress.env("TEST_PASSWORD") || "123123123";
 
-    cy.url().should("include", "/");
+    // 요소 존재 확인 추가
+    cy.get('input[placeholder="이메일을 입력해 주세요"]').should("be.visible").type(email);
 
-    cy.wait(1000);
+    cy.get("[role='password']").should("be.visible").type(password);
+
+    cy.get("[data-cy='login-button']").should("be.visible").click();
+
+    // 로그인 요청 완료 대기
+    cy.wait("@loginRequest").its("response.statusCode").should("eq", 201);
+
+    // 리다이렉션 대기 시간 증가
+    cy.url().should("include", "/", { timeout: 10000 });
   });
+
   it("할 일 추가 후 데이터가 추가되는지 확인", () => {
     cy.visit("/todos");
 

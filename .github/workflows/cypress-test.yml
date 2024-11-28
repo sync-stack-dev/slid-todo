@@ -55,3 +55,10 @@ jobs:
           working-directory: slid-todo
           wait-on: http://localhost:3000
           wait-on-timeout: 120
+      - name: Upload Screenshots
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: slid-todo/cypress/screenshots
+          if-no-files-found: ignore
