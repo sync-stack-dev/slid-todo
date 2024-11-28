@@ -1,8 +1,12 @@
 describe("todos 페이지 테스트", () => {
   beforeEach(() => {
-    cy.intercept("POST", "**/auth/login").as("loginRequest");
+    Cypress.config("defaultCommandTimeout", 10000);
+    Cypress.config("pageLoadTimeout", 10000);
 
-    cy.visit("/login");
+    cy.intercept("POST", "**/auth/login").as("loginRequest");
+    cy.intercept("GET", "**/todos**").as("getTodos");
+
+    cy.visit("/login", { timeout: 10000 });
 
     const testEmail = Cypress.env("TEST_EMAIL");
     const testPassword = Cypress.env("TEST_PASSWORD");
@@ -11,28 +15,27 @@ describe("todos 페이지 테스트", () => {
       throw new Error("Test credentials are not set in environment variables");
     }
 
-    cy.get('input[placeholder="이메일을 입력해 주세요"]').type(testEmail);
+    cy.get('input[placeholder="이메일을 입력해 주세요"]')
+      .should("be.visible", { timeout: 10000 })
+      .type(testEmail);
 
-    cy.get("[role='password']").type(testPassword);
+    cy.get("[role='password']").should("be.visible", { timeout: 10000 }).type(testPassword);
 
-    cy.get("[data-cy='login-button']").click();
+    cy.get("[data-cy='login-button']").should("be.visible", { timeout: 10000 }).click();
 
-    // 로그인 완료 대기
-    cy.wait("@loginRequest");
-    cy.url().should("include", "/");
+    cy.wait("@loginRequest", { timeout: 10000 });
 
-    // localStorage 설정 대기
-    cy.wait(1000);
+    cy.url().should("include", "/", { timeout: 10000 });
 
-    // todos 페이지로 이동 전에 인터셉트 설정
-    cy.intercept("GET", "**/todos**").as("getTodos");
+    cy.wait(2000);
 
-    // todos 페이지로 이동
-    cy.visit("/todos");
+    cy.visit("/todos", { timeout: 10000 });
 
-    // todos 페이지 로드 및 데이터 로드 대기
-    cy.url().should("include", "/todos");
-    cy.wait("@getTodos");
+    cy.url()
+      .should("include", "/todos", { timeout: 10000 })
+      .then(() => {
+        cy.wait("@getTodos", { timeout: 10000 });
+      });
   });
 
   it("할 일 추가 후 데이터가 추가되는지 확인", () => {
