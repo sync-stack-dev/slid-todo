@@ -81,16 +81,23 @@ describe("todos 페이지 테스트", () => {
   it("체크 버튼 클릭 시 체크 상태 변경 확인", () => {
     cy.visit("/todos");
     cy.url().should("include", "/todos");
-
     cy.get("[role='checkbox']")
       .should("exist")
       .then(($checkboxes) => {
         if ($checkboxes.length > 0) {
-          cy.get("[role='checkbox']").first().click();
-          cy.get("[role='checkbox']").first().should("have.attr", "data-state", "checked");
+          // 체크박스 클릭 및 상태 확인
+          cy.get("[role='checkbox']").first().as("checkbox");
 
-          cy.get("[role='checkbox']").first().click();
-          cy.get("[role='checkbox']").first().should("have.attr", "data-state", "unchecked");
+          // 첫 번째 클릭 후 상태 확인
+          cy.get("@checkbox").click();
+          cy.get("@checkbox")
+            .invoke("attr", "data-state")
+            .should("eq", "checked", { timeout: 2000 });
+          // 두 번째 클릭 후 상태 확인
+          cy.get("@checkbox").click();
+          cy.get("@checkbox")
+            .invoke("attr", "data-state")
+            .should("eq", "unchecked", { timeout: 2000 });
         } else {
           cy.log("체크할 수 있는 할 일이 없습니다.");
         }
