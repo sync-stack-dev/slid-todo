@@ -33,36 +33,11 @@ jobs:
       options: --user 1001
     steps:
       - name: Checkout
-      uses: actions/checkout@v4
-
-    # 의존성 캐싱 추가
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.npm
-          ${{ github.workspace }}/slid-todo/.next/cache
-        key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-nextjs-
-
-    # 환경변수 설정
-    - name: Create env file
-      run: |
-        cd slid-todo
-        echo "NEXT_PUBLIC_TEAM_ID=${{ secrets.TEAM_ID }}" > .env
-        echo "NEXT_PUBLIC_TEST_EMAIL=${{ secrets.TEST_EMAIL }}" >> .env
-        echo "NEXT_PUBLIC_TEST_PASSWORD=${{ secrets.TEST_PASSWORD }}" >> .env
-
-    - name: Cypress run
-      uses: cypress-io/github-action@v6
-      env:
-        NODE_ENV: production
-        TEAM_ID: ${{ secrets.TEAM_ID }}
-        TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
-        TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
-      with:
-        build: npm run build
-        start: npm run start
-        browser: chrome
-        working-directory: slid-todo
+        uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          build: npm run build
+          start: npm start
+          browser: chrome
+          working-directory: slid-todo
