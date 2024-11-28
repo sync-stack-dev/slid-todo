@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { PLACEHOLDER_TEXT } from "../constants";
 import { Input } from "@/components/ui/input";
+import { useCallback } from "react";
 
 interface AttachmentFieldProps {
   activeField: ActiveField;
@@ -24,6 +25,18 @@ export const AttachmentField = ({
   setActiveField,
 }: AttachmentFieldProps) => {
   const { control } = useFormContext();
+
+  const handleFileSelect = useCallback(() => {
+    if (typeof window === "undefined") return;
+
+    const input = document.createElement("input");
+    input.type = "file";
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) onFileSelect(file);
+    };
+    input.click();
+  }, [onFileSelect]);
 
   return (
     <FormField
@@ -62,15 +75,7 @@ export const AttachmentField = ({
                     const file = e.dataTransfer.files[0];
                     if (file) onFileSelect(file);
                   }}
-                  onClick={() => {
-                    const input = document.createElement("input");
-                    input.type = "file";
-                    input.onchange = (e) => {
-                      const file = (e.target as HTMLInputElement).files?.[0];
-                      if (file) onFileSelect(file);
-                    };
-                    input.click();
-                  }}
+                  onClick={handleFileSelect}
                 >
                   {PLACEHOLDER_TEXT.fileUrl}
                 </div>
