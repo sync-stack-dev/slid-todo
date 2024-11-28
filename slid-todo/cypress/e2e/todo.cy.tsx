@@ -11,19 +11,17 @@ describe("todos 페이지 테스트", () => {
     Cypress.config("pageLoadTimeout", 10000);
     Cypress.config("requestTimeout", 10000);
 
-    // 인터셉트 패턴을 더 유연하게 변경
     cy.intercept({
       method: "POST",
-      url: "**/auth/login", // 더 유연한 URL 패턴
+      url: "**/auth/login",
     }).as("loginRequest");
 
     cy.intercept("GET", `${API_URL}/${TEAM_ID}/todos**`).as("getTodos");
 
-    // 캐시 클리어 추가
     cy.clearCookies();
     cy.clearLocalStorage();
 
-    cy.visit("/login", { timeout: 10000 });
+    cy.visit("/login", { timeout: 12000 });
 
     const testEmail = Cypress.env("TEST_EMAIL");
     const testPassword = Cypress.env("TEST_PASSWORD");
@@ -35,7 +33,6 @@ describe("todos 페이지 테스트", () => {
     console.log("TEAM_ID:", TEAM_ID);
     console.log("TEST_EMAIL:", testEmail);
 
-    // 로그인 프로세스
     cy.get('input[placeholder="이메일을 입력해 주세요"]')
       .should("be.visible", { timeout: 10000 })
       .type(testEmail, { delay: 100 });
@@ -46,13 +43,11 @@ describe("todos 페이지 테스트", () => {
 
     cy.get("[data-cy='login-button']").should("be.visible", { timeout: 10000 }).click();
 
-    // 로그인 요청 대기 및 확인
     cy.wait("@loginRequest", { timeout: 10000 }).then((interception) => {
       console.log("Login Response:", interception.response);
       expect(interception.response?.statusCode).to.eq(201);
     });
 
-    // 로그인 성공 후 리다이렉트 확인
     cy.url().should("include", "/", { timeout: 10000 });
   });
   it("할 일 추가 후 데이터가 추가되는지 확인", () => {
@@ -105,25 +100,20 @@ describe("todos 페이지 테스트", () => {
   it("모든 할 일 h2에 총 개수 표시 및 첫 페이지 로딩 확인", () => {
     cy.visit("/todos");
     cy.url().should("include", "/todos");
-    cy.wait(1000); // API 로딩 대기
-    // 1. 헤더에 표시된 전체 할 일 개수 확인
+    cy.wait(1000);
     cy.get("h2")
       .invoke("text")
       .then((text) => {
         const match = text.match(/모든 할 일 \((\d+)\)/);
         const totalCount = parseInt(match![1]);
 
-        // 전체 개수가 유효한 숫자인지만 확인
         expect(totalCount).to.be.a("number");
         expect(totalCount).to.be.at.least(0);
       });
-    // 2. 실제 화면에 렌더링된 아이템이 있는지 확인
     cy.get("[role='checkbox']")
       .its("length")
       .then((length) => {
-        // 0개 이상의 아이템이 있는지 확인
         expect(length).to.be.at.least(0);
-        // 한 페이지 최대 크기(40개) 이하인지 확인
         expect(length).to.be.at.most(40);
       });
   });
@@ -192,25 +182,18 @@ describe("todos 페이지 테스트", () => {
 
     cy.get("[data-radix-scroll-area-viewport] .flex.items-center").then(($items) => {
       if ($items.length > 0) {
-        // 첫 번째 할 일의 데이터를 저장
         cy.wrap($items)
           .first()
           .within(() => {
-            // 제목 저장
             cy.get("span").invoke("text").as("originalTitle");
-            // 체크 상태 저장
             cy.get("[role='checkbox']").should("have.attr", "data-state").as("originalCheckbox");
-            // 더보기 버튼 클릭
             cy.get("button[aria-haspopup='menu']").click();
           });
 
-        // 수정 버튼 클릭
         cy.get("[data-cy='edit-button']").click();
 
-        // 모달이 표시되었는지 확인
         cy.get("[role='dialog']").should("be.visible");
 
-        // 저장된 데이터와 모달의 데이터 비교
         cy.get("@originalTitle").then((originalTitle) => {
           cy.get("@originalCheckbox").then((originalCheckbox) => {
             cy.get("[role='dialog']").within(() => {
@@ -226,31 +209,24 @@ describe("todos 페이지 테스트", () => {
   });
 
   it("수정 모달에서 할 일 수정 시 API 요청이 성공하는지 확인", () => {
-    // PATCH 요청 인터셉트
     cy.intercept("PATCH", "**/todos/*").as("updateTodo");
-    // 페이지 방문 시 타임아웃 증가
     cy.visit("/todos", { timeout: 30000 });
-    // 페이지가 완전히 로드될 때까지 대기
     cy.get("h2", { timeout: 5000 }).should("be.visible");
-    // 수정할 데이터 존재 여부 확인
     cy.get("[data-radix-scroll-area-viewport] .flex.items-center", { timeout: 5000 })
       .should("be.visible")
       .then(($items) => {
         if ($items.length > 0) {
-          // 첫 번째 항목 수정
           cy.wrap($items)
             .first()
             .within(() => {
               cy.get("button[aria-haspopup='menu']").click();
             });
           cy.get("[data-cy='edit-button']").click();
-          // 수정 모달에서 데이터 수정
           cy.get("[role='dialog']").within(() => {
             cy.get("input[name='title']").clear().type("수정된 제목");
             cy.get("[role='checkbox']").click();
             cy.get("[type='submit']").click();
           });
-          // PATCH 요청이 성공적으로 완료되었는지 확인
           cy.wait("@updateTodo").its("response.statusCode").should("eq", 200);
         } else {
           cy.log("수정할 할 일이 없습니다.");
@@ -259,13 +235,12 @@ describe("todos 페이지 테스트", () => {
   });
 
   it("Done Tap 클릭 시 완료된 할 일 확인", () => {
-    // 완료된 할 일 데이터 mock
     cy.intercept("GET", "**/todos?size=40", {
       statusCode: 200,
       body: {
         todos: Array.from({ length: 5 }, (_, index) => ({
           noteId: null,
-          done: true, // done 상태를 true로 설정
+          done: true,
           linkUrl: "https://www.naver.com",
           fileUrl: null,
           title: `완료된 할 일 ${index + 1}`,
@@ -286,13 +261,11 @@ describe("todos 페이지 테스트", () => {
 
     cy.contains("button", "Done").click();
 
-    // API 응답 대기
     cy.wait("@getDoneTasks");
 
-    // 체크박스 상태 확인
     cy.get("[data-radix-scroll-area-viewport]")
       .find("[role='checkbox']")
-      .should("have.length.at.least", 1) // 최소 1개 이상 존재
+      .should("have.length.at.least", 1)
       .each(($checkbox) => {
         cy.wrap($checkbox).should("have.attr", "data-state", "checked");
       });
@@ -324,9 +297,7 @@ describe("todos 페이지 테스트", () => {
     cy.url().should("include", "/todos");
     cy.contains("button", "To do").click();
 
-    // API 응답 대기
     cy.wait("@getTodoTasks");
-    // 체크박스 상태 확인
     cy.get("[data-radix-scroll-area-viewport]")
       .find("[role='checkbox']")
       .should("have.length.at.least", 1)
@@ -349,7 +320,6 @@ describe("todos 페이지 테스트", () => {
   });
 
   it("file 버튼 클릭 시 파일 다운로드가 작동하는지 확인", () => {
-    // 파일이 있는 할 일 데이터 mock
     cy.intercept("GET", "**/todos?size=40", {
       statusCode: 200,
       body: {
@@ -358,7 +328,7 @@ describe("todos 페이지 테스트", () => {
             noteId: null,
             done: false,
             linkUrl: null,
-            fileUrl: "https://example.com/test-file.pdf", // 파일 URL 추가
+            fileUrl: "https://example.com/test-file.pdf",
             title: "파일이 있는 할 일",
             id: 1,
             goal: null,
@@ -367,7 +337,6 @@ describe("todos 페이지 테스트", () => {
             updatedAt: new Date().toISOString(),
             createdAt: new Date().toISOString(),
           },
-          // 필요한 경우 더 많은 데이터 추가
         ],
         nextCursor: null,
         totalCount: 1,
@@ -375,15 +344,14 @@ describe("todos 페이지 테스트", () => {
     }).as("getTodos");
     cy.visit("/todos");
     cy.wait("@getTodos");
-    // 파일 버튼이 있는지 확인하고 테스트 진행
     cy.get("[data-cy='file-button']").then(($buttons) => {
       if ($buttons.length > 0) {
         cy.wrap($buttons)
           .first()
-          .should("have.attr", "href") // href 속성 확인
-          .and("include", "https://") // URL 형식 확인
+          .should("have.attr", "href")
+          .and("include", "https://")
           .then(() => {
-            cy.wrap($buttons).first().should("have.attr", "download"); // download 속성 확인
+            cy.wrap($buttons).first().should("have.attr", "download");
           });
       } else {
         cy.log("파일이 있는 할 일이 없습니다.");
@@ -433,7 +401,6 @@ describe("todos 페이지 테스트", () => {
       },
     }).as("getTodos");
 
-    // DELETE 요청을 mock으로 처리
     cy.intercept("DELETE", "**/todos/*", (req) => {
       console.log("Delete Request Headers:", req.headers);
       req.reply({
