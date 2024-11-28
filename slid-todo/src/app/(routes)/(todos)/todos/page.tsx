@@ -1,5 +1,7 @@
 import React from "react";
-import TodoList from "./components";
+import dynamic from "next/dynamic";
+
+const TodoList = dynamic(() => import("./components"), { ssr: false });
 
 const TodosPage = () => {
   return (
