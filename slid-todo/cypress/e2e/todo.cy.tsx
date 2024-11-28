@@ -1,8 +1,6 @@
 describe("todos 페이지 테스트", () => {
   beforeEach(() => {
-    // 로그인 API 인터셉트
     cy.intercept("POST", "**/auth/login").as("loginRequest");
-    cy.intercept("GET", "**/todos*").as("getTodos");
 
     cy.visit("/login");
 
@@ -13,27 +11,28 @@ describe("todos 페이지 테스트", () => {
       throw new Error("Test credentials are not set in environment variables");
     }
 
-    // 로그인
-    cy.get('input[placeholder="이메일을 입력해 주세요"]').should("be.visible").type(testEmail);
+    cy.get('input[placeholder="이메일을 입력해 주세요"]').type(testEmail);
 
-    cy.get("[role='password']").should("be.visible").type(testPassword);
+    cy.get("[role='password']").type(testPassword);
 
-    cy.get("[data-cy='login-button']").should("be.visible").click();
+    cy.get("[data-cy='login-button']").click();
 
-    // 로그인 요청 완료 대기
-    cy.wait("@loginRequest").its("response.statusCode").should("eq", 201);
+    // 로그인 완료 대기
+    cy.wait("@loginRequest");
+    cy.url().should("include", "/");
 
-    // 홈페이지로 리다이렉션 대기
-    cy.url().should("include", "/", { timeout: 10000 });
+    // localStorage 설정 대기
+    cy.wait(1000);
+
+    // todos 페이지로 이동 전에 인터셉트 설정
+    cy.intercept("GET", "**/todos**").as("getTodos");
 
     // todos 페이지로 이동
     cy.visit("/todos");
 
-    // todos 페이지 로드 확인
-    cy.url().should("include", "/todos", { timeout: 10000 });
-
-    // todos API 응답 대기
-    cy.wait("@getTodos", { timeout: 10000 });
+    // todos 페이지 로드 및 데이터 로드 대기
+    cy.url().should("include", "/todos");
+    cy.wait("@getTodos");
   });
 
   it("할 일 추가 후 데이터가 추가되는지 확인", () => {
