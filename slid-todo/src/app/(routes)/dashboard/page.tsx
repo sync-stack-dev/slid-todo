@@ -1,5 +1,5 @@
 import RecentToDo from "./components/recent-todo-block/recent-todo";
-import GoalToDo from "./components/goal-todo-block/board-goal-todo";
+import GoalToDo from "./components/goal-todo-block/goal-todo";
 import MyProgress from "./components/progress-block/board-progress";
 
 const DashBoard = () => {
