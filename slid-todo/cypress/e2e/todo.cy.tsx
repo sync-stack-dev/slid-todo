@@ -7,9 +7,9 @@ describe("todos 페이지 테스트", () => {
       throw new Error("TEAM_ID is not set in environment variables");
     }
 
-    Cypress.config("defaultCommandTimeout", 5000);
-    Cypress.config("pageLoadTimeout", 5000);
-    Cypress.config("requestTimeout", 5000);
+    Cypress.config("defaultCommandTimeout", 3000);
+    Cypress.config("pageLoadTimeout", 3000);
+    Cypress.config("requestTimeout", 3000);
 
     cy.intercept({
       method: "POST",
@@ -21,7 +21,7 @@ describe("todos 페이지 테스트", () => {
     cy.clearCookies();
     cy.clearLocalStorage();
 
-    cy.visit("/login", { timeout: 12000 });
+    cy.visit("/login", { timeout: 8000 });
 
     const testEmail = Cypress.env("TEST_EMAIL");
     const testPassword = Cypress.env("TEST_PASSWORD");
