@@ -3,10 +3,11 @@ import { useGoals } from "@/hooks/goals/use-goals";
 import { Flag } from "lucide-react";
 import { Goal } from "@/types/goal";
 import { useGoalStore } from "@/stores/use-goal-store";
+import Link from "next/link";
 
 const AppSidebarGoal = () => {
   const { data } = useGoals();
-  const setCurGoal = useGoalStore((state) => state.setCurGoal);
+  // const setCurGoal = useGoalStore((state) => state.setCurGoal);
 
   if (!data)
     return (
@@ -22,15 +23,15 @@ const AppSidebarGoal = () => {
         <div>목표</div>
       </div>
 
-      <div className="text-sm text-slate-700">
+      <div className="text-sm text-slate-700 ">
         {data.goals.map((goal: Goal) => (
-          <div
+          <Link
+            href={`/goals/${goal.id}`}
             key={goal.id}
-            className="p-1 hover:bg-slate-200 hover:cursor-pointer rounded-lg"
-            onClick={() => setCurGoal(goal)}
+            className="block p-1 hover:bg-slate-200 hover:cursor-pointer rounded-lg"
           >
             · {goal.title}
-          </div>
+          </Link>
         ))}
       </div>
     </div>
