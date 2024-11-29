@@ -51,8 +51,8 @@ describe("todos 페이지 테스트", () => {
     cy.url().should("include", "/", { timeout: 5000 });
   });
   it("할 일 추가 후 데이터가 추가되는지 확인", () => {
+    // 명시적으로 /todos 페이지 방문
     cy.visit("/todos");
-
     cy.url().should("include", "/todos");
 
     cy.contains("button", "할 일 추가").click();
@@ -64,10 +64,10 @@ describe("todos 페이지 테스트", () => {
       cy.get("[type='submit']").click();
     });
 
-    cy.get("[data-radix-scroll-area-viewport] .flex.items-center").should(
-      "contain",
-      "새로운 할 일",
-    );
+    // 데이터가 추가되었는지 확인
+    cy.get("[data-radix-scroll-area-viewport] .flex.items-center")
+      .should("be.visible")
+      .should("contain", "새로운 할 일");
   });
   it("로그인 성공 후 todos 페이지 접근", () => {
     cy.visit("/todos");
