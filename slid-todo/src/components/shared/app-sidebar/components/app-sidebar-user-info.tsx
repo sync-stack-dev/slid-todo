@@ -2,12 +2,23 @@ import { Button } from "@/components/ui/button";
 import { useTodoActions } from "@/hooks/todo/use-todo-actions";
 import { useFormModal } from "@/stores/use-form-modal-store";
 import { useUserQuery } from "@/stores/use-user-store";
+import { useLoginStore } from "@/stores/use-login-store"; // 로그아웃 훅 가져오기
 import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation"; // 로그아웃 후 로그인페이지로 라우팅을 위한
 
 const AppSidebarUserInfo = () => {
   const { data: user, isError } = useUserQuery();
   const { onOpen: onOpenFormModal } = useFormModal();
   const { createTodo } = useTodoActions();
+  const router = useRouter();
+
+  // TODO : logout
+  const { logout } = useLoginStore();
+  const handleLogout = () => {
+    logout(); // 로그아웃 처리 성공시, login page로 라우팅,,
+    router.push("/login");
+  };
+
 
   if (isError || !user) return <div>뭔가 잘못됐다.</div>;
 
@@ -22,8 +33,7 @@ const AppSidebarUserInfo = () => {
     });
   };
 
-  // TODO : logout
-
+  
   return (
     <div className="px-5 py-7">
       <div className="flex justify-between mb-5">
@@ -32,7 +42,9 @@ const AppSidebarUserInfo = () => {
           <div>{user.name}</div>
           <div>{user.email}</div>
 
-          <Button className="h-0 p-0 bg-transparent text-xs text-slate-400 hover:text-slate-700">
+          <Button className="h-0 p-0 bg-transparent text-xs text-slate-400 hover:text-slate-700"
+          onClick={handleLogout}
+          >
             로그아웃
           </Button>
         </div>
