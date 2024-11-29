@@ -2,6 +2,7 @@ import { Note } from "@/types/note";
 import NoteList from "../../../../../../public/svgs/note-list";
 import { Separator } from "@/components/ui/separator";
 import NoteMeatballBtn from "./note-meatball-btn";
+import { useNoteActions } from "@/hooks/note/use-note-actions";
 
 interface NoteCardProps {
   note: Note;
@@ -9,6 +10,8 @@ interface NoteCardProps {
 }
 
 const NoteCard = ({ note, onClick }: NoteCardProps) => {
+  const { deleteNote } = useNoteActions(note);
+
   return (
     <div
       onClick={onClick}
@@ -16,7 +19,16 @@ const NoteCard = ({ note, onClick }: NoteCardProps) => {
     >
       <div className="flex justify-between">
         <NoteList />
-        <NoteMeatballBtn noteId={note.id} />
+        <NoteMeatballBtn
+          noteId={note.id}
+          onDelete={{
+            title: "노트를 삭제하시겠어요?",
+            description: "삭제한 노트는 복구할 수 없습니다.",
+            action: async () => {
+              await deleteNote();
+            },
+          }}
+        />
       </div>
       <div className="text-slate-800 text-lg">{note.title}</div>
       <Separator className="border-[1px]" />
