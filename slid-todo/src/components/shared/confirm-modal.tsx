@@ -25,6 +25,7 @@ export const ConfirmModal = () => {
           <button
             className="px-4 py-2 text-sm text-gray-500 hover:bg-gray-100 rounded-md pointer-events-auto"
             onClick={onClose}
+            data-cy="cancel-button"
           >
             {data.cancelText || "취소"}
           </button>
@@ -40,6 +41,7 @@ export const ConfirmModal = () => {
               onConfirm?.();
               onClose();
             }}
+            data-cy="confirm-button"
           >
             {data.confirmText || "확인"}
           </button>

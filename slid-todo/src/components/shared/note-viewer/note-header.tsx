@@ -11,6 +11,7 @@ interface NoteHeaderProps {
 }
 
 export const NoteHeader = ({ todo, noteData, onClose }: NoteHeaderProps) => {
+  console.log(noteData);
   return (
     <header className="border-b p-4 mt-12">
       <button
@@ -23,7 +24,7 @@ export const NoteHeader = ({ todo, noteData, onClose }: NoteHeaderProps) => {
       <nav className="flex items-center mb-4 flex-shrink-0 gap-2">
         <Goal className="w-6 h-6" />
         <span className="text-base leading-6 font-medium font-pretendard underline-offset-[from-font] decoration-skip-ink-none text-left">
-          {noteData?.goal.title}
+          {noteData?.goal?.title}
         </span>
       </nav>
       <section className="flex items-center gap-2 text-sm text-gray-500 mb-4">
