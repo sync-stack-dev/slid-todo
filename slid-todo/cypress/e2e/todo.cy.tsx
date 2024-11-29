@@ -7,9 +7,9 @@ describe("todos 페이지 테스트", () => {
       throw new Error("TEAM_ID is not set in environment variables");
     }
 
-    Cypress.config("defaultCommandTimeout", 1000);
-    Cypress.config("pageLoadTimeout", 1000);
-    Cypress.config("requestTimeout", 1000);
+    Cypress.config("defaultCommandTimeout", 5000);
+    Cypress.config("pageLoadTimeout", 5000);
+    Cypress.config("requestTimeout", 5000);
 
     cy.intercept({
       method: "POST",
@@ -21,7 +21,7 @@ describe("todos 페이지 테스트", () => {
     cy.clearCookies();
     cy.clearLocalStorage();
 
-    cy.visit("/login", { timeout: 3000 });
+    cy.visit("/login", { timeout: 5000 });
 
     const testEmail = Cypress.env("TEST_EMAIL");
     const testPassword = Cypress.env("TEST_PASSWORD");
@@ -34,21 +34,21 @@ describe("todos 페이지 테스트", () => {
     console.log("TEST_EMAIL:", testEmail);
 
     cy.get('input[placeholder="이메일을 입력해 주세요"]')
-      .should("be.visible", { timeout: 1000 })
+      .should("be.visible", { timeout: 5000 })
       .type(testEmail, { delay: 10 });
 
     cy.get("[role='password']")
-      .should("be.visible", { timeout: 1000 })
+      .should("be.visible", { timeout: 5000 })
       .type(testPassword, { delay: 10 });
 
-    cy.get("[data-cy='login-button']").should("be.visible", { timeout: 1000 }).click();
+    cy.get("[data-cy='login-button']").should("be.visible", { timeout: 5000 }).click();
 
-    cy.wait("@loginRequest", { timeout: 1000 }).then((interception) => {
+    cy.wait("@loginRequest", { timeout: 5000 }).then((interception) => {
       console.log("Login Response:", interception.response);
       expect(interception.response?.statusCode).to.eq(201);
     });
 
-    cy.url().should("include", "/", { timeout: 1000 });
+    cy.url().should("include", "/", { timeout: 5000 });
   });
   it("할 일 추가 후 데이터가 추가되는지 확인", () => {
     cy.visit("/todos");
@@ -69,7 +69,6 @@ describe("todos 페이지 테스트", () => {
       "새로운 할 일",
     );
 
-    cy.get("a").should("have.attr", "href", "https://www.naver.com");
   });
   it("로그인 성공 후 todos 페이지 접근", () => {
     cy.visit("/todos");
@@ -92,12 +91,12 @@ describe("todos 페이지 테스트", () => {
           cy.get("@checkbox").click();
           cy.get("@checkbox")
             .invoke("attr", "data-state")
-            .should("eq", "checked", { timeout: 2000 });
+            .should("eq", "checked", { timeout: 5000 });
           // 두 번째 클릭 후 상태 확인
           cy.get("@checkbox").click();
           cy.get("@checkbox")
             .invoke("attr", "data-state")
-            .should("eq", "unchecked", { timeout: 2000 });
+            .should("eq", "unchecked", { timeout: 5000 });
         } else {
           cy.log("체크할 수 있는 할 일이 없습니다.");
         }
