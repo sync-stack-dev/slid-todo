@@ -28,6 +28,7 @@ const AppSidebarGoal = () => {
           <Link
             href={`/goals/${goal.id}`}
             key={goal.id}
+            data-cy="sidebar-goal-select-item"
             className="block p-1 hover:bg-slate-200 hover:cursor-pointer rounded-lg"
           >
             · {goal.title}

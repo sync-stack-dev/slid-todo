@@ -90,6 +90,28 @@ describe("todos 페이지 테스트", () => {
       expect(interception.response?.statusCode).to.eq(201);
     });
   });
+  it("Done 상태 변경", () => {
+    cy.intercept("PATCH", "**/todos/*").as("updateTodo");
+    cy.visit(`/goals/${sharedGoalId}`);
+
+    cy.get("[data-cy='sidebar-goal-select-item']")
+      .should("be.visible", { timeout: 5000 })
+      .first()
+      .click();
+
+    cy.get("[role='checkbox']").should("be.visible", { timeout: 5000 }).first().click();
+
+    cy.wait("@updateTodo").then((interception) => {
+      expect(interception.response?.statusCode).to.eq(200);
+    });
+  });
+  it("노트 모아보기 버튼 클릭 시 해당 목표의 노트 페이지로 이동", () => {
+    cy.visit(`/goals/${sharedGoalId}`);
+
+    cy.get("[data-cy='view-notes-button']").should("be.visible", { timeout: 5000 }).click();
+
+    cy.url().should("include", `/notes/${sharedGoalId}`);
+  });
   it("수정 테스트", () => {
     cy.intercept("PATCH", `**/goals/${sharedGoalId}`).as("updateGoal");
 
