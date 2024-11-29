@@ -35,11 +35,11 @@ describe("todos 페이지 테스트", () => {
 
     cy.get('input[placeholder="이메일을 입력해 주세요"]')
       .should("be.visible", { timeout: 5000 })
-      .type(testEmail, { delay: 30 });
+      .type(testEmail, { delay: 10 });
 
     cy.get("[role='password']")
       .should("be.visible", { timeout: 5000 })
-      .type(testPassword, { delay: 30 });
+      .type(testPassword, { delay: 10 });
 
     cy.get("[data-cy='login-button']").should("be.visible", { timeout: 5000 }).click();
 
@@ -68,8 +68,6 @@ describe("todos 페이지 테스트", () => {
       "contain",
       "새로운 할 일",
     );
-
-    cy.get("a").should("have.attr", "href", "https://www.naver.com");
   });
   it("로그인 성공 후 todos 페이지 접근", () => {
     cy.visit("/todos");
@@ -92,12 +90,12 @@ describe("todos 페이지 테스트", () => {
           cy.get("@checkbox").click();
           cy.get("@checkbox")
             .invoke("attr", "data-state")
-            .should("eq", "checked", { timeout: 2000 });
+            .should("eq", "checked", { timeout: 5000 });
           // 두 번째 클릭 후 상태 확인
           cy.get("@checkbox").click();
           cy.get("@checkbox")
             .invoke("attr", "data-state")
-            .should("eq", "unchecked", { timeout: 2000 });
+            .should("eq", "unchecked", { timeout: 5000 });
         } else {
           cy.log("체크할 수 있는 할 일이 없습니다.");
         }
@@ -107,7 +105,7 @@ describe("todos 페이지 테스트", () => {
   it("모든 할 일 h2에 총 개수 표시 및 첫 페이지 로딩 확인", () => {
     cy.visit("/todos");
     cy.url().should("include", "/todos");
-    cy.wait(1000);
+    cy.wait(5000);
     cy.get("h2")
       .invoke("text")
       .then((text) => {

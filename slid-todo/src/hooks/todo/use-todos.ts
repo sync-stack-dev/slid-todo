@@ -45,22 +45,22 @@ export const useTodoById = (id: number) => {
 // 최신 4개 todos
 export const useRecentTodos = () => {
   return useQuery<TodosResponse>({
-    queryKey: ["todos", "Recent"], // 쿼리 키
+    queryKey: ["todos", "Recent"],  // 쿼리 키
     queryFn: async () => {
-      const size = 40; // 서버에서 40개의 할 일을 가져옴
+      const size = 40;  // 서버에서 40개의 할 일을 가져옴
       const response = await instance.get<TodosResponse>("/todos", {
         params: {
           size,
         },
       });
-      console.log("Response Data이거임?:", response.data);
+     
       if (response.data?.todos) {
         // `todos` 배열이 있을 경우 생성일 기준으로 최신 4개만 가져옴
         const latestTodos = response.data.todos
           .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) // 생성일 기준 내림차순 정렬
-          .slice(0, 4); // 최신 4개만 반환
+          .slice(0, 4);  // 최신 4개만 반환
 
-        return { todos: latestTodos }; // 최신 4개 할 일을 포함한 객체 반환
+        return { todos: latestTodos };  // 최신 4개 할 일을 포함한 객체 반환
       }
       return { todos: [] };
     },
