@@ -1,0 +1,66 @@
+# dev branch로 push 시에
+name: Cypress Tests using Cypress Docker Image
+
+on:
+  push:
+  pull_request:
+    branches:
+      - dev
+  workflow_call:
+
+jobs:
+  # component-test:
+  #   runs-on: ubuntu-22.04
+  #   container:
+  #     image: cypress/browsers:node-22.11.0-chrome-130.0.6723.69-1-ff-132.0-edge-130.0.2849.56-1
+  #     options: --user 1001
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #     - name: Cypress run
+  #       uses: cypress-io/github-action@v6
+  #       with:
+  #         build: npm run build
+  #         start: npm start
+  #         browser: chrome
+  #         component: true
+  #         working-directory: slid-todo
+
+  e2e-test:
+    runs-on: ubuntu-22.04
+    container:
+      image: cypress/browsers:node-22.11.0-chrome-130.0.6723.69-1-ff-132.0-edge-130.0.2849.56-1
+      options: --user 1001
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create env file
+        run: |
+          cd slid-todo
+          echo "NEXT_PUBLIC_TEAM_ID=${{ secrets.TEAM_ID }}" > .env
+          echo "NEXT_PUBLIC_TEST_EMAIL=${{ secrets.TEST_EMAIL }}" >> .env
+          echo "NEXT_PUBLIC_TEST_PASSWORD=${{ secrets.TEST_PASSWORD }}" >> .env
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        env:
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+          NEXT_PUBLIC_API_URL: https://sp-slidtodo-api.vercel.app
+
+        with:
+          build: npm run build
+          start: npm start
+          browser: chrome
+          working-directory: slid-todo
+          wait-on: http://localhost:3000
+          wait-on-timeout: 120
+      - name: Upload Screenshots
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: slid-todo/cypress/screenshots
+          if-no-files-found: ignore

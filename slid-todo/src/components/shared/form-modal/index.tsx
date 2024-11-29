@@ -42,7 +42,7 @@ export const FormModal = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleCloseAttempt}>
-      <DialogContent className="max-w-[400px] p-0 gap-0">
+      <DialogContent className="max-w-[400px] p-0 gap-0" data-cy="form-modal">
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)}>
             <FormHeader

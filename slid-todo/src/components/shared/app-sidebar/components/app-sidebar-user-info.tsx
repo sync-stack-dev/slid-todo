@@ -1,15 +1,26 @@
 import { Button } from "@/components/ui/button";
+import { useTodoActions } from "@/hooks/todo/use-todo-actions";
+import { useFormModal } from "@/stores/use-form-modal-store";
+import { useUserQuery } from "@/stores/use-user-store";
 import { Plus } from "lucide-react";
-import { useState } from "react";
 
 const AppSidebarUserInfo = () => {
-  // TODO : User 정보 연동
-  const [user, setUser] = useState({
-    name: "체다치즈",
-    email: "chedacheese@slid.kr",
-  });
+  const { data: user, isError } = useUserQuery();
+  const { onOpen: onOpenFormModal } = useFormModal();
+  const { createTodo } = useTodoActions();
 
-  // TODO : User 정보 연동 -> localStorage
+  if (isError || !user) return <div>뭔가 잘못됐다.</div>;
+
+  // 모달
+  const handleOpenFormModal = () => {
+    onOpenFormModal({
+      type: "todo",
+      mode: "create",
+      onSubmit: (data) => {
+        createTodo(data);
+      },
+    });
+  };
 
   // TODO : logout
 
@@ -27,7 +38,10 @@ const AppSidebarUserInfo = () => {
         </div>
       </div>
 
-      <Button className="w-full text-white text-base bg-blue-500 hover:bg-blue-700">
+      <Button
+        onClick={handleOpenFormModal}
+        className="w-full text-white text-base bg-blue-500 hover:bg-blue-700"
+      >
         <Plus />
         <div>새 할 일</div>
       </Button>

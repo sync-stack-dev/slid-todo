@@ -1,5 +1,4 @@
 "use client";
-
 import { ModalType } from "@/stores/use-form-modal-store";
 import { ActiveField } from "./types";
 import { TitleField } from "./components/title-field";
@@ -26,9 +25,9 @@ export const FormContent = ({
   onFileRemove,
   setActiveField,
 }: FormContentProps) => {
-  return (
-    <div className="p-4 space-y-4">
-      <TitleField />
+  const renderTodoContent = () => (
+    <>
+      <TitleField type="todo" />
       {mode === "edit" && <DoneField />}
       <AttachmentField
         activeField={activeField}
@@ -37,7 +36,15 @@ export const FormContent = ({
         onFileRemove={onFileRemove}
         setActiveField={setActiveField}
       />
-      {type === "todo" && <GoalField />}
+      <GoalField />
+    </>
+  );
+
+  const renderGoalContent = () => <TitleField type="goal" />;
+
+  return (
+    <div className="p-4 space-y-4">
+      {type === "goal" ? renderGoalContent() : renderTodoContent()}
     </div>
   );
 };

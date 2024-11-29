@@ -1,5 +1,11 @@
 "use client";
-import { Sidebar, SidebarContent, SidebarHeader, useSidebar } from "@/components/ui/sidebar";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  useSidebar,
+} from "@/components/ui/sidebar";
 import React from "react";
 import { AppSidebarTrigger } from "./components/app-sidebar-trigger";
 import { AppSidebarFooter } from "./components/app-sidebar-footer";
@@ -25,6 +31,9 @@ const AppSidebar = () => {
           <Separator className="border-[1px]" />
           <AppSidebarGoal />
         </SidebarContent>
+        <SidebarFooter>
+          <AppSidebarFooter />
+        </SidebarFooter>
       </Sidebar>
 
       {!open && <AppSidebarTrigger />}

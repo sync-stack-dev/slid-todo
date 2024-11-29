@@ -8,7 +8,10 @@ export const ConfirmModal = () => {
   if (!isOpen || !data) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center"
+      data-cy="confirm-modal"
+    >
       <div
         className="absolute inset-0 bg-black/50 z-[9999] pointer-events-auto"
         onClick={onClose}
@@ -22,6 +25,7 @@ export const ConfirmModal = () => {
           <button
             className="px-4 py-2 text-sm text-gray-500 hover:bg-gray-100 rounded-md pointer-events-auto"
             onClick={onClose}
+            data-cy="cancel-button"
           >
             {data.cancelText || "취소"}
           </button>
@@ -37,6 +41,7 @@ export const ConfirmModal = () => {
               onConfirm?.();
               onClose();
             }}
+            data-cy="confirm-button"
           >
             {data.confirmText || "확인"}
           </button>
