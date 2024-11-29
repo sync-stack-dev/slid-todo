@@ -36,15 +36,17 @@ export const GoalField = () => {
                 }
               }}
             >
-              <SelectTrigger>
+              <SelectTrigger data-cy="goal-select-trigger">
                 <SelectValue placeholder="목표를 선택해주세요" />
               </SelectTrigger>
               <SelectContent>
                 {goalsLoading ? (
-                  <SelectItem value="loading">로딩중...</SelectItem>
+                  <SelectItem value="loading" data-cy="goal-select-item">
+                    로딩중...
+                  </SelectItem>
                 ) : goalsData?.goals && goalsData.goals.length > 0 ? (
                   goalsData.goals.map((goal) => (
-                    <SelectItem key={goal.id} value={goal.id.toString()}>
+                    <SelectItem key={goal.id} value={goal.id.toString()} data-cy="goal-select-item">
                       {goal.title}
                     </SelectItem>
                   ))

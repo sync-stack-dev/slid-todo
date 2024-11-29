@@ -41,6 +41,7 @@ const AppSidebarUserInfo = () => {
       <Button
         onClick={handleOpenFormModal}
         className="w-full text-white text-base bg-blue-500 hover:bg-blue-700"
+        data-cy="new-todo-button"
       >
         <Plus />
         <div>새 할 일</div>

@@ -71,7 +71,25 @@ describe("todos 페이지 테스트", () => {
       cy.url().should("include", `/goals/${sharedGoalId}`);
     });
   });
+  it("goals 페이지에서 todos 추가", () => {
+    cy.intercept("POST", "**/todos").as("createTodo");
+    cy.visit(`/goals/${sharedGoalId}`);
 
+    cy.wait(1000);
+    cy.get("[data-cy='new-todo-button']").should("be.visible", { timeout: 5000 }).click();
+
+    cy.get("[data-cy='form-modal-title']").should("be.visible", { timeout: 5000 }).click();
+    cy.get("[data-cy='form-modal-title']").type("테스트 투두 추가");
+
+    cy.get("[data-cy='goal-select-trigger']").should("be.visible", { timeout: 5000 }).click();
+    cy.get("[role='option']").should("be.visible", { timeout: 5000 }).first().click();
+
+    cy.get("[data-cy='form-modal-submit-button']").should("be.visible", { timeout: 5000 }).click();
+
+    cy.wait("@createTodo").then((interception) => {
+      expect(interception.response?.statusCode).to.eq(201);
+    });
+  });
   it("수정 테스트", () => {
     cy.intercept("PATCH", `**/goals/${sharedGoalId}`).as("updateGoal");
 
@@ -94,5 +112,20 @@ describe("todos 페이지 테스트", () => {
     cy.get("[data-cy='goal-title']")
       .should("be.visible", { timeout: 5000 })
       .should("have.text", "수정된 목표xudsnsdfsd");
+  });
+
+  it("삭제 테스트", () => {
+    cy.intercept("DELETE", `**/goals/${sharedGoalId}`).as("deleteGoal");
+
+    cy.visit(`/goals/${sharedGoalId}`);
+
+    cy.wait(1000);
+
+    cy.get("[data-cy='more-button']").should("be.visible", { timeout: 10000 }).first().click();
+    cy.get("[data-cy='delete-button']").should("be.visible", { timeout: 5000 }).click();
+
+    cy.get("[data-cy='confirm-button']").should("be.visible", { timeout: 5000 }).click();
+
+    cy.wait("@deleteGoal").its("response.statusCode").should("eq", 204);
   });
 });
