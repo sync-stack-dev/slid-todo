@@ -68,7 +68,6 @@ describe("todos 페이지 테스트", () => {
       "contain",
       "새로운 할 일",
     );
-
   });
   it("로그인 성공 후 todos 페이지 접근", () => {
     cy.visit("/todos");
