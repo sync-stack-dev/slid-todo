@@ -1,11 +1,14 @@
 import { Note } from "@/public/svgs";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 export const ViewNotesButton = () => {
+  const { goalId } = useParams();
+
   return (
     <Link
-      href={`/`}
+      href={`/notes/${goalId}`}
       className="flex items-center justify-between max-w-[1200px] max-h-[136px] bg-white rounded-lg py-4 px-6 mt-4 text-lg font-bold"
     >
       <div className="flex items-center gap-2 ">
