@@ -424,11 +424,11 @@ describe("todos 페이지 테스트", () => {
       .within(() => {
         cy.get("button[aria-haspopup='menu']").should("be.visible").click();
 
-        cy.wait(5000);
+        cy.wait(1000);
       });
 
     cy.get("[data-cy='delete-button']").click();
-    cy.wait(5000);
+    cy.wait(1000);
     cy.get("[data-cy='confirm-button']").click();
 
     cy.wait("@deleteTodo").its("response.statusCode").should("eq", 204);
