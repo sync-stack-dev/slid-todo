@@ -12,7 +12,9 @@ export const GoalHeader = ({ goal, progress }: { goal: Goal; progress: number })
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <GoalSvg className="w-10 h-10" />
-          <h1 className="text-lg font-semibold">{goal.title}</h1>
+          <h1 className="text-lg font-semibold" data-cy="goal-title">
+            {goal.title}
+          </h1>
         </div>
         <div>
           <MoreMenu

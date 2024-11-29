@@ -24,6 +24,7 @@ export const TitleField = ({ type }: TitleFieldProps) => {
               className={`text-lg font-medium ${
                 type !== "goal" ? "border-none px-0 placeholder:text-muted-foreground/30" : ""
               }`}
+              data-cy="form-modal-title"
             />
           </FormControl>
         </FormItem>

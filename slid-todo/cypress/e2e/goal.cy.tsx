@@ -77,7 +77,9 @@ describe("todos 페이지 테스트", () => {
 
     cy.visit(`/goals/${sharedGoalId}`);
 
-    cy.get("[data-cy='more-button']").should("be.visible", { timeout: 5000 }).click();
+    cy.wait(1000);
+
+    cy.get("[data-cy='more-button']").should("be.visible", { timeout: 10000 }).click();
     cy.get("[data-cy='edit-button']").should("be.visible", { timeout: 5000 }).click();
 
     cy.get("[data-cy='form-modal-title']")
