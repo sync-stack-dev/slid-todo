@@ -8,8 +8,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useConfirmModal } from "@/stores/use-confirm-modal-store";
 import { EllipsisVertical } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface MeatballBtnProps {
+  noteId: number;
   onDelete: {
     title: string;
     description: string;
@@ -17,8 +19,9 @@ interface MeatballBtnProps {
   };
 }
 
-const NoteMeatballBtn = ({ onDelete }: MeatballBtnProps) => {
+const NoteMeatballBtn = ({ noteId, onDelete }: MeatballBtnProps) => {
   const { onOpen } = useConfirmModal();
+  const router = useRouter();
 
   const handleDelete = (event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
@@ -31,8 +34,9 @@ const NoteMeatballBtn = ({ onDelete }: MeatballBtnProps) => {
     });
   };
 
-  const handleEdit = () => {
-    // TODO : redirect 노트 수정 페이지
+  const handleEdit = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    router.push(`/notes/edit/${noteId}`);
   };
 
   return (
@@ -41,9 +45,12 @@ const NoteMeatballBtn = ({ onDelete }: MeatballBtnProps) => {
         <EllipsisVertical className="w-[24px] h-[24px] rounded-full p-1 hover:bg-slate-100" />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel className="hover:bg-slate-100 hover:cursor-pointer">
+        <DropdownMenuItem
+          onClick={(event) => handleEdit(event)}
+          className="hover:bg-slate-100 hover:cursor-pointer"
+        >
           수정하기
-        </DropdownMenuLabel>
+        </DropdownMenuItem>
         <DropdownMenuSeparator className="border-[1px]" />
         <DropdownMenuItem
           onClick={(event) => handleDelete(event)}

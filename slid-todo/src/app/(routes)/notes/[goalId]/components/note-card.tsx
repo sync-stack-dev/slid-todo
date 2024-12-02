@@ -20,6 +20,7 @@ const NoteCard = ({ note, onClick }: NoteCardProps) => {
       <div className="flex justify-between">
         <NoteList />
         <NoteMeatballBtn
+          noteId={note.id}
           onDelete={{
             title: "노트를 삭제하시겠어요?",
             description: "삭제한 노트는 복구할 수 없습니다.",
