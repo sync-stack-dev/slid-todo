@@ -33,16 +33,16 @@ export const useGoalTodos = ({ goalId, done, cursor, size = 20 }: UseGoalTodosPa
   });
 };
 
-export const useGoalTodosInfinite = (goalId: number, done?: boolean) => {
+export const useGoalTodosInfinite = (goalId: number, done?: boolean, size: number = 20) => {
   return useInfiniteQuery({
-    queryKey: ["todos", goalId, done, "infinite"],
+    queryKey: ["todos", goalId, done, size, "infinite"],
     queryFn: async ({ pageParam = 0 }) => {
       const { data } = await instance.get<TodosResponse>(`/todos`, {
         params: {
           goalId,
           cursor: pageParam || undefined,
           done,
-          size: 20,
+          size,
         },
       });
       return data;
@@ -51,3 +51,4 @@ export const useGoalTodosInfinite = (goalId: number, done?: boolean) => {
     initialPageParam: 0,
   });
 };
+

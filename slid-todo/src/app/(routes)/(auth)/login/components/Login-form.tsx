@@ -71,13 +71,13 @@ const LoginForm = () => {
   const onSubmit = (data: LoginFormValues) => {
     login(data, {
       onSuccess: () => {
-        router.push("/");
+        router.push("/dashboard");
         router.refresh();
         toast.success("로그인 성공!");
       },
       onError: (error: any) => {
         if (error) {
-          console.log("에러 응답 데이터:", error.response.data);
+          // console.log("에러 응답 데이터:", error.response.data);
           // 가입되지 않은 이메일 로그인 시도 응답 메세지
           form.setError("email", { message: error.response.data.message });
           //  form.setError("password", { message: error.response.data.message });
