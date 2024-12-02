@@ -92,6 +92,7 @@ export const useFormModalLogic = () => {
     } catch (error) {
       console.error("폼 제출 실패:", error);
     }
+    form.reset();
   };
   return {
     form,

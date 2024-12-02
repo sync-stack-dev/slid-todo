@@ -16,12 +16,6 @@ const TodoHeader = ({ totalCount }: TodoHeaderProps) => {
     onOpenFormModal({
       type: "todo",
       mode: "create",
-      defaultValues: {
-        id: 0,
-        title: "",
-        linkUrl: "",
-        fileUrl: "",
-      },
       onSubmit: (data) => {
         createTodo(data);
       },
