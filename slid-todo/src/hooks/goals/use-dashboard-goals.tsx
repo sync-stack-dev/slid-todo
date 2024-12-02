@@ -1,6 +1,6 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+"use client"; 
+import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { instance } from "@/lib/axios";
-
 
 
 // 목표 데이터 타입
@@ -45,8 +45,6 @@ export const useGoalListInfinite = () => {
             params: { goalId: goal.id },
           });
 
-        
-
           return { 
             ...goal, 
             progress: progressResponse.progress, 
@@ -58,5 +56,16 @@ export const useGoalListInfinite = () => {
     },
     getNextPageParam: (lastPage) => (lastPage.nextCursor !== 0 ? lastPage.nextCursor : undefined),
     initialPageParam: 0,
+  });
+};
+
+// 전체 할일의 진행률 조회 대시보드: 프로그레스 데이터
+export const useProgress = () => {
+  return useQuery({
+    queryKey: ['progress'],
+    queryFn: async () => {
+      const ProgressResponse = await instance.get('/todos/progress');
+      return ProgressResponse.data.progress;
+    },
   });
 };

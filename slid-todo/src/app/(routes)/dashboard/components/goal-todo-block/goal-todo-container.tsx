@@ -81,7 +81,7 @@ const TodoSection = ({ goal }: { goal: Goal }) => {
       </div>) : null}
       
       {todos.length > 0 || doneTodos.length > 0 ? (
-         <div className="w-full flex">
+         <div className="w-full flex flex-col sm:flex-row">
             <div className="w-full bg-slate-200 rounded-lg p-4 h-[40%] flex flex-col">
               <div className="flex-1 px-4">
               <h2 className="mb-2">Todo</h2>

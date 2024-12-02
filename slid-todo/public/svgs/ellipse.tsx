@@ -1,13 +1,13 @@
-import { cn } from "@/utils/cn";  // 유틸리티 함수 경로 확인 필요
+import { cn } from "@/utils/cn"; 
 
 interface EllipseProps {
-  className?: string;  // 여기 문법은 정확함
+  className?: string;  
 }
 
 const Ellipse = ({ className }: EllipseProps) => {
   return (
     <svg
-      className={cn("w-auto h-auto", className)}  // 여기서도 문법 오류 없음
+      className={cn("w-auto h-auto", className)}  
       viewBox="0 0 199 155"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
