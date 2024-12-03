@@ -1,18 +1,14 @@
 import LoginForm from "./components/Login-form";
 import Image from "next/image";
-import Container from "@/components/ui/container";
-
 const LoginPage = () => {
   return (
     <div className="bg-white w-full">
-      <Container>
-        <div className="flex justify-center mb-8 flex-col items-center h-screen">
-          <div className="mb-8">
-            <Image src="/imgs/logo.png" alt="Slid to-do" width={270} height={89} priority />
-          </div>
-          <LoginForm />
+      <div className="flex justify-center flex-col items-center h-screen dark:bg-[#0F172A]">
+        <div className="mb-8">
+          <Image src="/imgs/logo.png" alt="Slid to-do" width={270} height={89} priority />
         </div>
-      </Container>
+        <LoginForm />
+      </div>
     </div>
   );
 };

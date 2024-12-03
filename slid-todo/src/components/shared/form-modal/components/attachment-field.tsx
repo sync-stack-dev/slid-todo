@@ -68,7 +68,7 @@ export const AttachmentField = ({
 
               {activeField === "file" && !selectedFile && (
                 <div
-                  className="border-2 border-dashed rounded-lg p-4 text-center cursor-pointer hover:bg-gray-50 h-[184px] flex items-center justify-center"
+                  className="border-2 border-dashed rounded-lg p-4 text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-800 h-[184px] flex items-center justify-center transition-colors"
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={(e) => {
                     e.preventDefault();

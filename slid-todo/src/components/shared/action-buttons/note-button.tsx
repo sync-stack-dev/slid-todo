@@ -13,7 +13,7 @@ export const NoteButton = ({ onClick }: NoteButtonProps) => {
         <Button
           variant="ghost"
           onClick={onClick}
-          className="p-1 hover:bg-gray-100 rounded-full aspect-square w-8 h-8"
+          className="p-1 hover:bg-gray-100 dark:hover:bg-slate-600 rounded-full aspect-square w-8 h-8"
         >
           <Notebook className="text-blue-400" data-cy="note-button" />
         </Button>

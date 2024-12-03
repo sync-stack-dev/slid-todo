@@ -8,10 +8,10 @@ import { useGoalActions } from "@/hooks/goals/use-goal-actions";
 export const GoalHeader = ({ goal, progress }: { goal: Goal; progress: number }) => {
   const { deleteGoal, updateGoal } = useGoalActions();
   return (
-    <div className="flex flex-col gap-2 max-w-[1200px] max-h-[136px] bg-white rounded-lg px-4 py-4">
+    <div className="flex flex-col gap-2 max-w-[1200px] max-h-[136px] bg-white dark:bg-slate-800 rounded-lg px-4 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <GoalSvg className="w-10 h-10" />
+          <GoalSvg className="w-10 h-10 " />
           <h1 className="text-lg font-semibold" data-cy="goal-title">
             {goal.title}
           </h1>

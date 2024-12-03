@@ -137,7 +137,7 @@ const LoginForm = () => {
           />
         </div>
         <SubmitButton isLoading={isLoading} />
-        <div className="text-center text-sm text-muted-foreground">
+        <div className="text-center text-sm text-muted-foreground flex gap-2 justify-center">
           아직 회원이 아니신가요?
           <Link href="/signup" className="text-blue-500 hover:underline">
             회원가입

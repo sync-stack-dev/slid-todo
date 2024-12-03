@@ -9,7 +9,7 @@ const MyProgress = () => {
   if (isLoading) return <div>로딩 중...</div>;
 
   return (
-    <div className="bg-[#3B82F6] w-full h-[250px] rounded-2xl flex-1  relative">
+    <div className="bg-[#3B82F6] dark:bg-blue-800 w-full h-[250px] rounded-2xl flex-1  relative">
       <Ellipse className="absolute left-[30%] bottom-0 w-[80%] h-[80%]" />
 
       <div className="relative z-10 p-6">
@@ -24,7 +24,10 @@ const MyProgress = () => {
                   <span className="text-base flex items-center h-full ml-1">%</span>
                 </>
               ) : (
-                "데이터 없음"
+                <>
+                  <span className="text-white">0</span>
+                  <span className="text-base flex items-center h-full ml-1">%</span>
+                </>
               )}
             </h1>
           </div>

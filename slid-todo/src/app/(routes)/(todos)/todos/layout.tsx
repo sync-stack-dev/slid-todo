@@ -5,7 +5,7 @@ export default function TodosLayout({ children }: { children: React.ReactNode })
   return (
     <SidebarProvider>
       <AppSidebar />
-      <div className="w-full h-screen bg-[#F1F5F9]">{children}</div>
+      <div className="w-full h-screen bg-[#F1F5F9] dark:bg-black">{children}</div>
     </SidebarProvider>
   );
 }

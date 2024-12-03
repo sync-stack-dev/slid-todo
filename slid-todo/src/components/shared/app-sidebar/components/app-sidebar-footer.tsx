@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { useGoalActions } from "@/hooks/goals/use-goal-actions";
 import { useFormModal } from "@/stores/use-form-modal-store";
@@ -7,7 +8,6 @@ export const AppSidebarFooter = () => {
   const { onOpen: onOpenFormModal } = useFormModal();
   const { createGoal } = useGoalActions();
 
-  // 모달
   const handleOpenFormModal = () => {
     onOpenFormModal({
       type: "goal",
@@ -19,14 +19,14 @@ export const AppSidebarFooter = () => {
   };
 
   return (
-    <div className="flex justify-between items-center px-5 py-2">
+    <div className="flex justify-between items-center px-5 py-2 flex-col">
       <Button
         onClick={handleOpenFormModal}
-        className="w-full border-[1px] border-blue-500 text-blue-500 text-base bg-white hover:bg-blue-300 hover:text-blue-800 hover:border-none"
+        className="w-full text-blue-500 text-base bg-white hover:bg-blue-300 dark:bg-blue-800 dark:text-white dark:hover:bg-blue-700"
         data-cy="create-goal-button"
       >
         <Plus />
-        <div>새 목표</div>
+        <span>새 목표</span>
       </Button>
     </div>
   );

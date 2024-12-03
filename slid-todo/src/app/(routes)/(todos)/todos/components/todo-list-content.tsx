@@ -39,5 +39,9 @@ export const TodoListContent = ({ data, activeTab }: TodoListContentProps) => {
   const allTodos = data?.pages.flatMap((page: TodoPage) => page.todos) || [];
   const displayTodos = getFilteredTodos(allTodos, activeTab);
 
-  return <TodoList todos={displayTodos} observerRef={ref} isLoading={isFetchingNextPage} />;
+  return (
+    <div className="flex-1">
+      <TodoList todos={displayTodos} observerRef={ref} isLoading={isFetchingNextPage} />
+    </div>
+  );
 };

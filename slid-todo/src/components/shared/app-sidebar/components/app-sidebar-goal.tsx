@@ -23,13 +23,13 @@ const AppSidebarGoal = () => {
         <span className="text-lg font-medium">목표</span>
       </div>
 
-      <div className="text-sm text-slate-700 flex flex-col gap-1">
+      <div className="text-sm text-slate-700 dark:text-slate-300 flex flex-col gap-1">
         {data.goals.map((goal: Goal) => (
           <Link
             href={`/goals/${goal.id}`}
             key={goal.id}
             data-cy="sidebar-goal-select-item"
-            className="block p-1 hover:bg-slate-200 hover:cursor-pointer rounded-lg"
+            className="block p-1 hover:bg-slate-200 dark:hover:bg-slate-700 hover:cursor-pointer rounded-lg"
           >
             · {goal.title}
           </Link>

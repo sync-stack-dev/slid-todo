@@ -9,7 +9,7 @@ interface TodoItemProps {
 const TodoItem = ({ todo }: TodoItemProps) => {
   return (
     <div
-      className="flex items-center gap-2 text-sm px-2 hover:bg-gray-50 rounded group animate-fade-in-up leading-5"
+      className="flex items-center gap-2 text-sm px-2 hover:bg-gray-50 dark:hover:bg-slate-800 rounded group animate-fade-in-up leading-5 transition-colors"
       data-cy="todo-item"
     >
       <TodoItemCheckbox todo={todo} />
