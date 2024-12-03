@@ -1,3 +1,4 @@
+import AppSidebar from "@/components/shared/app-sidebar/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
