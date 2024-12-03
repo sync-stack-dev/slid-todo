@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { useTodoActions } from "@/hooks/todo/use-todo-actions";
 import { useFormModal } from "@/stores/use-form-modal-store";
-
+import { ChevronDown } from "lucide-react";
 interface Goal {
   id: number;
   title: string;
@@ -116,34 +116,35 @@ const TodoSection = ({ goal }: { goal: Goal }) => {
   };
 
   return (
-    <div className="bg-slate-200 rounded-xl p-4 shadow-md">
-      <div className="flex justify-between">
-        <h1 className="text-md font-semibold mb-2">{goal.title}</h1>
-        <Button className="bg-slate-200 text-blue-500 hover:bg-white" onClick={handleOpenFormModal}>
+    <div className="bg-blue-50 rounded-3xl p-4 shadow-md">
+      <div className="flex justify-between p-2">
+        <h1 className="text-lg font-semibold mb-2">{goal.title}</h1>
+        <Button
+          className="bg-transparent text-blue-500 text-sm hover:bg-transparent p-0"
+          onClick={handleOpenFormModal}
+        >
           + 할일 추가
         </Button>
       </div>
 
-      {goal.progress > 0 ? (
-        <div className="flex items-center gap-4 mb-2">
-          <Progress value={goal.progress} className="w-full h-2" />
-          <p className="text-sm font-semibold">{goal.progress}%</p>
-        </div>
-      ) : null}
+      <div className="flex items-center gap-4 mb-2 bg-white rounded-2xl p-0.5 px-2">
+        <Progress value={goal.progress} className="w-full h-1.5 rounded-2xl" />
+        <p className="text-sm font-semibold">{goal.progress}%</p>
+      </div>
 
       {todos.length > 0 || doneTodos.length > 0 ? (
         <div className="w-full flex flex-col md:flex-row">
-          <div className="w-full bg-slate-200 rounded-lg p-4 h-[40%] flex flex-col">
-            <div className="flex-1 px-4">
-              <h2 className="mb-2">Todo</h2>
+          <div className="w-full rounded-lg h-[40%] flex flex-col">
+            <div className="flex-1 px-2 mt-2">
+              <h2 className="mb-2">To do</h2>
               {todos.map((todo) => (
                 <TodoItem key={todo.id} todo={todo} />
               ))}
             </div>
           </div>
 
-          <div className="w-full bg-slate-200 rounded-lg p-4 h-[40%] flex flex-col">
-            <div className="flex-1 px-4">
+          <div className="w-full rounded-lg  h-[40%] flex flex-col">
+            <div className="flex-1 px-2 mt-2">
               <h2 className="mb-2">Done</h2>
               {doneTodos.map((todo) => (
                 <TodoItem key={todo.id} todo={todo} />
@@ -161,11 +162,18 @@ const TodoSection = ({ goal }: { goal: Goal }) => {
         {(todos.length < 0 && doneTodos.length < 0) ||
         (todosCursor === null && doneTodosCursor === null) ? null : (
           <Button
-            className="w-24 h-8 bg-white text-[#333] rounded-2xl hover:text-white"
+            className="w-32 h-8 mt-4 mb-2 bg-white text-[#333] rounded-2xl hover:text-white"
             onClick={loadMore}
             disabled={isFetchingTodoNextPage || isFetchingDoneNextPage}
           >
-            {isFetchingTodoNextPage || isFetchingDoneNextPage ? "로딩 중..." : "더 보기"}
+            {isFetchingTodoNextPage || isFetchingDoneNextPage ? (
+              "로딩 중..."
+            ) : (
+              <>
+                <span>더보기</span>
+                <ChevronDown className="w-4 h-4" />
+              </>
+            )}
           </Button>
         )}
       </div>

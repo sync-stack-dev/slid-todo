@@ -1,5 +1,5 @@
 import { Note } from "@/types/note";
-import NoteList from "../../../../../../public/svgs/note-list";
+import NoteList from "@/public/svgs/note-list";
 import { Separator } from "@/components/ui/separator";
 import NoteMeatballBtn from "./note-meatball-btn";
 import { useNoteActions } from "@/hooks/note/use-note-actions";

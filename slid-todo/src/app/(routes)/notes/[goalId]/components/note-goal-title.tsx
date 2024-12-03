@@ -1,4 +1,4 @@
-import { Goal } from "../../../../../../public/svgs";
+import { Goal } from "@/public/svgs";
 
 interface NoteGoalTitleProps {
   goalTitle: string;

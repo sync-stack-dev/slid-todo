@@ -21,14 +21,7 @@ const Circle = ({ className, progress }: CircleProps) => {
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* 배경 원 */}
-      <circle
-        cx="83"
-        cy="83"
-        r={radius}
-        stroke="#F8FAFC"
-        strokeWidth="32"
-        fill="none"
-      />
+      <circle cx="83" cy="83" r={radius} stroke="#F8FAFC" strokeWidth="32" fill="none" />
       {/* 진행 상태 원 */}
       <circle
         cx="83"
