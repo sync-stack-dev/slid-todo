@@ -13,7 +13,7 @@ const TodoItem = ({ todo }: TodoItemProps) => {
       data-cy="todo-item"
     >
       <TodoItemCheckbox todo={todo} />
-      <span className={todo.done ? "text-gray-400" : ""}>{todo.title}</span>
+      <span className={todo.done ? " line-through" : ""}>{todo.title}</span>
       <TodoActions todo={todo} />
     </div>
   );

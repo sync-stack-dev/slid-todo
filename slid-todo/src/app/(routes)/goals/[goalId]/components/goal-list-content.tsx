@@ -66,11 +66,11 @@ export const GoalListContent = () => {
   return (
     <div className="mt-4 flex flex-col lg:flex-row gap-4 max-w-[1200px] h-full">
       <div className="w-full bg-white rounded-lg p-4 h-[600px] flex flex-col">
-        <div className="flex justify-between items-center">
-          <h2 className="mb-4 ">Todo</h2>
+        <div className="flex justify-between items-center px-4 h-10">
+          <h2>Todo</h2>
           <Button
             variant="default"
-            className="text-sm text-blue-500 font-semibold bg-transparent hover:bg-transparent "
+            className="text-sm text-blue-500 font-semibold bg-transparent hover:bg-transparent p-0"
             onClick={handleOpenFormModal}
           >
             + 할 일 추가
@@ -81,7 +81,9 @@ export const GoalListContent = () => {
         </ScrollArea>
       </div>
       <div className="w-full bg-slate-200 rounded-lg p-4 h-[600px] flex flex-col">
-        <h2 className="mb-4">Done</h2>
+        <div className="flex justify-between items-center px-4 h-10">
+          <h2>Done</h2>
+        </div>
         <ScrollArea className="flex-1 px-4">
           <TodoList todos={doneTodos} observerRef={doneRef} isLoading={isFetchingDoneNextPage} />
         </ScrollArea>

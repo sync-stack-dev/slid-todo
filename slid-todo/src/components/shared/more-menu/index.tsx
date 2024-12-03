@@ -65,7 +65,7 @@ export const MoreMenu = ({ onDelete, onEdit }: MoreMenuProps) => {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className="p-1 hover:bg-gray-100 rounded"
+                className="p-1 hover:bg-gray-100 rounded-full w-8 h-8"
                 data-cy="more-button"
               >
                 <MoreHorizontal className="w-4 h-4" />

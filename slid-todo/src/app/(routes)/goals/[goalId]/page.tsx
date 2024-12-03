@@ -15,11 +15,13 @@ const GoalPage = () => {
   if (!goal) return <div>목표를 찾을 수 없습니다.</div>;
 
   return (
-    <div className="container mx-auto px-4 py-6 bg-[#F1F5F9] h-full">
-      <h1 className="text-lg font-semibold mb-4">목표</h1>
-      <GoalHeader goal={goal} progress={goal.progress} />
-      <ViewNotesButton />
-      <GoalListContent />
+    <div className="container px-4 py-6 ">
+      <div className="rounded-2xl w-full mx-auto h-full lg:mx-16">
+        <h1 className="text-lg font-semibold mb-4">목표</h1>
+        <GoalHeader goal={goal} progress={goal.progress} />
+        <ViewNotesButton />
+        <GoalListContent />
+      </div>
     </div>
   );
 };

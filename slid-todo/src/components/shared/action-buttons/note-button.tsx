@@ -13,9 +13,9 @@ export const NoteButton = ({ onClick }: NoteButtonProps) => {
         <Button
           variant="ghost"
           onClick={onClick}
-          className="p-1 hover:bg-gray-100 rounded-full aspect-square"
+          className="p-1 hover:bg-gray-100 rounded-full aspect-square w-8 h-8"
         >
-          <Notebook className="w-4 h-4" data-cy="note-button" />
+          <Notebook className="text-blue-400" data-cy="note-button" />
         </Button>
       </TooltipTrigger>
       <TooltipContent>노트 열기</TooltipContent>

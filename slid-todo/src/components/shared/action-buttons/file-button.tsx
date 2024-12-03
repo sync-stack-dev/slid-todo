@@ -14,7 +14,7 @@ export const FileButton = ({ url }: FileButtonProps) => {
       <TooltipTrigger asChild>
         <Button
           variant="ghost"
-          className="p-1 hover:bg-gray-100 rounded-full aspect-square"
+          className="p-1 hover:bg-gray-100 rounded-full aspect-square w-8 h-8"
           title={url}
         >
           <a
@@ -25,7 +25,7 @@ export const FileButton = ({ url }: FileButtonProps) => {
             className="w-4 h-4"
             data-cy="file-button"
           >
-            <FileText />
+            <FileText className="text-blue-400" />
           </a>
         </Button>
       </TooltipTrigger>
