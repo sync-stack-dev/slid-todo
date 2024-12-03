@@ -1,4 +1,3 @@
-"use client";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { instance } from "@/lib/axios";
 
