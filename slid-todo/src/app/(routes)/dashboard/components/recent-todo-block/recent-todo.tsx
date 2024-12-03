@@ -5,7 +5,7 @@ import RecentContainer from "./recent-container";
 
 const RecentToDo = () => {
     return(
-        <div className="bg-white w-[50%] h-[250px] rounded-2xl flex flex-col gap-[8px] p-4">
+        <div className="bg-white w-full h-[250px] rounded-2xl flex flex-col gap-[8px] p-4">
             <RecentToDoHeader />
             <RecentContainer />
         </div>

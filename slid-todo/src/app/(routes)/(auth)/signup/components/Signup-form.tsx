@@ -41,13 +41,14 @@ const SignupForm = () => {
 const onSubmit = (data: SignupFormValues) => {
   Signup(data, {
     onSuccess: () => {
-      router.push("/login");
+     // 회원가입 후 로그인 페이지에서 자동 이메일 입력을 위해 쿼리로 이메일 보내기
+      router.push(`/login?email=${data.email}`);
       router.refresh();
       toast.success("회원가입 성공!");
     },
     onError: (error: any) => {
       if (error) {
-        console.log("회원가입 에러:", error.response.data);
+       // console.log("회원가입 에러:", error.response.data);
         form.setError("email", { message: error.response.data.message });
       }
       toast.error(error.response.data.message);
