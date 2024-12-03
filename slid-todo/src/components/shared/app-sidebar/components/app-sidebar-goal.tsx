@@ -1,20 +1,33 @@
+// components/shared/app-sidebar/components/app-sidebar-goal.tsx
 "use client";
 import { useGoals } from "@/hooks/goals/use-goals";
 import { Flag } from "lucide-react";
 import { Goal } from "@/types/goal";
-import { useGoalStore } from "@/stores/use-goal-store";
 import Link from "next/link";
+import Skeleton from "@/components/shared/skeleton";
 
 const AppSidebarGoal = () => {
-  const { data } = useGoals();
-  // const setCurGoal = useGoalStore((state) => state.setCurGoal);
+  const { data, isLoading } = useGoals();
 
-  if (!data)
+  if (isLoading) {
     return (
-      <>
-        <div>목표 없음</div>
-      </>
+      <div className="px-5 py-2">
+        <div className="flex items-center pb-5">
+          <Skeleton className="w-[16px] h-[16px] mr-3 rounded-full" />
+          <Skeleton className="h-[22px] w-24 rounded-xl" />
+        </div>
+        <div className="flex flex-col gap-2">
+          <Skeleton className="h-4 w-3/4 rounded-xl" />
+          <Skeleton className="h-4 w-2/3 rounded-xl" />
+          <Skeleton className="h-4 w-1/2 rounded-xl" />
+        </div>
+      </div>
     );
+  }
+
+  if (!data) {
+    return <div>목표 없음</div>;
+  }
 
   return (
     <div className="px-5 py-2">
