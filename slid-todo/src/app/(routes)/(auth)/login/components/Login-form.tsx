@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,9 +21,13 @@ import { loginSchema, LoginFormValues } from "./utils/validation"; // 유효성�
 
 const LoginForm = () => {
   const router = useRouter();
-  const { mutate: login, status, isError, error } = useLoginMutation(); // 변경된 부분
+  const searchParams = useSearchParams(); 
+  const { mutate: login, status, isError, error } = useLoginMutation(); 
   const isLoading = status === "pending"; // isLoading 정의
   // const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+
+  // 회원가입 후 URL에서 이메일 가져오기.
+  const emailFromQuery = searchParams.get('email') || '';
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -58,16 +62,22 @@ const LoginForm = () => {
   //   }
   // };
 
+  useEffect(() => {
+    if (emailFromQuery) {
+      form.setValue("email", emailFromQuery); // 이메일 값이 있을 때만 설정
+    }
+  }, [emailFromQuery, form]);
+
   const onSubmit = (data: LoginFormValues) => {
     login(data, {
       onSuccess: () => {
-        router.push("/");
+        router.push("/dashboard");
         router.refresh();
         toast.success("로그인 성공!");
       },
       onError: (error: any) => {
         if (error) {
-          console.log("에러 응답 데이터:", error.response.data);
+          // console.log("에러 응답 데이터:", error.response.data);
           // 가입되지 않은 이메일 로그인 시도 응답 메세지
           form.setError("email", { message: error.response.data.message });
           //  form.setError("password", { message: error.response.data.message });

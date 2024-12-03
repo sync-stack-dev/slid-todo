@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import { TodoList } from "@/components/shared/todo-list";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
-
 import { Loading } from "@/components/shared/loading";
 import { ScrollArea } from "@/components/ui/scroll-area";
 export const GoalListContent = () => {

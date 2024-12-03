@@ -63,8 +63,12 @@ export const MoreMenu = ({ onDelete, onEdit }: MoreMenuProps) => {
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="p-1 hover:bg-gray-100 rounded">
-                <MoreHorizontal className="w-4 h-4" data-cy="more-button" />
+              <Button
+                variant="ghost"
+                className="p-1 hover:bg-gray-100 rounded"
+                data-cy="more-button"
+              >
+                <MoreHorizontal className="w-4 h-4" />
               </Button>
             </DropdownMenuTrigger>
           </TooltipTrigger>

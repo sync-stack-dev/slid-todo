@@ -51,7 +51,11 @@ export const useGoalActions = (goal?: Goal) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["goals"] });
       toast.success("목표가 삭제되었습니다.");
+      setTimeout(() => {
+        router.push("/todos");
+      }, 100);
     },
+
     onError: (error: any) => {
       const errorMessage = error.response?.data?.message || "목표 삭제에 실패했습니다.";
       toast.error(errorMessage);
