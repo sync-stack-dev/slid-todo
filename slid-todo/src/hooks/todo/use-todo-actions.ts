@@ -117,7 +117,11 @@ export const useTodoActions = (todo?: Todo) => {
       queryClient.invalidateQueries({
         queryKey: ["progress"],
       });
-
+      if (todo?.goal?.id) {
+        queryClient.invalidateQueries({
+          queryKey: ["goals", todo.goal.id],
+        });
+      }
       toast.success("할 일 상태가 업데이트되었습니다.");
     },
     onError: () => {
