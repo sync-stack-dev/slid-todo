@@ -99,6 +99,24 @@ export const useTodoActions = (todo?: Todo) => {
       queryClient.invalidateQueries({
         queryKey: ["todos"],
       });
+
+      if (todo?.goal?.id) {
+        queryClient.invalidateQueries({
+          queryKey: ["goals", todo.goal.id],
+        });
+
+        queryClient.invalidateQueries({
+          queryKey: ["todos", todo.goal.id],
+        });
+
+        queryClient.invalidateQueries({
+          queryKey: ["goals", "infinite"],
+        });
+      }
+
+      queryClient.invalidateQueries({
+        queryKey: ["progress"],
+      });
       if (todo?.goal?.id) {
         queryClient.invalidateQueries({
           queryKey: ["goals", todo.goal.id],
@@ -110,7 +128,6 @@ export const useTodoActions = (todo?: Todo) => {
       toast.error("상태 업데이트에 실패했습니다.");
     },
   });
-
   return {
     createTodo,
     deleteTodo,

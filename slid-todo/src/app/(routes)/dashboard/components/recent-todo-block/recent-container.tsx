@@ -1,7 +1,6 @@
 import { useRecentTodos } from "@/hooks/todo/use-todos";
 import TodoItem from "@/components/shared/todo-list/todo-item";
 
-
 const RecentContainer = () => {
   const { data, error, isLoading, isError } = useRecentTodos();
 
@@ -19,13 +18,11 @@ const RecentContainer = () => {
   return (
     <div className="w-full h-full space-y-2">
       {data?.todos && data.todos.length > 0 ? (
-        data.todos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} />
-        ))
+        data.todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)
       ) : (
         <div className="w-full h-full flex items-center justify-center">
           최근에 등록한 할 일이 없어요
-          </div>
+        </div>
       )}
     </div>
   );

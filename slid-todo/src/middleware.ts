@@ -13,6 +13,13 @@ export function middleware(req: NextRequest) {
 
   console.info(`[${new Date().toISOString()}] ${req.method} ${pathname}`);
 
+  if (pathname === "/") {
+    if (!accessToken) {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
+    return NextResponse.redirect(new URL("/dashboard", req.url));
+  }
+
   const isProtectedPath = protectedPath.some((path) => pathname.startsWith(path));
   const isAuthOnlyPath = authOnlyPath.some((path) => pathname.startsWith(path));
 
