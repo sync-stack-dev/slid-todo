@@ -1,13 +1,13 @@
-import { cn } from "@/utils/cn"; 
+import { cn } from "@/utils/cn";
 
 interface EllipseProps {
-  className?: string;  
+  className?: string;
 }
 
 const Ellipse = ({ className }: EllipseProps) => {
   return (
     <svg
-      className={cn("w-auto h-auto", className)}  
+      className={cn("w-auto h-auto", className)}
       viewBox="0 0 199 155"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

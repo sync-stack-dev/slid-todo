@@ -22,7 +22,7 @@ export const AppSidebarFooter = () => {
     <div className="flex justify-between items-center px-5 py-2">
       <Button
         onClick={handleOpenFormModal}
-        className="w-full border-[1px] border-blue-500 text-blue-500 text-base bg-white hover:bg-blue-300 hover:text-blue-800"
+        className="w-full border-[1px] border-blue-500 text-blue-500 text-base bg-white hover:bg-blue-300 hover:text-blue-800 hover:border-none"
         data-cy="create-goal-button"
       >
         <Plus />

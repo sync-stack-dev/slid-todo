@@ -43,15 +43,15 @@ const AppSidebarUserInfo = () => {
   };
 
   return (
-    <div className="px-5 py-7">
-      <div className="flex justify-between mb-5">
-        <div className="w-[64px] h-[64px] bg-blue-600"></div>
+    <div className="px-5 rounded-lg">
+      <div className="flex mb-5 gap-5">
+        <div className="w-[64px] h-[64px] bg-blue-600 rounded-xl"></div>
         <div className="text-[14px] text-slate-800">
-          <div>{user.name}</div>
-          <div>{user.email}</div>
+          <p className="text-sm font-semibold">{user.name}</p>
+          <p className="text-sm font-medium">{user.email}</p>
 
           <Button
-            className="h-0 p-0 bg-transparent text-xs text-slate-400 hover:text-slate-700"
+            className="bg-transparent hover:bg-transparent text-xs text-slate-400 hover:text-slate-700 p-0 h-0 mt-4"
             onClick={handleLogout}
           >
             로그아웃
@@ -61,11 +61,11 @@ const AppSidebarUserInfo = () => {
 
       <Button
         onClick={handleOpenFormModal}
-        className="w-full text-white text-base bg-blue-500 hover:bg-blue-700"
+        className="w-full text-white text-base bg-blue-500 hover:bg-blue-700 rounded-xl flex items-center justify-center gap-2"
         data-cy="new-todo-button"
       >
         <Plus />
-        <div>새 할 일</div>
+        <span>새 할 일</span>
       </Button>
     </div>
   );

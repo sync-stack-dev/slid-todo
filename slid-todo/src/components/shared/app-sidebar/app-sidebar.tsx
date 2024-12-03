@@ -26,7 +26,7 @@ const AppSidebar = () => {
         </SidebarHeader>
         <SidebarContent className="w-full h-1/2">
           <AppSidebarUserInfo />
-          <Separator className="border-[1px]" />
+          <Separator className="border-[1px] mt-5" />
           <AppSidebarDashBoard />
           <Separator className="border-[1px]" />
           <AppSidebarGoal />

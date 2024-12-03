@@ -1,8 +1,7 @@
-import { FacebookIcon } from "lucide-react";
-
+import Image from "next/image";
 const AppLogo = () => {
   // TODO: logo 아이콘 교체 작업
-  return <FacebookIcon className="w-[32px] h-[32px]  m-auto text-slate-300" />;
+  return <Image src="/imgs/logo.png" alt="logo" width={132} height={132} />;
 };
 
 export default AppLogo;
