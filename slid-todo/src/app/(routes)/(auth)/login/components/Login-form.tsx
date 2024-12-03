@@ -21,13 +21,13 @@ import { loginSchema, LoginFormValues } from "./utils/validation"; // 유효성�
 
 const LoginForm = () => {
   const router = useRouter();
-  const searchParams = useSearchParams(); 
-  const { mutate: login, status, isError, error } = useLoginMutation(); 
+  const searchParams = useSearchParams();
+  const { mutate: login, status, isError, error } = useLoginMutation();
   const isLoading = status === "pending"; // isLoading 정의
   // const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
   // 회원가입 후 URL에서 이메일 가져오기.
-  const emailFromQuery = searchParams.get('email') || '';
+  const emailFromQuery = searchParams.get("email") || "";
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),

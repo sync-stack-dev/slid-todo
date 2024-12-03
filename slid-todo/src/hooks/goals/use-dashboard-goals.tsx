@@ -1,7 +1,6 @@
-"use client"; 
+"use client";
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { instance } from "@/lib/axios";
-
 
 // 목표 데이터 타입
 interface Goal {
@@ -26,7 +25,6 @@ interface ProgressResponse {
   progress: number;
 }
 
-
 // 기존 훅에 진행률 및 목표별 Todo 요청 추가
 export const useGoalListInfinite = () => {
   return useInfiniteQuery({
@@ -41,15 +39,18 @@ export const useGoalListInfinite = () => {
       const goalsWithDetails = await Promise.all(
         data.goals.map(async (goal) => {
           // 진행률 요청
-          const { data: progressResponse } = await instance.get<ProgressResponse>("/todos/progress", {
-            params: { goalId: goal.id },
-          });
+          const { data: progressResponse } = await instance.get<ProgressResponse>(
+            "/todos/progress",
+            {
+              params: { goalId: goal.id },
+            },
+          );
 
-          return { 
-            ...goal, 
-            progress: progressResponse.progress, 
+          return {
+            ...goal,
+            progress: progressResponse.progress,
           };
-        })
+        }),
       );
 
       return { ...data, goals: goalsWithDetails }; // 원래 데이터에 수정된 목표 데이터 반환
@@ -62,9 +63,9 @@ export const useGoalListInfinite = () => {
 // 전체 할일의 진행률 조회 대시보드: 프로그레스 데이터
 export const useProgress = () => {
   return useQuery({
-    queryKey: ['progress'],
+    queryKey: ["progress"],
     queryFn: async () => {
-      const ProgressResponse = await instance.get('/todos/progress');
+      const ProgressResponse = await instance.get("/todos/progress");
       return ProgressResponse.data.progress;
     },
   });
