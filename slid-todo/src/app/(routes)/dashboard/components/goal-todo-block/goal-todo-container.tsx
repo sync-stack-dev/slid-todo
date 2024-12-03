@@ -7,6 +7,8 @@ import TodoItem from "@/components/shared/todo-list/todo-item"
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
+import { useTodoActions } from "@/hooks/todo/use-todo-actions";
+import { useFormModal } from "@/stores/use-form-modal-store";
 
 
 interface Goal {
@@ -70,10 +72,43 @@ const TodoSection = ({ goal }: { goal: Goal }) => {
     if (hasDoneNextPage) fetchDoneNextPage(); // 완료된 할 일 데이터 추가 불러오기
   };
 
+  // 할일추가 모달
+  const { onOpen: onOpenFormModal } = useFormModal(); // 추가
+  const { createTodo } = useTodoActions(); // 추가
+  const handleOpenFormModal = () => {
+    // 함수 추가
+    onOpenFormModal({
+      type: "todo",
+      mode: "create",
+      defaultValues: {
+        id: 0,
+        title: "",
+        description: "",
+        done: false,
+        fileUrl: "",
+        linkUrl: "",
+        goal: {
+          id: Number(goal.id),
+          title: "" 
+        }
+      },
+      onSubmit: (data) => {
+        createTodo(data);
+      },
+    });
+  };
  
   return (
     <div className="bg-slate-200 rounded-xl p-4 shadow-md">
-      <h1 className="text-md font-semibold mb-2">{goal.title}</h1>
+      <div className="flex justify-between">
+        <h1 className="text-md font-semibold mb-2">{goal.title}</h1>
+        <Button
+        className="bg-slate-200 text-blue-500 hover:bg-white"
+        onClick={handleOpenFormModal}
+        >+ 할일 추가
+        </Button>
+      </div>
+
       {goal.progress > 0 ? 
       (<div className="flex items-center gap-4 mb-2">
         <Progress value={goal.progress} className="w-full h-2" />
@@ -81,7 +116,7 @@ const TodoSection = ({ goal }: { goal: Goal }) => {
       </div>) : null}
       
       {todos.length > 0 || doneTodos.length > 0 ? (
-         <div className="w-full flex flex-col sm:flex-row">
+         <div className="w-full flex flex-col md:flex-row">
             <div className="w-full bg-slate-200 rounded-lg p-4 h-[40%] flex flex-col">
               <div className="flex-1 px-4">
               <h2 className="mb-2">Todo</h2>
@@ -89,7 +124,8 @@ const TodoSection = ({ goal }: { goal: Goal }) => {
               <TodoItem key={todo.id} todo={todo} />
                 ))}
             </div>
-            </div>
+              </div>
+              
          <div className="w-full bg-slate-200 rounded-lg p-4 h-[40%] flex flex-col">
            <div className="flex-1 px-4">
            <h2 className="mb-2">Done</h2>

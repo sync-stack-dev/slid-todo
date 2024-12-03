@@ -5,20 +5,30 @@ import { useUserQuery } from "@/stores/use-user-store";
 import { useLoginStore } from "@/stores/use-login-store"; // 로그아웃 훅 가져오기
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation"; // 로그아웃 후 로그인페이지로 라우팅을 위한
+import { useConfirmModal } from "@/stores/use-confirm-modal-store"; //로그아웃 confirm modal
 
 const AppSidebarUserInfo = () => {
   const { data: user, isError } = useUserQuery();
   const { onOpen: onOpenFormModal } = useFormModal();
+  const { onOpen: openConfirm } = useConfirmModal();
   const { createTodo } = useTodoActions();
   const router = useRouter();
-
-  // TODO : logout
   const { logout } = useLoginStore();
-  const handleLogout = () => {
-    logout(); // 로그아웃 처리 성공시, login page로 라우팅,,
-    router.push("/login");
-  };
 
+  const handleLogout = () => {
+    // openConfirm 호출로 모달 열기
+    openConfirm({
+      title: "로그아웃 하시겠어요?",
+      confirmText: "로그아웃",
+      variant: "danger",
+      onConfirm: () => {
+        // 사용자가 모달에서 "나가기"를 클릭한 경우
+        logout(); // 로그아웃 처리
+        router.push("/login"); // 로그인 페이지로 라우팅
+      },
+    });
+  };
+  
 
   if (isError || !user) return <div>뭔가 잘못됐다.</div>;
 

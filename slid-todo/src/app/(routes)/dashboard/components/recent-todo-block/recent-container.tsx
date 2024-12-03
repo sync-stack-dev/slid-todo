@@ -17,13 +17,15 @@ const RecentContainer = () => {
 
   // 데이터 렌더링
   return (
-    <div className="space-y-2">
+    <div className="w-full h-full space-y-2">
       {data?.todos && data.todos.length > 0 ? (
         data.todos.map((todo) => (
           <TodoItem key={todo.id} todo={todo} />
         ))
       ) : (
-        <p>최근에 등록한 할 일이 없어요</p>
+        <div className="w-full h-full flex items-center justify-center">
+          최근에 등록한 할 일이 없어요
+          </div>
       )}
     </div>
   );

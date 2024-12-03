@@ -51,4 +51,3 @@ export const useGoalTodosInfinite = (goalId: number, done?: boolean, size: numbe
     initialPageParam: 0,
   });
 };
-
