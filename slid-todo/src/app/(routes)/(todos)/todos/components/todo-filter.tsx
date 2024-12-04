@@ -11,7 +11,7 @@ const TodoFilter = ({ activeTab, onTabChange }: TodoFilterProps) => {
   return (
     <Tabs
       defaultValue={activeTab}
-      className="w-full dark:bg-slate-800"
+      className="w-full dark:bg-gray-900"
       onValueChange={(value) => onTabChange(value as TabType)}
     >
       <TabsList className="mb-4 bg-transparent">

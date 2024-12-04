@@ -32,12 +32,12 @@ const TodoList = () => {
       <div className="pt-4">
         <TodoHeader totalCount={todoData?.pages[0].totalCount || 0} />
       </div>
-      <div className="h-[calc(100vh-120px)] flex flex-col bg-white rounded-2xl dark:bg-slate-800">
+      <div className="h-[calc(100vh-120px)] flex flex-col bg-white rounded-2xl dark:bg-gray-900">
         <div className="px-4 pt-4">
           <TodoFilter activeTab={activeTab} onTabChange={setActiveTab} />
         </div>
         <ScrollArea className="flex-1 pb-8">
-          <div className="px-4 dark:bg-slate-800 w-full ">
+          <div className="px-4 dark:bg-gray-900 w-full ">
             <TodoListContent data={todoData} activeTab={activeTab} />
           </div>
         </ScrollArea>

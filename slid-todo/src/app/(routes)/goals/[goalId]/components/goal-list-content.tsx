@@ -65,12 +65,12 @@ export const GoalListContent = () => {
   };
   return (
     <div className="mt-4 flex flex-col lg:flex-row gap-4 max-w-[1200px] h-full">
-      <div className="w-full bg-white dark:bg-slate-800 rounded-lg p-4 h-[600px] flex flex-col">
+      <div className="w-full bg-white dark:bg-gray-900 rounded-lg p-4 h-[600px] flex flex-col">
         <div className="flex justify-between items-center px-4 h-10">
           <h2>Todo</h2>
           <Button
             variant="default"
-            className="text-sm text-blue-500 font-semibold bg-transparent hover:bg-transparent p-0"
+            className="bg-transparent text-blue-500 dark:text-slate-400 text-sm hover:bg-transparent hover:text-blue-600 dark:hover:text-slate-200 p-0 transition-colors"
             onClick={handleOpenFormModal}
           >
             + 할 일 추가
@@ -80,7 +80,7 @@ export const GoalListContent = () => {
           <TodoList todos={todos} observerRef={todoRef} isLoading={isFetchingNextPage} />
         </ScrollArea>
       </div>
-      <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-lg p-4 h-[600px] flex flex-col">
+      <div className="w-full bg-slate-200 dark:bg-gray-900 rounded-lg p-4 h-[600px] flex flex-col">
         <div className="flex justify-between items-center px-4 h-10">
           <h2>Done</h2>
         </div>
