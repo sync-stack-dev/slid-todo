@@ -7,9 +7,9 @@ import { useLoginStore } from "@/stores/use-login-store";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useConfirmModal } from "@/stores/use-confirm-modal-store";
-import { useTodoActions } from "@/hooks/todo/use-todo-actions";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import Skeleton from "@/components/shared/skeleton";
+import { useQueryClient } from '@tanstack/react-query';
 
 
 const AppSidebarUserInfo = () => {
