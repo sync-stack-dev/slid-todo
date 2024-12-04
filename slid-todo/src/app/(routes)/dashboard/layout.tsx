@@ -14,7 +14,7 @@ export default function DashBoardLayout({ children }: { children: React.ReactNod
   return (
     <SidebarProvider>
       <AppSidebar />
-      <div className="w-full h-screen rounded-lg bg-[#F1F5F9] dark:bg-black">{children}</div>
+      <div className="w-full rounded-lg bg-[#F1F5F9] dark:bg-black">{children}</div>
     </SidebarProvider>
   );
 }
