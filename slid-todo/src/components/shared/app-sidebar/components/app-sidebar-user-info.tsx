@@ -11,6 +11,7 @@ import { ThemeToggle } from "@/components/shared/theme-toggle";
 import Skeleton from "@/components/shared/skeleton";
 import { useQueryClient } from "@tanstack/react-query";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
+import { Profile } from "@/public/svgs";
 const AppSidebarUserInfo = () => {
   const { data: user, isError, isLoading } = useUserQuery();
   const { onOpen: onOpenFormModal } = useFormModal();
@@ -69,8 +70,8 @@ const AppSidebarUserInfo = () => {
 
   return (
     <div className="px-5 rounded-lg">
-      <div className="flex mb-5 gap-5">
-        <div className="w-[64px] h-[64px] bg-blue-600 rounded-xl min-w-[64px] min-h-[64px]"></div>
+      <div className="flex mb-5 gap-5 items-center">
+        <Profile className="w-[64px] h-[64px] bg-blue-600 rounded-xl min-w-[64px] min-h-[64px]" />
         <div className="text-[14px] text-slate-800 dark:text-slate-300 w-full overflow-hidden">
           <div className="flex justify-between items-center w-full">
             <TooltipProvider>

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import AppLogo from "../../app-logo/app-logo";
 import { CollapseButton } from "./collapse-button";
 import Skeleton from "@/components/shared/skeleton";
 import { useUserQuery } from "@/stores/use-user-store";
