@@ -29,7 +29,7 @@ const RecentContainer = () => {
         data.todos.map((todo) => <TodoItem key={todo.id} todo={todo} />)
       ) : (
         <div className="w-full h-full flex items-center justify-center text-gray-400 dark:text-slate-400 transition-colors">
-          최근에 등록한 할 일이 없어요
+          최근에 등록한 할 일이 없어요11
         </div>
       )}
     </div>
