@@ -42,7 +42,7 @@ const NoteMeatballBtn = ({ noteId, onDelete }: MeatballBtnProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <EllipsisVertical className="w-[24px] h-[24px] rounded-full p-1 hover:bg-slate-100 " />
+        <EllipsisVertical className="w-[24px] h-[24px] rounded-full p-1 hover:bg-slate-100 dark:hover:bg-slate-800" />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem

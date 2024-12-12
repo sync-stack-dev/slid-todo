@@ -1,5 +1,5 @@
 "use client";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Loading } from "@/components/shared/loading";
 import { useTodoById } from "@/hooks/todo/use-todos";
 import { CreateNoteRequest, useNoteActions } from "@/hooks/note/use-note-actions";
@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import NoteCreateHeader from "./components/note-create-header";
 import NoteCreateInfo from "./components/note-create-info";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useConfirmModal } from "@/stores/use-confirm-modal-store";
 import toast from "react-hot-toast";
 import dynamic from "next/dynamic";
@@ -22,6 +22,8 @@ const NoteCreateForm = dynamic(() => import("./components/note-create-form"), {
 const NoteCreatePage = () => {
   const router = useRouter();
   const { todoId } = useParams();
+  const params = useSearchParams();
+
   const [note, setNote] = useState<CreateNoteRequest>({
     todoId: Number(todoId),
     title: "",
@@ -29,10 +31,10 @@ const NoteCreatePage = () => {
     linkUrl: "",
   });
   const saveKey = `${todoId}-create-note`;
-  const { todo, isLoading, isError } = useTodoById(Number(todoId));
+  const { todo, isLoading, isError } = useTodoById(Number(todoId), Number(params.get("goalId")));
   const { createNote } = useNoteActions();
   const { onOpen: openConfirm } = useConfirmModal();
-
+  console.log(todo);
   const form = useForm<NoteCreateFormValues>({
     resolver: zodResolver(NoteCreateSchema),
     defaultValues: {
@@ -101,17 +103,19 @@ const NoteCreatePage = () => {
   if (isError) return <div>에러가 발생했습니다.</div>;
 
   return (
-    <FormProvider {...form}>
-      <div className="h-screen  px-36 py-10">
-        <div className="flex flex-col w-2/3 h-full">
-          <div>
-            <NoteCreateHeader onClickUpdateBtn={handleUpdate} onClickPreSaveBtn={handlePreSave} />
-            <NoteCreateInfo todo={todo} />
-            <NoteCreateForm form={form} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <FormProvider {...form}>
+        <div className="px-4 md:pl-16 py-6">
+          <div className="flex flex-col w-full md:w-2/3 h-full">
+            <div>
+              <NoteCreateHeader onClickUpdateBtn={handleUpdate} onClickPreSaveBtn={handlePreSave} />
+              <NoteCreateInfo todo={todo} />
+              <NoteCreateForm form={form} />
+            </div>
           </div>
         </div>
-      </div>
-    </FormProvider>
+      </FormProvider>
+    </Suspense>
   );
 };
 

@@ -1,4 +1,3 @@
-import "@testing-library/jest-dom";
 import { expect } from "@jest/globals";
 
 const add = (a: number, b: number) => a + b;

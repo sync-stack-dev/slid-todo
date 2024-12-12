@@ -9,12 +9,12 @@ const NoteEditInfo = ({ todo }: NoteEditInfoProps) => {
   return (
     <div className="mt-5 mb-5">
       <div className="flex items-center mb-3">
-        <Goal />
-        <div className="ml-3">{todo.goal.title}</div>
+        <Goal className="w-6 h-6" />
+        <div className="ml-1.5 text-base font-semibold">{todo.goal.title}</div>
       </div>
       <div className="flex items-center">
         <TodoBadge />
-        <div className="ml-3">{todo.title}</div>
+        <div className="text-sm font-normal">{todo.title}</div>
       </div>
     </div>
   );

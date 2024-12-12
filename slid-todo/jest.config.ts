@@ -18,6 +18,8 @@ const config: Config = {
     "^.+\\.(js|jsx|ts|tsx)$": "ts-jest",
   },
   moduleDirectories: ["node_modules", "<rootDir>"],
+  setupFilesAfterEnv: ["@testing-library/jest-dom", "<rootDir>/jest.setup.ts"],
+
   // Add more setup options before each test is run
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 };

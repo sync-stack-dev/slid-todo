@@ -37,9 +37,9 @@ const TodoActions = ({ todo }: TodoActionsProps) => {
     }
   };
 
-  const handleCreateNote = async () => {
+  const handleCreateNote = async (goalId: number) => {
     try {
-      router.push(`/notes/create/${todo.id}`);
+      router.push(`/notes/create/${todo.id}?goalId=${goalId}`);
     } catch (error) {
       console.error("노트 생성 페이지 이동 실패:", error);
       toast.error("노트 생성 페이지로 이동할 수 없습니다.");
@@ -55,7 +55,7 @@ const TodoActions = ({ todo }: TodoActionsProps) => {
           fileUrl={todo.fileUrl}
           hasNote={!!todo.noteId}
           onNoteClick={handleNoteClick}
-          onCreateNote={handleCreateNote}
+          onCreateNote={() => handleCreateNote(todo.goal.id)}
         />
         <MoreMenu
           onDelete={{

@@ -55,3 +55,5 @@ cypress/screenshots
 # analyze
 sourcemap-analysis.log
 
+# Mac 용 파일 메타데이터
+.DS_Store

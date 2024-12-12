@@ -1,12 +1,14 @@
 import { Editor } from "@tiptap/react";
 import { PaintBucket } from "lucide-react";
 import { FormEvent, useRef } from "react";
+import { cn } from "@/utils/cn";
 
 interface PaintBucketInputProps {
   editor: Editor;
+  className?: string;
 }
 
-function PaintBucketInput({ editor }: PaintBucketInputProps) {
+function PaintBucketInput({ editor, className }: PaintBucketInputProps) {
   const colorInputRef = useRef<HTMLInputElement>(null);
   const currentColor = editor.getAttributes("textStyle").color || "#000000"; // 기본 색상
 
@@ -27,7 +29,7 @@ function PaintBucketInput({ editor }: PaintBucketInputProps) {
   return (
     <>
       <PaintBucket
-        className="hover:cursor-pointer hover:bg-slate-200 rounded-full"
+        className={cn("hover:cursor-pointer", className)}
         onClick={handleIconClick}
         style={{ color: currentColor }}
       ></PaintBucket>

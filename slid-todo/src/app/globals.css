@@ -113,3 +113,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+.dark .tiptap {
+  color: white;
+  background-color: transparent !important;
+}
+.tiptap {
+  padding-left: 0 !important;
+}
