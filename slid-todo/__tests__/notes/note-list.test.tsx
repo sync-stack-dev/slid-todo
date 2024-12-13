@@ -3,6 +3,7 @@ import NoteList from "@/app/(routes)/notes/[goalId]/components/note-list";
 import { expect } from "@jest/globals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useRouter as mockUseRouter } from "next/navigation";
+import { mockNoteData, mockNoteList } from "../data/note";
 
 jest.mock("@/hooks/note/use-note", () => ({
   useNoteList: jest.fn(),
@@ -37,28 +38,7 @@ describe("NoteList", () => {
       prefetch: jest.fn(),
     });
 
-    mockUseNoteById.mockImplementation((id: number) => ({
-      data: {
-        todo: {
-          id,
-          title: `Test todo ${id}`,
-          done: false,
-        },
-        updatedAt: "2024-12-12T12:00:00Z",
-        createdAt: "2024-12-12T12:00:00Z",
-        title: `Note ${id}`,
-        id,
-        goal: {
-          id: 1,
-          title: "Test goal",
-        },
-        userId: 123,
-        teamId: "Test team",
-        content: "This is a test note",
-      },
-      isLoading: false,
-      isError: false,
-    }));
+    mockUseNoteById.mockImplementation((id: number) => mockNoteData(id));
   });
 
   it("로딩 중일 때 Loading 컴포넌트를 렌더링한다", () => {
@@ -86,19 +66,7 @@ describe("NoteList", () => {
   });
 
   it("노트 데이터를 렌더링한다", async () => {
-    const notes = [
-      {
-        id: 1,
-        title: "Note 1",
-        todo: { id: 100, title: "Test todo", done: false },
-        goal: { id: 1, title: "Test goal" },
-        userId: 123,
-        teamId: "Test team",
-        updatedAt: "2024-12-12T12:00:00Z",
-        createdAt: "2024-12-12T12:00:00Z",
-        content: "This is a test note",
-      },
-    ];
+    const notes = mockNoteList;
     mockUseNoteList.mockReturnValue({ data: { notes }, isLoading: false, isError: false });
 
     render(
@@ -107,6 +75,7 @@ describe("NoteList", () => {
       </QueryClientProvider>,
     );
 
+    // 비동기 로딩 대기
     const note = await screen.findByText(/Note 1/i);
     expect(note).toBeInTheDocument();
   });
