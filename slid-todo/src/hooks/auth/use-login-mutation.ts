@@ -14,7 +14,6 @@ interface LoginResponse {
 }
 
 export const useLoginMutation = () => {
-  console.log("useLogin");
   return useMutation<LoginResponse, Error, LoginRequest>({
     mutationFn: async (data: LoginRequest) => {
       const response = await instance.post<LoginResponse>("/auth/login", data);
