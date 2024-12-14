@@ -12,8 +12,8 @@ interface SignupResponse {
   id: number;
   email: string;
   name: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export const useSignupMutation = () => {

@@ -23,8 +23,7 @@ const LoginForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { mutate: login, status, isError, error } = useLoginMutation();
-  const isLoading = status === "pending"; // isLoading 정의
-  // const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+  const isLoading = status === "pending";
 
   // 회원가입 후 URL에서 이메일 가져오기.
   const emailFromQuery = searchParams.get("email") || "";
@@ -37,30 +36,6 @@ const LoginForm = () => {
     },
     mode: "onBlur", // 입력후 포커스 이동시 유효성 검사 하도록 설정.
   });
-
-  // const { trigger } = form;  // trigger 메서드를 구조분해 할당으로 가져옴
-
-  // const handleFocus = () => {
-  //   // 기존 타이머가 존재하면 초기화
-  //   if (timer) {
-  //     clearTimeout(timer);
-  //   }
-
-  //   // 1초 후 아무 입력이 없으면 실행될 동작
-  //   const newTimer = setTimeout(() => {
-  //     console.log('1초 동안 입력이 없었습니다.');
-  //     trigger();
-  //   }, 1000);
-
-  //   setTimer(newTimer); // 새로운 타이머 설정
-  // };
-
-  // const handleChange = () => {
-  //   // 입력이 있으면 타이머를 리셋
-  //   if (timer) {
-  //     clearTimeout(timer);
-  //   }
-  // };
 
   useEffect(() => {
     if (emailFromQuery) {
@@ -80,7 +55,6 @@ const LoginForm = () => {
           // console.log("에러 응답 데이터:", error.response.data);
           // 가입되지 않은 이메일 로그인 시도 응답 메세지
           form.setError("email", { message: error.response.data.message });
-          //  form.setError("password", { message: error.response.data.message });
         }
 
         toast.error(error.response.data.message);
