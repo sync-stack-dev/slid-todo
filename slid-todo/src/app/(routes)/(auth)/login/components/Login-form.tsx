@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -32,7 +32,7 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "", // 기본값 설정
-      password: "",
+      password: "a",
     },
     mode: "onBlur", // 입력후 포커스 이동시 유효성 검사 하도록 설정.
   });
