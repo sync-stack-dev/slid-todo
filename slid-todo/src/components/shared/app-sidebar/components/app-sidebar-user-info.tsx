@@ -112,7 +112,7 @@ const AppSidebarUserInfo = () => {
 
       <Button
         onClick={handleOpenFormModal}
-        className="hidden md:flex w-full text-white text-base bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 rounded-xl items-center justify-center gap-2"
+        className="md:flex w-full text-white text-base bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 rounded-xl items-center justify-center"
         data-cy="new-todo-button"
       >
         <Plus className="h-5 w-5" aria-hidden="true" />
