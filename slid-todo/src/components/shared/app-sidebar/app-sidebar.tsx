@@ -27,7 +27,7 @@ const AppSidebar = () => {
     <>
       {/* open이 true일 때 백그라운드 덮기 */}
       {/* 사이드바는 z-index로 백그라운드 위에 위치하도록 설정 */}
-      <Sidebar className="bg-white" role="sidebar">
+      <Sidebar className="bg-white" role="navigation">
         <SidebarHeader>
           <AppSidebarHeader />
         </SidebarHeader>

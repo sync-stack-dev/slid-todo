@@ -123,10 +123,10 @@ const TodoSection = ({ goal }: { goal: Goal }) => {
           <h1 className="text-lg font-semibold mb-2 text-foreground">{goal.title}</h1>
         </Link>
         <Button
-          className="bg-transparent text-blue-500 dark:text-slate-400 text-sm hover:bg-transparent hover:text-blue-600 dark:hover:text-slate-200 p-0 transition-colors"
+          className="bg-transparent text-blue-600 dark:text-slate-400 text-sm hover:bg-transparent hover:text-blue-600 dark:hover:text-slate-200 p-0 transition-colors"
           onClick={handleOpenFormModal}
         >
-          + 할일 추가
+          + 할 일 추가
         </Button>
       </div>
 
