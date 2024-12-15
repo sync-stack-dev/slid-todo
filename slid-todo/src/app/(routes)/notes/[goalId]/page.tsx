@@ -1,6 +1,5 @@
 "use client";
 import { useParams } from "next/navigation";
-import { Loading } from "@/components/shared/loading";
 import { useGoal } from "@/hooks/goals/use-goal";
 import NoteGoalTitle from "./components/note-goal-title";
 import dynamic from "next/dynamic";
@@ -9,11 +8,10 @@ const NoteListContent = dynamic(() => import("./components/note-list"), {
 });
 const NotePage = () => {
   const { goalId } = useParams();
-  const { data: goal, isLoading: goalLoading, error: goalError } = useGoal(Number(goalId));
+  const { data: goal, error: goalError } = useGoal(Number(goalId));
 
-  if (goalLoading || !goal) return <Loading />;
+  if (!goal) return null;
   if (goalError) return <div>에러가 발생했습니다.</div>;
-
   return (
     <>
       <div className="flex flex-col px-4 py-6">
