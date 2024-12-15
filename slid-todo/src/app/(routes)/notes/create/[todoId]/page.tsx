@@ -22,7 +22,6 @@ const NoteCreateForm = dynamic(() => import("./components/note-create-form"), {
 const NoteCreatePage = () => {
   const router = useRouter();
   const { todoId } = useParams();
-  const params = useSearchParams();
 
   const [note, setNote] = useState<CreateNoteRequest>({
     todoId: Number(todoId),
@@ -31,7 +30,7 @@ const NoteCreatePage = () => {
     linkUrl: "",
   });
   const saveKey = `${todoId}-create-note`;
-  const { todo, isLoading, isError } = useTodoById(Number(todoId), Number(params.get("goalId")));
+  const { data: todo, isLoading, isError } = useTodoById(Number(todoId));
   const { createNote } = useNoteActions();
   const { onOpen: openConfirm } = useConfirmModal();
   console.log(todo);

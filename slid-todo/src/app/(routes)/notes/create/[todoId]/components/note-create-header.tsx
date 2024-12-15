@@ -19,7 +19,7 @@ const NoteCreateHeader = ({ onClickPreSaveBtn, onClickUpdateBtn }: NoteCreateHea
         </Button>
         {/* TODO: 작성완료 모든 필요 칸이 작성되기전까지 disabled처리 */}
         <Button
-          className="bg-blue-600 text-white hover:bg-blue-400 dark:bg-blue-500 dark:text-white dark:hover:bg-blue-600"
+          className="bg-blue-600 text-white hover:bg-blue-400 dark:bg-blue-600 dark:text-white dark:hover:bg-blue-600"
           onClick={onClickUpdateBtn}
         >
           작성완료
