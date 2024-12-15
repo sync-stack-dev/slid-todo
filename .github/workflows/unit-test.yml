@@ -1,4 +1,4 @@
-name: Run Jest Tests on PR
+name: Run Jest For Unit Test on PR
 
 on:
   pull_request:
