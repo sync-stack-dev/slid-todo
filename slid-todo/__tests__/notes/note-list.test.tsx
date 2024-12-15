@@ -75,7 +75,6 @@ describe("NoteList", () => {
       </QueryClientProvider>,
     );
 
-    // 비동기 로딩 대기
     const note = await screen.findByText(/Note 1/i);
     expect(note).toBeInTheDocument();
   });
