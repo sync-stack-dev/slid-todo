@@ -60,6 +60,7 @@ export const NoteViewer = ({ isOpen, onOpenChange, todo, noteData }: NoteViewerP
         )}
         <SheetContent
           side="right"
+          data-testid="note-viewer-sheet"
           data-cy="te-sheet"
           className={cn(
             "w-full",

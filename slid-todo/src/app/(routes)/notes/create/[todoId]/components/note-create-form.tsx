@@ -3,7 +3,6 @@ import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
 import { NoteCreateFormValues } from "./utils/create-validation";
 import LinkEmbed from "@/components/shared/link-embed/link-embed";
-import { ensureHttps } from "@/utils/url";
 import NoteWriteEditor from "@/components/shared/editor/note-write-editor";
 import { Separator } from "@/components/ui/separator";
 interface NoteCreateFormProps {
