@@ -8,6 +8,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import ListKeymap from "@tiptap/extension-list-keymap";
 import TextStyle from "@tiptap/extension-text-style";
 import Placeholder from "@tiptap/extension-placeholder";
+import CharacterCount from "@tiptap/extension-character-count";
 
 import { cn } from "@/utils/cn";
 import { Color } from "@tiptap/extension-color";
@@ -19,6 +20,15 @@ interface NoteWriteEditorProps {
 }
 
 const NoteWriteEditor = ({ content, onContentChange }: NoteWriteEditorProps) => {
+  const [charCountWithSpaces, setCharCountWithSpaces] = useState(0);
+  const [charCountWithoutSpaces, setCharCountWithoutSpaces] = useState(0);
+
+  const calculateInitialCounts = (content: string | null) => {
+    const plainText = content ? content.replace(/<\/?[^>]+(>|$)/g, "") : ""; // HTML 태그 제거
+    setCharCountWithSpaces(plainText.length);
+    setCharCountWithoutSpaces(plainText.replace(/\s+/g, "").length);
+  };
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -34,6 +44,7 @@ const NoteWriteEditor = ({ content, onContentChange }: NoteWriteEditorProps) => 
         emptyNodeClass:
           "first:before:text-gray-400 first:before:h-0 first:before:float-left first:before:content-[attr(data-placeholder)] first:before:pointer-events-none ",
       }),
+      CharacterCount.configure(),
     ],
     immediatelyRender: false,
     content: content,
@@ -46,6 +57,11 @@ const NoteWriteEditor = ({ content, onContentChange }: NoteWriteEditorProps) => 
     },
     onUpdate: ({ editor }) => {
       let html = editor.getHTML();
+      const plainText = editor.getText();
+
+      setCharCountWithSpaces(plainText.length);
+      setCharCountWithoutSpaces(plainText.replace(/\s+/g, "").length);
+
       if (html === "<p></p>") html = "";
       onContentChange(html);
     },
@@ -55,10 +71,15 @@ const NoteWriteEditor = ({ content, onContentChange }: NoteWriteEditorProps) => 
     if (editor && editor.getHTML() !== content) {
       editor.commands.setContent(content || "");
     }
+
+    calculateInitialCounts(content);
   }, [content, editor]);
 
   return (
     <div>
+      <div className="text-xs font-medium text-slate-800 dark:text-white my-2">
+        공백포함 : 총 {charCountWithSpaces} 자 | 공백제외 : 총 {charCountWithoutSpaces}자
+      </div>
       <EditorContent className="max-h-[500px] overflow-auto mb-2" editor={editor} />
       <NoteWriteToolbar editor={editor} />
     </div>

@@ -1,0 +1,29 @@
+name: Run Jest For Unit Test on PR
+
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          working-directory: slid-todo # 작업 디렉터리 지정
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: slid-todo # 작업 디렉터리 지정
+
+      - name: Run Jest tests
+        run: npm test
+        working-directory: slid-todo # 작업 디렉터리 지정

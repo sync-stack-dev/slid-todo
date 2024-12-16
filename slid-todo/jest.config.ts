@@ -17,9 +17,9 @@ const config: Config = {
   transform: {
     "^.+\\.(js|jsx|ts|tsx)$": "ts-jest",
   },
-  moduleDirectories: ["node_modules", "<rootDir>"],
+  moduleDirectories: ["node_modules", "<rootDir>", "data"],
   setupFilesAfterEnv: ["@testing-library/jest-dom", "<rootDir>/jest.setup.ts"],
-
+  testPathIgnorePatterns: ["data"],
   // Add more setup options before each test is run
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 };
