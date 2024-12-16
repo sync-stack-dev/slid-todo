@@ -50,6 +50,18 @@ const GoalListContent = () => {
     onOpenFormModal({
       type: "todo",
       mode: "create",
+      defaultValues: {
+        id: 0,
+        title: "",
+        description: "",
+        done: false,
+        fileUrl: "",
+        linkUrl: "",
+        goal: {
+          id: Number(goalId),
+          title: "",
+        },
+      },
       onSubmit: (data) => {
         createTodo(data);
       },
