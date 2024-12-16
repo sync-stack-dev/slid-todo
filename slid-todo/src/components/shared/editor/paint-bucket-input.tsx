@@ -40,6 +40,7 @@ function PaintBucketInput({ editor, className }: PaintBucketInputProps) {
         onInput={(event) => handleColorChange(event)}
         value={editor.getAttributes("textStyle").color || "#000000"}
         data-testid="setColor"
+        aria-label="set color"
       ></input>
     </>
   );

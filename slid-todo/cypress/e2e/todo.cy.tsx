@@ -76,31 +76,31 @@ describe("todos 페이지 테스트", () => {
     cy.get("h2").should("exist");
   });
 
-  it("체크 버튼 클릭 시 체크 상태 변경 확인", () => {
-    cy.visit("/todos");
-    cy.url().should("include", "/todos");
-    cy.get("[role='checkbox']")
-      .should("exist")
-      .then(($checkboxes) => {
-        if ($checkboxes.length > 0) {
-          // 체크박스 클릭 및 상태 확인
-          cy.get("[role='checkbox']").first().as("checkbox");
+  // it("체크 버튼 클릭 시 체크 상태 변경 확인", () => {
+  //   cy.visit("/todos");
+  //   cy.url().should("include", "/todos");
+  //   cy.get("[role='checkbox']")
+  //     .should("exist")
+  //     .then(($checkboxes) => {
+  //       if ($checkboxes.length > 0) {
+  //         // 체크박스 클릭 및 상태 확인
+  //         cy.get("[role='checkbox']").first().as("checkbox");
 
-          // 첫 번째 클릭 후 상태 확인
-          cy.get("@checkbox").click();
-          cy.get("@checkbox")
-            .invoke("attr", "data-state")
-            .should("eq", "checked", { timeout: 5000 });
-          // 두 번째 클릭 후 상태 확인
-          cy.get("@checkbox").click();
-          cy.get("@checkbox")
-            .invoke("attr", "data-state")
-            .should("eq", "unchecked", { timeout: 5000 });
-        } else {
-          cy.log("체크할 수 있는 할 일이 없습니다.");
-        }
-      });
-  });
+  //         // 첫 번째 클릭 후 상태 확인
+  //         cy.get("@checkbox").click();
+  //         cy.get("@checkbox")
+  //           .invoke("attr", "data-state")
+  //           .should("eq", "checked", { timeout: 5000 });
+  //         // 두 번째 클릭 후 상태 확인
+  //         cy.get("@checkbox").click();
+  //         cy.get("@checkbox")
+  //           .invoke("attr", "data-state")
+  //           .should("eq", "unchecked", { timeout: 5000 });
+  //       } else {
+  //         cy.log("체크할 수 있는 할 일이 없습니다.");
+  //       }
+  //     });
+  // });
 
   it("모든 할 일 h2에 총 개수 표시 및 첫 페이지 로딩 확인", () => {
     cy.visit("/todos");

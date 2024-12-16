@@ -12,7 +12,7 @@ import dynamic from "next/dynamic";
 const NoteViewer = dynamic(
   () => import("@/components/shared/note-viewer").then((mod) => mod.NoteViewer),
   {
-    ssr: false, // 모달이므로 SSR 불필요함
+    ssr: false,
   },
 );
 
@@ -37,15 +37,23 @@ const TodoActions = ({ todo }: TodoActionsProps) => {
     }
   };
 
-  const handleCreateNote = async (goalId: number) => {
+  const handleCreateNote = async () => {
+    if (!todo?.goal) {
+      // todo 자체가 null인 경우도 체크
+      toast.error("할 일의 목표를 먼저 설정해주세요", {
+        duration: 3000,
+        icon: "⚠️",
+      });
+      return;
+    }
+
     try {
-      router.push(`/notes/create/${todo.id}?goalId=${goalId}`);
+      router.push(`/notes/create/${todo.id}`);
     } catch (error) {
       console.error("노트 생성 페이지 이동 실패:", error);
       toast.error("노트 생성 페이지로 이동할 수 없습니다.");
     }
   };
-
   return (
     <>
       <div className="ml-auto flex items-center gap-2 text-gray-400">
@@ -55,7 +63,7 @@ const TodoActions = ({ todo }: TodoActionsProps) => {
           fileUrl={todo.fileUrl}
           hasNote={!!todo.noteId}
           onNoteClick={handleNoteClick}
-          onCreateNote={() => handleCreateNote(todo.goal.id)}
+          onCreateNote={handleCreateNote}
         />
         <MoreMenu
           onDelete={{

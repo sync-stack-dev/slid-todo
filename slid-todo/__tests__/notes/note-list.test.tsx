@@ -1,6 +1,9 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import NoteList from "@/app/(routes)/notes/[goalId]/components/note-list";
 import { expect } from "@jest/globals";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useRouter as mockUseRouter } from "next/navigation";
+import { mockNoteData, mockNoteList } from "../data/note";
 
 jest.mock("@/hooks/note/use-note", () => ({
   useNoteList: jest.fn(),
@@ -11,40 +14,31 @@ jest.mock("next/router", () => ({
   useRouter: jest.fn(),
 }));
 
+const queryClient = new QueryClient();
+
 const {
   useNoteList: mockUseNoteList,
   useNoteById: mockUseNoteById,
 } = require("@/hooks/note/use-note");
-const { useRouter: mockUseRouter } = require("next/router");
+
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn(),
+}));
 
 describe("NoteList", () => {
   beforeEach(() => {
-    mockUseRouter.mockReturnValue({
+    queryClient.clear();
+
+    (mockUseRouter as jest.Mock).mockReturnValue({
       query: { goalId: "1" },
       push: jest.fn(),
       replace: jest.fn(),
       pathname: "/notes/1",
       asPath: "/notes/1",
+      prefetch: jest.fn(),
     });
 
-    mockUseNoteById.mockReturnValue({
-      todo: {
-        id: 100,
-        title: "Test todo",
-        done: false,
-      },
-      updatedAt: "2024-12-12T12:00:00Z",
-      createdAt: "2024-12-12T12:00:00Z",
-      title: "Note 1",
-      id: 1,
-      goal: {
-        id: 1,
-        title: "Test goal",
-      },
-      userId: 123,
-      teamId: "Test team",
-      content: "This is a test note",
-    });
+    mockUseNoteById.mockImplementation((id: number) => mockNoteData(id));
   });
 
   it("로딩 중일 때 Loading 컴포넌트를 렌더링한다", () => {
@@ -71,51 +65,17 @@ describe("NoteList", () => {
     expect(screen.getByText(/아직 등록된 노트가 없어요/)).toBeInTheDocument();
   });
 
-  // it("노트 데이터를 렌더링한다", async () => {
-  //   const notes = [
-  //     {
-  //       todo: {
-  //         id: 100,
-  //         title: "Test todo",
-  //         done: false,
-  //       },
-  //       updatedAt: "2024-12-12T12:00:00Z",
-  //       createdAt: "2024-12-12T12:00:00Z",
-  //       title: "Note 1",
-  //       id: 1,
-  //       goal: {
-  //         id: 1,
-  //         title: "Test goal",
-  //       },
-  //       userId: 123,
-  //       teamId: "Test team",
-  //       content: "This is a test note",
-  //     },
-  //     {
-  //       todo: {
-  //         id: 100,
-  //         title: "Test todo",
-  //         done: false,
-  //       },
-  //       updatedAt: "2024-12-12T12:00:00Z",
-  //       createdAt: "2024-12-12T12:00:00Z",
-  //       title: "Note 2",
-  //       id: 2,
-  //       goal: {
-  //         id: 1,
-  //         title: "Test goal",
-  //       },
-  //       userId: 123,
-  //       teamId: "Test team",
-  //       content: "This is a test note",
-  //     },
-  //   ];
-  //   mockUseNoteList.mockReturnValue({ data: { notes: notes }, isLoading: false, isError: false });
+  it("노트 데이터를 렌더링한다", async () => {
+    const notes = mockNoteList;
+    mockUseNoteList.mockReturnValue({ data: { notes }, isLoading: false, isError: false });
 
-  //   render(<NoteList goalId={1} />);
-  //   screen.debug();
+    render(
+      <QueryClientProvider client={queryClient}>
+        <NoteList goalId={1} />
+      </QueryClientProvider>,
+    );
 
-  //   const note = await screen.findByText(/Note 1/i);
-  //   expect(note).toBeInTheDocument();
-  // });
+    const note = await screen.findByText(/Note 1/i);
+    expect(note).toBeInTheDocument();
+  });
 });

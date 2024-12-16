@@ -1,7 +1,6 @@
 import { instance } from "@/lib/axios";
 import { Note, NotesResponse } from "@/types/note";
 import { useQuery } from "@tanstack/react-query";
-import { useTodosOnce } from "../todo/use-todos";
 
 export const useNoteById = (noteId: number) => {
   return useQuery<Note>({
