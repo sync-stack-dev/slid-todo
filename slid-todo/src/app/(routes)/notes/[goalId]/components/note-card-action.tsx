@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Note } from "@/types/note";
 import { useNoteById } from "@/hooks/note/use-note";
 import { Todo } from "@/types/todo";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface NoteCardActionProps {
   note: Note;
@@ -12,6 +13,7 @@ interface NoteCardActionProps {
 const NoteCardAction = ({ note }: NoteCardActionProps) => {
   const [isNoteOpen, setIsNoteOpen] = useState(false);
   const { data: noteData, isError: isNoteError } = useNoteById(note.id);
+
   const todoData: Todo = {
     ...note.todo,
     goal: note.goal,

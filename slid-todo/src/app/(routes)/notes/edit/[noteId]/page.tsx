@@ -58,7 +58,7 @@ const NoteEditPage = () => {
 
     const data = JSON.parse(preData);
 
-    if (note && note.title === data.title) return;
+    if (note && note.title === data.title && note.content === data.content) return;
 
     setPreSave(data);
 
@@ -72,9 +72,6 @@ const NoteEditPage = () => {
           content: data.content,
           linkUrl: data.linkUrl,
         });
-
-        // TODO: 정책문제일듯한데 임시저장 데이터는 어느 시점에 지울지..
-        localStorage.removeItem(saveKey);
       },
     });
   }, [noteId, form]);

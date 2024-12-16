@@ -33,7 +33,7 @@ const NoteCreatePage = () => {
   const { data: todo, isLoading, isError } = useTodoById(Number(todoId));
   const { createNote } = useNoteActions();
   const { onOpen: openConfirm } = useConfirmModal();
-  console.log(todo);
+
   const form = useForm<NoteCreateFormValues>({
     resolver: zodResolver(NoteCreateSchema),
     defaultValues: {
@@ -47,6 +47,7 @@ const NoteCreatePage = () => {
 
   useEffect(() => {
     const preData = localStorage.getItem(saveKey);
+
     if (!preData) return;
 
     const data = JSON.parse(preData);
@@ -60,16 +61,12 @@ const NoteCreatePage = () => {
       confirmText: "불러오기",
       variant: "info",
       onConfirm: () => {
-        router.back();
         form.reset({
           todoId: Number(todoId),
           title: data.title,
           content: data.content,
           linkUrl: data.linkUrl,
         });
-
-        // TODO: 정책문제일듯한데 임시저장 데이터는 어느 시점에 지울지..
-        localStorage.removeItem(saveKey);
       },
     });
   }, [todoId, form]);
@@ -85,6 +82,7 @@ const NoteCreatePage = () => {
     localStorage.setItem(saveKey, JSON.stringify(preSaveData));
 
     toast.success("임시저장에 성공했습니다.");
+
     router.back();
   };
 
