@@ -98,10 +98,6 @@ const TodoSection = ({ goal }: { goal: Goal }) => {
       defaultValues: {
         id: 0,
         title: "",
-        description: "",
-        done: false,
-        fileUrl: "",
-        linkUrl: "",
         goal: {
           id: Number(goal.id),
           title: "",
