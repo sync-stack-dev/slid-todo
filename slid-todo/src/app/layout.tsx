@@ -6,8 +6,8 @@ import { ConfirmModal } from "@/components/shared/confirm-modal";
 import { FormModal } from "@/components/shared/form-modal/index";
 import { Providers as ThemeProvider } from "@/providers/theme-provider";
 export const metadata: Metadata = {
-  title: "Slid-Todo",
-  description: "Make Todolist and Achieve Goal",
+  title: "Slid todo",
+  description: "Slid todo",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
