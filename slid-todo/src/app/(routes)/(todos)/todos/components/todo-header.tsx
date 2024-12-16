@@ -27,7 +27,7 @@ const TodoHeader = ({ totalCount }: TodoHeaderProps) => {
       <h2 className="text-lg leading-7 font-pretendard-semibold">모든 할 일 ({totalCount})</h2>
       <Button
         variant="default"
-        className="text-sm text-blue-500 font-semibold bg-transparent hover:bg-transparent "
+        className="text-sm text-blue-600 dark:text-blue-400 font-semibold bg-transparent hover:bg-transparent "
         onClick={handleOpenFormModal}
       >
         + 할 일 추가

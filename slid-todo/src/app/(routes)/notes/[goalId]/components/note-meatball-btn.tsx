@@ -2,7 +2,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -41,13 +40,15 @@ const NoteMeatballBtn = ({ noteId, onDelete }: MeatballBtnProps) => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger role="button" aria-label="open menu">
         <EllipsisVertical className="w-[24px] h-[24px] rounded-full p-1 hover:bg-slate-100 dark:hover:bg-slate-800" />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem
           onClick={(event) => handleEdit(event)}
           className="hover:bg-slate-100 hover:cursor-pointer"
+          role="button"
+          aria-label="edit note"
         >
           수정하기
         </DropdownMenuItem>
@@ -55,6 +56,8 @@ const NoteMeatballBtn = ({ noteId, onDelete }: MeatballBtnProps) => {
         <DropdownMenuItem
           onClick={(event) => handleDelete(event)}
           className="hover:bg-slate-100 hover:cursor-pointer"
+          role="button"
+          aria-label="delete note"
         >
           삭제하기
         </DropdownMenuItem>
