@@ -9,7 +9,7 @@ const TodosPage = () => {
   const { isLoading } = useTodosInfinite();
   if (isLoading) return <Loading fullScreen={false} size="md" />;
   return (
-    <div className="flex px-4">
+    <div className="flex px-4 my-10 md:my-0">
       <div className="flex-1">
         <div className="rounded-2xl w-full max-w-[800px] mx-auto h-full lg:mx-16">
           <TodoList />

@@ -102,7 +102,7 @@ const NoteCreatePage = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <FormProvider {...form}>
-        <div className="px-4 md:pl-16 py-6">
+        <div className="px-4 md:pl-16 py-6 my-10 md:my-0">
           <div className="flex flex-col w-full md:w-2/3 h-full">
             <div>
               <NoteCreateHeader onClickUpdateBtn={handleUpdate} onClickPreSaveBtn={handlePreSave} />

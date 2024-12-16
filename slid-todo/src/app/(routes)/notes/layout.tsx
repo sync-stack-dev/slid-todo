@@ -5,7 +5,7 @@ export default function NotesLayout({ children }: { children: React.ReactNode })
   return (
     <SidebarProvider>
       <AppSidebar />
-      <div className="w-full h-full">{children}</div>
+      <div className="w-full h-full ">{children}</div>
     </SidebarProvider>
   );
 }
