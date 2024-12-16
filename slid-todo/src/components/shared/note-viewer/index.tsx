@@ -31,14 +31,13 @@
  * @param props.noteData - 상위 컴포넌트에서 페칭한 노트 데이터
  */
 
-import { Sheet, SheetContent, SheetOverlay, SheetPortal, SheetTitle } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { Note } from "@/types/note";
 import { Todo } from "@/types/todo";
 import { NoteHeader } from "./note-header";
 import { NoteContent } from "./note-content";
 import { cn } from "@/utils/cn";
 import EmbedContent from "./embed-content";
-import { ensureHttps } from "@/utils/url";
 
 interface NoteViewerProps {
   isOpen: boolean;
@@ -52,11 +51,7 @@ export const NoteViewer = ({ isOpen, onOpenChange, todo, noteData }: NoteViewerP
     <>
       <Sheet open={isOpen} onOpenChange={onOpenChange}>
         {noteData?.linkUrl && (
-          <EmbedContent
-            url="www.daum.net"
-            // url={noteData.linkUrl}
-            isVisible={noteData?.linkUrl ? true : false}
-          />
+          <EmbedContent url={noteData.linkUrl} isVisible={noteData?.linkUrl ? true : false} />
         )}
         <SheetContent
           side="right"
