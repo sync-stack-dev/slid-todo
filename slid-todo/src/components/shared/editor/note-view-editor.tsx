@@ -26,19 +26,15 @@ const NoteViewEditor = ({ content }: NoteViewEditorProps) => {
     autofocus: false,
     extensions: [
       StarterKit,
-      Bold,
-      Heading,
-      Document,
-      Paragraph,
-      Text,
-      Paragraph,
       ListKeymap,
-      ListItem,
-      BulletList,
-      OrderedList,
       Underline,
       TextStyle,
       Color,
+      Bold.configure({
+        HTMLAttributes: {
+          "font-weight": 900,
+        },
+      }),
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),

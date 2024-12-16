@@ -1,7 +1,7 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import NoteWriteToolbar from "./note-write-toolbar";
-
+import Bold from "@tiptap/extension-bold";
 import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
 
@@ -36,6 +36,11 @@ const NoteWriteEditor = ({ content, onContentChange }: NoteWriteEditorProps) => 
       Underline,
       TextStyle,
       Color,
+      Bold.configure({
+        HTMLAttributes: {
+          "font-weight": 900,
+        },
+      }),
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
