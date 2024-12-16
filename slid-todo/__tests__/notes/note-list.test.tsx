@@ -26,6 +26,22 @@ jest.mock("next/navigation", () => ({
 }));
 
 describe("NoteList", () => {
+  beforeAll(() => {
+    Object.defineProperty(window, "matchMedia", {
+      writable: true,
+      value: jest.fn().mockImplementation((query) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: jest.fn(), // 구 버전 API
+        removeListener: jest.fn(), // 구 버전 API
+        addEventListener: jest.fn(), // 신 버전 API
+        removeEventListener: jest.fn(), // 신 버전 API
+        dispatchEvent: jest.fn(),
+      })),
+    });
+  });
+
   beforeEach(() => {
     queryClient.clear();
 
