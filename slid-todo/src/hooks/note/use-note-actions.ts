@@ -39,9 +39,11 @@ export const useNoteActions = (note?: Note) => {
       toast.success("노트가 작성되었습니다.");
       router.back();
     },
-    onError: (error) => {
-      console.error("API Error:", error);
-      toast.error("작성에 실패했습니다.");
+    onError: (error, CreateNoteRequest) => {
+      // console.error("API Error:", error);
+      if (!CreateNoteRequest.title) toast.error("노트 제목을 작성해야합니다.");
+      else if (!CreateNoteRequest.content) toast.error("노트 내용을 작성해야합니다.");
+      else toast.error("노트 작성에 실패했습니다.");
     },
   });
 
@@ -61,9 +63,11 @@ export const useNoteActions = (note?: Note) => {
       toast.success("노트가 수정되었습니다.");
       router.back();
     },
-    onError: (error) => {
+    onError: (error, UpdateNoteRequest) => {
       console.error("API Error:", error);
-      toast.error("노트 수정에 실패했습니다.");
+      if (!UpdateNoteRequest.updatedNote.title) toast.error("노트 제목을 작성해야합니다.");
+      else if (!UpdateNoteRequest.updatedNote.content) toast.error("노트 내용을 작성해야합니다.");
+      else toast.error("노트 수정에 실패했습니다.");
     },
   });
 
