@@ -32,7 +32,7 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "", // 기본값 설정
-      password: "a",
+      password: "",
     },
     mode: "onBlur", // 입력후 포커스 이동시 유효성 검사 하도록 설정.
   });
