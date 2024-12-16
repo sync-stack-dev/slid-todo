@@ -16,11 +16,11 @@ import AppSidebarDashBoard from "./components/app-sidebar-dashboard";
 import AppSidebarGoal from "./components/app-sidebar-goal";
 
 const AppSidebar = () => {
-  const { open, openMobile, setOpen, setOpenMobile } = useSidebar();
+  const { open, isMobile, setOpen, setOpenMobile } = useSidebar();
 
   useEffect(() => {
     setOpen(true);
-    setOpenMobile(true);
+    setOpenMobile(false);
   }, []);
 
   return (
@@ -42,7 +42,7 @@ const AppSidebar = () => {
           <AppSidebarFooter />
         </SidebarFooter>
       </Sidebar>
-      {!open && !openMobile && <AppSidebarTrigger />}
+      {(!open || isMobile) && <AppSidebarTrigger />}
     </>
   );
 };
