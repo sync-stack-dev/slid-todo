@@ -40,22 +40,22 @@ describe("NoteCardAction", () => {
     mockUseNoteById.mockImplementation((id: number) => mockNoteData(id));
   });
 
-  it("renders loading state", () => {
-    (useNoteById as jest.Mock).mockReturnValue({
-      data: null,
-      isLoading: true,
-      isError: false,
-    });
+  // it("renders loading state", () => {
+  //   (useNoteById as jest.Mock).mockReturnValue({
+  //     data: null,
+  //     isLoading: true,
+  //     isError: false,
+  //   });
 
-    render(
-      <QueryClientProvider client={queryClient}>
-        <NoteCardAction note={mockNote.data} />
-      </QueryClientProvider>,
-    );
+  //   render(
+  //     <QueryClientProvider client={queryClient}>
+  //       <NoteCardAction note={mockNote.data} />
+  //     </QueryClientProvider>,
+  //   );
 
-    // 로딩 텍스트가 표시되는지 확인
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
-  });
+  //   // 로딩 텍스트가 표시되는지 확인
+  //   expect(screen.getByText("Loading...")).toBeInTheDocument();
+  // });
 
   it("renders error state", () => {
     (useNoteById as jest.Mock).mockReturnValue({

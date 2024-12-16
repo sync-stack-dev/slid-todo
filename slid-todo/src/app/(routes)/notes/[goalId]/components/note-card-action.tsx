@@ -3,7 +3,6 @@ import NoteCard from "./note-card";
 import { useState } from "react";
 import { Note } from "@/types/note";
 import { useNoteById } from "@/hooks/note/use-note";
-import { Loading } from "@/components/shared/loading";
 import { Todo } from "@/types/todo";
 
 interface NoteCardActionProps {
@@ -12,7 +11,7 @@ interface NoteCardActionProps {
 
 const NoteCardAction = ({ note }: NoteCardActionProps) => {
   const [isNoteOpen, setIsNoteOpen] = useState(false);
-  const { data: noteData, isLoading: isNoteLoading, isError: isNoteError } = useNoteById(note.id);
+  const { data: noteData, isError: isNoteError } = useNoteById(note.id);
   const todoData: Todo = {
     ...note.todo,
     goal: note.goal,
@@ -21,7 +20,6 @@ const NoteCardAction = ({ note }: NoteCardActionProps) => {
     updatedAt: note.updatedAt,
     createdAt: note.createdAt,
   };
-  if (isNoteLoading) return <Loading />;
   if (isNoteError || !noteData) return null;
 
   return (
