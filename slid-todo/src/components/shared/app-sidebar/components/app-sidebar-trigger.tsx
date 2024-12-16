@@ -9,7 +9,7 @@ export const AppSidebarTrigger = () => {
   return (
     <>
       {isMobile && (
-        <div className="fixed h-[2rem] w-full flex items-center bg-white dark:bg-blue-950">
+        <div className="fixed z-50 h-[2rem] w-full flex items-center bg-white dark:bg-blue-950 ">
           <HamburgerButton />
         </div>
       )}

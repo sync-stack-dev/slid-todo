@@ -23,7 +23,7 @@ const DashBoard = () => {
   }
 
   return (
-    <div className="container px-4 py-6">
+    <div className="container px-4 py-6 my-10 md:my-0">
       <div className="rounded-2xl w-full mx-auto h-full lg:mx-16 flex flex-col gap-4">
         <h2 className="text-lg font-semibold mb-4">대시보드</h2>
         <div className="w-full flex gap-4 flex-col md:flex-row">

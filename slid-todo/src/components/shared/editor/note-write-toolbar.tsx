@@ -35,7 +35,7 @@ const NoteWriteToolbar = ({ editor }: ToolBarProps) => {
   };
 
   return (
-    <div className="bg-white dark:bg-black border-[1px] border-slate-100 rounded-3xl py-2 px-3">
+    <div className="fixed bottom-5 md:relative md:bottom-0 bg-white dark:bg-black border-[1px] border-slate-100 rounded-3xl py-2 px-3">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">

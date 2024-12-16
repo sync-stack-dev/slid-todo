@@ -109,7 +109,7 @@ const NoteEditPage = () => {
 
   return (
     <FormProvider {...form}>
-      <div className="px-4 md:pl-16 py-6">
+      <div className="px-4 md:pl-16 py-6 my-10 md:my-0">
         <div className="flex flex-col w-full md:w-2/3 h-full">
           <div>
             <NoteEditHeader onClickUpdateBtn={handleUpdate} onClickPreSaveBtn={handlePreSave} />
