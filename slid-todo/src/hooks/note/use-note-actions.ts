@@ -34,8 +34,9 @@ export const useNoteActions = (note?: Note) => {
 
       return response.data;
     },
-    onSuccess: () => {
+    onSuccess: (data, CreateNoteRequest) => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
+      localStorage.removeItem(`${CreateNoteRequest.todoId}-create-note`);
       toast.success("노트가 작성되었습니다.");
       router.back();
     },
@@ -58,8 +59,9 @@ export const useNoteActions = (note?: Note) => {
       const response = await instance.patch(`/notes/${note?.id}`, requestData);
       return response.data;
     },
-    onSuccess: () => {
+    onSuccess: (data, UpdateNoteRequest) => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
+      localStorage.removeItem(`${UpdateNoteRequest.noteId}-edit-note`);
       toast.success("노트가 수정되었습니다.");
       router.back();
     },
