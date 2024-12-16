@@ -16,7 +16,7 @@ const GoalPage = () => {
   if (goalError) return <div>에러가 발생했습니다.</div>;
 
   return (
-    <div className="container px-4 py-6">
+    <div className="container px-4 py-6 my-10 md:my-0">
       <div className="rounded-2xl w-full mx-auto h-full lg:mx-16">
         <h1 className="text-lg font-semibold mb-4">목표</h1>
         <GoalHeader goal={goal} progress={goal.progress} />
