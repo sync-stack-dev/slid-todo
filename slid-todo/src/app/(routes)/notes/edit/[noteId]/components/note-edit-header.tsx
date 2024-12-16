@@ -12,13 +12,13 @@ const NoteEditHeader = ({ onClickPreSaveBtn, onClickUpdateBtn }: NoteEditHeaderP
 
       <div className="flex gap-2">
         <Button
-          className="bg-transparent text-blue-500 hover:text-blue-700 hover:bg-transparent dark:bg-slate-500 dark:text-white dark:hover:bg-slate-600"
+          className="bg-transparent text-blue-600 hover:text-blue-700 hover:bg-transparent dark:bg-slate-500 dark:text-white dark:hover:bg-slate-600"
           onClick={onClickPreSaveBtn}
         >
           임시저장
         </Button>
         <Button
-          className="bg-blue-500 text-white hover:bg-blue-400 dark:bg-blue-500 dark:text-white dark:hover:bg-blue-600"
+          className="bg-blue-600 text-white hover:bg-blue-400 dark:bg-blue-600 dark:text-white dark:hover:bg-blue-600"
           onClick={onClickUpdateBtn}
         >
           수정하기

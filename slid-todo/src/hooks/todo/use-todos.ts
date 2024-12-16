@@ -2,7 +2,7 @@ import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import { instance } from "@/lib/axios";
 import { TodosResponse } from "@/types/todo";
 import { useGoal } from "../goals/use-goal";
-
+import { Todo } from "@/types/todo";
 export const useTodosInfinite = () => {
   return useInfiniteQuery<TodosResponse>({
     queryKey: ["todos", "infinite"],
@@ -25,7 +25,6 @@ export const useTodosOnce = () => {
   return useQuery<TodosResponse>({
     queryKey: ["todos", "once"],
     queryFn: async () => {
-      const size = 1200;
       const response = await instance.get<TodosResponse>("/todos", {
         params: {
           size: Number.MAX_SAFE_INTEGER,
@@ -53,14 +52,17 @@ export const useTodosByGoalId = (goalId: number) => {
   });
 };
 
-// 단일 id todo 조회 -> useTodosOnce 캐시된 리스트 기반
-export const useTodoById = (id: number, goalId: number) => {
-  const { data, ...rest } = useTodosByGoalId(goalId);
-
-  const todo = data?.todos?.find((item) => item.id === id) || null;
-  // console.log(data?.todos);
-  return { todo, ...rest };
+export const useTodoById = (id: number) => {
+  return useQuery<Todo>({
+    queryKey: ["todos", id],
+    queryFn: async () => {
+      const response = await instance.get<Todo>(`/todos/${id}`);
+      return response.data;
+    },
+    enabled: !!id,
+  });
 };
+
 // 최신 4개 todos
 export const useRecentTodos = () => {
   return useQuery<TodosResponse>({
