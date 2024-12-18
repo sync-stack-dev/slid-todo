@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useFormModal } from "@/stores/use-form-modal-store";
-import { useTodoActions } from "@/hooks/todo/use-todo-actions";
+import { useCreateTodo } from "@/hooks/todo/use-todo-actions";
 
 interface TodoHeaderProps {
   totalCount: number;
@@ -10,7 +10,7 @@ interface TodoHeaderProps {
 
 const TodoHeader = ({ totalCount }: TodoHeaderProps) => {
   const { onOpen: onOpenFormModal } = useFormModal();
-  const { createTodo } = useTodoActions();
+  const { mutate: createTodo } = useCreateTodo();
 
   const handleOpenFormModal = () => {
     onOpenFormModal({

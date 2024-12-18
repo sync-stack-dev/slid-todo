@@ -5,7 +5,7 @@ import { instance } from "@/lib/axios";
 import toast from "react-hot-toast";
 import { ActionButtons } from "@/components/shared/action-buttons";
 import { MoreMenu } from "@/components/shared/more-menu";
-import { useTodoActions } from "@/hooks/todo/use-todo-actions";
+import { useUpdateTodo, useDeleteTodo } from "@/hooks/todo/use-todo-actions";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
@@ -23,7 +23,8 @@ interface TodoActionsProps {
 const TodoActions = ({ todo }: TodoActionsProps) => {
   const [isNoteOpen, setIsNoteOpen] = useState(false);
   const [noteData, setNoteData] = useState<Note | null>(null);
-  const { deleteTodo, updateTodo } = useTodoActions(todo);
+  const { mutate: deleteTodo } = useDeleteTodo(todo);
+  const { mutate: updateTodo } = useUpdateTodo(todo);
   const router = useRouter();
 
   const handleNoteClick = async () => {
