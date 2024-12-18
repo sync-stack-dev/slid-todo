@@ -1,4 +1,4 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import TodoFilter from "@/app/(routes)/(todos)/todos/components/todo-filter";
 import { expect } from "@jest/globals";
 import userEvent from "@testing-library/user-event";
@@ -18,16 +18,13 @@ describe("Todo Filter", () => {
     expect(getByText("Done")).toBeInTheDocument();
   });
 
-  it("탭을 클릭하면 올바른 값으로 탭이 변경된다.", () => {
+  it("탭을 클릭하면 올바른 값으로 탭이 변경된다.", async () => {
+    const user = userEvent.setup();
     const { getByRole } = render(<TodoFilter activeTab="all" onTabChange={mockOnTabChange} />);
 
-    // Radix UI의 tab role과 id를 사용
     const todoTab = getByRole("tab", { name: "To do" });
 
-    // mouseDown과 mouseUp 이벤트를 모두 발생시킴
-    fireEvent.mouseDown(todoTab);
-    fireEvent.mouseUp(todoTab);
-    fireEvent.click(todoTab);
+    await user.click(todoTab);
 
     expect(mockOnTabChange).toHaveBeenCalledWith("todo");
   });
