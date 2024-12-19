@@ -7,7 +7,7 @@ import TodoItem from "@/components/shared/todo-list/todo-item";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { useTodoActions } from "@/hooks/todo/use-todo-actions";
+import { useCreateTodo } from "@/hooks/todo/use-todo-actions";
 import { useFormModal } from "@/stores/use-form-modal-store";
 import { ChevronDown } from "lucide-react";
 import EmptyState from "@/components/shared/empty-state";
@@ -89,7 +89,7 @@ const TodoSection = ({ goal }: { goal: Goal }) => {
 
   // 할일추가 모달
   const { onOpen: onOpenFormModal } = useFormModal(); // 추가
-  const { createTodo } = useTodoActions(); // 추가
+  const { mutate: createTodo } = useCreateTodo(); // 추가
   const handleOpenFormModal = () => {
     // 함수 추가
     onOpenFormModal({

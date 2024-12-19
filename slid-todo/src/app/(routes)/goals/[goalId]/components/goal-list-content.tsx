@@ -6,16 +6,15 @@ import { TodoList } from "@/components/shared/todo-list";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Loading } from "@/components/shared/loading";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useTodoActions } from "@/hooks/todo/use-todo-actions";
+import { useCreateTodo } from "@/hooks/todo/use-todo-actions";
 import { useFormModal } from "@/stores/use-form-modal-store";
 const GoalListContent = () => {
   const { goalId } = useParams();
   const { ref: todoRef, inView: todoInView } = useInView();
   const { ref: doneRef, inView: doneInView } = useInView();
   const { onOpen: onOpenFormModal } = useFormModal();
-  const { createTodo } = useTodoActions();
+  const { mutate: createTodo } = useCreateTodo();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useGoalTodosInfinite(
     Number(goalId),
     false,
