@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import { renderWithProviders } from "../../test-wrapper";
+import { renderWithProviders } from "../../test-utils";
 import TodoHeader from "@/app/(routes)/(todos)/todos/components/todo-header";
 import { expect } from "@jest/globals";
 import userEvent from "@testing-library/user-event";

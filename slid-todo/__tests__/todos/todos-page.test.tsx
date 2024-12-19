@@ -1,4 +1,4 @@
-import { renderWithProviders } from "../test-wrapper";
+import { renderWithProviders } from "../test-utils";
 import TodosPage from "@/app/(routes)/(todos)/todos/page";
 import { screen } from "@testing-library/react";
 import { expect } from "@jest/globals";
