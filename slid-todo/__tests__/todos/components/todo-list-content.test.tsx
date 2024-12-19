@@ -15,7 +15,6 @@ interface TodoData {
   pageParams: any[];
 }
 
-// 모킹 설정들은 test-wrapper.tsx로 이동
 jest.mock("next/navigation", () => ({
   useRouter: () => ({
     push: jest.fn(),
