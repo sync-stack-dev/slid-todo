@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import { renderWithProviders } from "../../test-utils";
+import { renderWithProviders } from "../../data/test-utils";
 import TodoList from "@/app/(routes)/(todos)/todos/components";
 import { mockTodoData, createMockTodoData } from "../../data/todo";
 import userEvent from "@testing-library/user-event";

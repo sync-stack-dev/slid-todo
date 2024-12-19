@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import { TodoListContent } from "@/app/(routes)/(todos)/todos/components/todo-list-content";
 import { Todo } from "@/types/todo";
-import { renderWithProviders } from "../../test-utils";
+import { renderWithProviders } from "../../data/test-utils";
 import { expect } from "@jest/globals";
 import { mockTodoData, createMockTodoData } from "../../data/todo";
 // 타입 정의
