@@ -28,14 +28,6 @@ export const TodoListContent = ({ data, activeTab }: TodoListContentProps) => {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  useEffect(() => {
-    data?.pages.forEach((page, index) => {
-      console.log(`${index + 1}번째 페이지 데이터 개수:`, page.todos.length);
-      console.log(`${index + 1}번째 페이지 전체 카운트:`, page.totalCount);
-      console.log(`${index + 1}번째 페이지 데이터:`, page.todos);
-    });
-  }, [data?.pages.length]);
-
   const allTodos = data?.pages.flatMap((page: TodoPage) => page.todos) || [];
   const displayTodos = getFilteredTodos(allTodos, activeTab);
 
