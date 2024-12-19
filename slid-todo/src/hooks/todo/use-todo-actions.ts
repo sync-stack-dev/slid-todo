@@ -3,12 +3,14 @@ import { instance } from "@/lib/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
+// 타입 정의
 interface CreateTodoRequest {
   title: string;
   fileUrl?: string;
   linkUrl?: string;
   goalId?: number;
 }
+
 interface UpdateTodoRequest {
   title: string;
   fileUrl?: string;
@@ -17,10 +19,11 @@ interface UpdateTodoRequest {
   done?: boolean;
 }
 
-export const useTodoActions = (todo?: Todo) => {
+// 생성 mutation
+export const useCreateTodo = () => {
   const queryClient = useQueryClient();
 
-  const { mutate: createTodo } = useMutation({
+  return useMutation({
     mutationFn: async (newTodo: CreateTodoRequest) => {
       const requestData = {
         title: newTodo.title,
@@ -41,12 +44,15 @@ export const useTodoActions = (todo?: Todo) => {
       toast.error("추가에 실패했습니다.");
     },
   });
+};
 
-  const { mutate: deleteTodo } = useMutation({
+// 삭제 mutation
+export const useDeleteTodo = (todo: Todo) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationFn: async () => {
-      if (!todo) {
-        throw new Error("투두 오브젝트가 존재하지 않습니다.");
-      }
+      if (!todo) throw new Error("투두 오브젝트가 존재하지 않습니다.");
       await instance.delete(`/todos/${todo.id}`);
     },
     onSuccess: () => {
@@ -58,12 +64,15 @@ export const useTodoActions = (todo?: Todo) => {
       toast.error("삭제에 실패했습니다.");
     },
   });
+};
 
-  const { mutate: updateTodo } = useMutation({
+// 수정 mutation
+export const useUpdateTodo = (todo: Todo) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationFn: async (updatedTodo: UpdateTodoRequest) => {
       if (!todo?.id) return;
-
-      console.log("Received in mutation:", updatedTodo);
 
       const requestData = {
         title: updatedTodo.title,
@@ -77,7 +86,6 @@ export const useTodoActions = (todo?: Todo) => {
         Object.entries(requestData).filter(([_, value]) => value !== undefined),
       );
 
-      console.log("Final request data:", cleanedData);
       await instance.patch(`/todos/${todo.id}`, cleanedData);
     },
     onSuccess: () => {
@@ -89,49 +97,31 @@ export const useTodoActions = (todo?: Todo) => {
       toast.error("수정에 실패했습니다.");
     },
   });
+};
 
-  const { mutate: updateTodoDone } = useMutation({
+// 완료 상태 mutation
+export const useUpdateTodoDone = (todo: Todo) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationFn: async (done: boolean) => {
       if (!todo?.id) return;
       await instance.patch(`/todos/${todo.id}`, { done });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["todos"],
-      });
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
 
-      if (todo?.goal?.id) {
-        queryClient.invalidateQueries({
-          queryKey: ["goals", todo.goal.id],
-        });
-
-        queryClient.invalidateQueries({
-          queryKey: ["todos", todo.goal.id],
-        });
-
-        queryClient.invalidateQueries({
-          queryKey: ["goals", "infinite"],
-        });
+      if (todo.goal.id) {
+        queryClient.invalidateQueries({ queryKey: ["goals", todo.goal.id] });
+        queryClient.invalidateQueries({ queryKey: ["todos", todo.goal.id] });
+        queryClient.invalidateQueries({ queryKey: ["goals", "infinite"] });
       }
 
-      queryClient.invalidateQueries({
-        queryKey: ["progress"],
-      });
-      if (todo?.goal?.id) {
-        queryClient.invalidateQueries({
-          queryKey: ["goals", todo.goal.id],
-        });
-      }
+      queryClient.invalidateQueries({ queryKey: ["progress"] });
       toast.success("할 일 상태가 업데이트되었습니다.");
     },
     onError: () => {
       toast.error("상태 업데이트에 실패했습니다.");
     },
   });
-  return {
-    createTodo,
-    deleteTodo,
-    updateTodo,
-    updateTodoDone,
-  };
 };

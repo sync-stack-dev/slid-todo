@@ -14,7 +14,10 @@ export const Loading = ({ fullScreen = true, size = "md" }: LoadingProps) => {
   };
 
   return (
-    <div className={`flex justify-center items-center ${fullScreen ? "h-screen" : "h-full"}`}>
+    <div
+      className={`flex justify-center items-center ${fullScreen ? "h-screen" : "h-full"}`}
+      data-testid="loading"
+    >
       <div
         className={`
           ${sizeClasses[size]}
