@@ -1,19 +1,15 @@
 export const mockTodoData = (id: number) => ({
   id,
-  title: `Test todo ${id}`,
+  title: `Todo ${id}`,
   done: id % 2 === 0,
-  goal: {
-    id: 1,
-    title: "Test goal",
-  },
+  noteId: undefined,
+  linkUrl: undefined,
+  fileUrl: undefined,
+  goal: { id: 1, title: "Goal 1" },
   userId: 1,
-  teamId: "test-team",
+  teamId: "team1",
   updatedAt: new Date().toISOString(),
   createdAt: new Date().toISOString(),
-  description: "Test description",
-  noteId: 1,
-  linkUrl: "https://test.com",
-  fileUrl: "https://test.com",
 });
 
 export const mockTodoList = [
@@ -23,3 +19,13 @@ export const mockTodoList = [
   mockTodoData(4),
   mockTodoData(5),
 ];
+
+export const createMockTodoData = (todos: ReturnType<typeof mockTodoData>[]) => ({
+  pages: [
+    {
+      todos,
+      totalCount: todos.length,
+    },
+  ],
+  pageParams: [null],
+});
