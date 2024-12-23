@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useTodoActions } from "@/hooks/todo/use-todo-actions";
+import { useCreateTodo } from "@/hooks/todo/use-todo-actions";
 import { useFormModal } from "@/stores/use-form-modal-store";
 import { useUserQuery } from "@/stores/use-user-store";
 import { useLoginStore } from "@/stores/use-login-store";
@@ -16,7 +16,7 @@ const AppSidebarUserInfo = () => {
   const { data: user, isError, isLoading } = useUserQuery();
   const { onOpen: onOpenFormModal } = useFormModal();
   const { onOpen: openConfirm } = useConfirmModal();
-  const { createTodo } = useTodoActions();
+  const { mutate: createTodo } = useCreateTodo();
   const router = useRouter();
   const { logout } = useLoginStore();
   const queryClient = useQueryClient();
