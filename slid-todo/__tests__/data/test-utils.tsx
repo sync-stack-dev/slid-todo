@@ -43,6 +43,10 @@ export const TestWrapper: FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
+export function getByCy(container: HTMLElement, cy: string) {
+  return container.querySelector(`[data-cy="${cy}"]`);
+}
+
 export function renderWithProviders(ui: React.ReactElement) {
   return render(ui, { wrapper: TestWrapper });
 }
