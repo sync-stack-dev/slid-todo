@@ -10,8 +10,10 @@ interface LoginState {
 }
 
 export const useLoginStore = create<LoginState>()((set) => ({
-  accessToken: null,
-  refreshToken: null,
+  // 초기 상태에서 쿠키 값을 읽어옴
+  accessToken: Cookies.get("accessToken") || null,
+  refreshToken: Cookies.get("refreshToken") || null,
+
   setAccessToken: (token) => {
     set({ accessToken: token });
     if (token) {
