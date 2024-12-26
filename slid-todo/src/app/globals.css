@@ -121,3 +121,22 @@
 .tiptap {
   padding-left: 0 !important;
 }
+
+@font-face {
+  font-family: "Pretendard-ExtraBold";
+  src: url("/fonts/Pretendard-ExtraBold.subset.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+}
+
+.ProseMirror strong {
+  font-family:
+    "Pretendard-ExtraBold",
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    sans-serif;
+  letter-spacing: -0.02em;
+}
