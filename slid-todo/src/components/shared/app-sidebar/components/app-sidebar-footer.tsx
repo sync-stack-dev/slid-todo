@@ -14,6 +14,11 @@ export const AppSidebarFooter = () => {
     onOpenFormModal({
       type: "goal",
       mode: "create",
+      defaultValues: {
+        id: 0,
+        title: "",
+        description: "",
+      },
       onSubmit: (data) => {
         createGoal(data);
       },
