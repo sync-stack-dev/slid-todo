@@ -52,23 +52,25 @@ const NoteCreatePage = () => {
 
     const data = JSON.parse(preData);
 
-    if (note && note.title === data.title) return;
+    if (note && note.title === data.title && note.content === data.content) return;
 
     setNote(data);
 
-    openConfirm({
-      title: `'${data.title}' 제목의 노트를 불러오시겠습니까?`,
-      confirmText: "불러오기",
-      variant: "info",
-      onConfirm: () => {
-        form.reset({
-          todoId: Number(todoId),
-          title: data.title,
-          content: data.content,
-          linkUrl: data.linkUrl,
-        });
-      },
-    });
+    if (data.title || data.content) {
+      openConfirm({
+        title: `${data.title ? `'${data.title}' 제목의 ` : ""}저장된 노트를 불러오시겠습니까?`,
+        confirmText: "불러오기",
+        variant: "info",
+        onConfirm: () => {
+          form.reset({
+            todoId: Number(todoId),
+            title: data.title,
+            content: data.content,
+            linkUrl: data.linkUrl,
+          });
+        },
+      });
+    }
   }, [todoId, form]);
 
   const handlePreSave = () => {
