@@ -34,11 +34,10 @@ const GoalToDoContainer = () => {
 
   const goals = data?.pages.flatMap((page) => page.goals) || [];
 
-  // ScrollArea 밖으로 EmptyState 이동
   if (goals.length === 0) {
     return (
       <div
-        className="w-full h-[calc(100vh-340px)] flex items-center justify-center"
+        className="w-full flex-1 min-h-[300px] flex items-center justify-center"
         data-cy="no-goals-message"
       >
         <EmptyState message="등록한 목표가 없어요" />

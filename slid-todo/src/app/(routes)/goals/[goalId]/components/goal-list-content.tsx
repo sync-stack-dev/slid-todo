@@ -9,13 +9,14 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useCreateTodo } from "@/hooks/todo/use-todo-actions";
 import { useFormModal } from "@/stores/use-form-modal-store";
+import { Loading } from "@/components/shared/loading";
 const GoalListContent = () => {
   const { goalId } = useParams();
   const { ref: todoRef, inView: todoInView } = useInView();
   const { ref: doneRef, inView: doneInView } = useInView();
   const { onOpen: onOpenFormModal } = useFormModal();
   const { mutate: createTodo } = useCreateTodo();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useGoalTodosInfinite(
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useGoalTodosInfinite(
     Number(goalId),
     false,
   );
@@ -25,7 +26,6 @@ const GoalListContent = () => {
     fetchNextPage: fetchDoneNextPage,
     hasNextPage: hasDoneNextPage,
     isFetchingNextPage: isFetchingDoneNextPage,
-    status: doneStatus,
   } = useGoalTodosInfinite(Number(goalId), true);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const GoalListContent = () => {
 
   const todos = data?.pages.flatMap((page) => page.todos) || [];
   const doneTodos = doneData?.pages.flatMap((page) => page.todos) || [];
-  if (status === "pending" || doneStatus === "pending") {
+  if (isLoading || isFetchingDoneNextPage || isFetchingNextPage) {
     return null;
   }
   const handleOpenFormModal = () => {
@@ -69,6 +69,7 @@ const GoalListContent = () => {
           <h2>Todo</h2>
           <Button
             variant="default"
+            data-testid="add-todo-button"
             className="bg-transparent text-blue-600 dark:text-slate-400 text-sm hover:bg-transparent hover:text-blue-600 dark:hover:text-slate-200 p-0 transition-colors"
             onClick={handleOpenFormModal}
           >
