@@ -36,22 +36,6 @@ export const useTodosOnce = () => {
   });
 };
 
-export const useTodosByGoalId = (goalId: number) => {
-  return useQuery<TodosResponse>({
-    queryKey: ["todos", "once", goalId],
-    queryFn: async () => {
-      const size = 1000;
-      const response = await instance.get<TodosResponse>("/todos", {
-        params: {
-          size,
-          goalId,
-        },
-      });
-      return response.data;
-    },
-  });
-};
-
 export const useTodoById = (id: number) => {
   return useQuery<Todo>({
     queryKey: ["todos", id],
