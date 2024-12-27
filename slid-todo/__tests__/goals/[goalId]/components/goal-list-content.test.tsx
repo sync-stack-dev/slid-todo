@@ -1,13 +1,9 @@
 import GoalListContent from "@/app/(routes)/goals/[goalId]/components/goal-list-content";
 import { renderWithProviders } from "../../../data/test-utils";
 import { expect } from "@jest/globals";
-import { TodoListContent } from "@/app/(routes)/(todos)/todos/components/todo-list-content";
-import { useGoalTodosInfinite } from "@/hooks/goals/use-goal-todos";
-import { useFormModal } from "@/stores/use-form-modal-store";
-import { useCreateTodo } from "@/hooks/todo/use-todo-actions";
-import { userEvent } from "@testing-library/user-event";
-import { act, fireEvent, getByText, render, screen } from "@testing-library/react";
-import { createMockTodoData, mockTodoData, mockTodoList } from "../../../data/todo";
+
+import { fireEvent, render } from "@testing-library/react";
+import { createMockTodoData, mockTodoList } from "../../../data/todo";
 
 jest.mock("@/hooks/goals/use-goal-todos", () => ({
   useGoalTodosInfinite: () => ({
@@ -124,6 +120,11 @@ describe("Goal List Content", () => {
         .mockImplementation(() => ({
           mutate: mockCreateTodo,
         }));
+    });
+
+    it("할 일 추가 버튼이 렌더링된다", () => {
+      const { getByRole } = renderWithProviders(<GoalListContent />);
+      expect(getByRole("button", { name: /할 일 추가/i })).toBeInTheDocument();
     });
 
     it("버튼 클릭 시 모달이 올바른 파라미터로 열린다", () => {
