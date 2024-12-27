@@ -39,6 +39,11 @@ const AppSidebarUserInfo = () => {
     onOpenFormModal({
       type: "todo",
       mode: "create",
+      defaultValues: {
+        id: 0,
+        title: "",
+        description: "",
+      },
       onSubmit: (data) => {
         createTodo(data);
       },

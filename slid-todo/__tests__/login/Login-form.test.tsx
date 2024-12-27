@@ -180,7 +180,10 @@ describe("LoginComponent", () => {
 
     // mutate 함수가 호출되었는지 확인
     await waitFor(() => {
-      expect(mockPost).toBeCalledTimes(1);
+      expect(mockPost).toHaveBeenCalledWith("/auth/login", {
+        email: "dummy@email.com",
+        password: "dummypassword",
+      });
     });
   });
 });

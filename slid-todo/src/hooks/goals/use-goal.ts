@@ -54,7 +54,6 @@ export const useGoal = (goalId: number) => {
         return result;
       } catch (error: any) {
         if (error.response?.status === 404) {
-          toast.error("존재하지 않는 목표입니다.");
           router.push("/");
           throw new Error("목표를 찾을 수 없습니다.");
         }
