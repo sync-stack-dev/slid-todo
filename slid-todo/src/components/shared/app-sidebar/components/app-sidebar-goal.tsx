@@ -32,7 +32,7 @@ const AppSidebarGoal = () => {
   return (
     <div className="px-5 py-2">
       <div className="flex items-center pb-5">
-        <Flag className="w-[16px] h-[16px] mr-3" />
+        <Flag aria-label="목표" className="w-[16px] h-[16px] mr-3" />
         <span className="text-lg font-medium">목표</span>
       </div>
 
