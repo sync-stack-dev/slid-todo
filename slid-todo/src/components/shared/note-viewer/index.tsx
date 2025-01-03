@@ -18,7 +18,7 @@ export const NoteViewer = ({ isOpen, onOpenChange, todo, noteData }: NoteViewerP
   const isLargeScreen = useMediaQuery("(min-width: 1350px)");
 
   return (
-    <div className="relative">
+    <div className="relative" data-testid="note-viewer">
       <Sheet open={isOpen} onOpenChange={onOpenChange}>
         <SheetPortal>
           {noteData?.linkUrl && isLargeScreen && (
