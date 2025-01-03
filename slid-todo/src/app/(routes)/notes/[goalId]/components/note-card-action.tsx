@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Note } from "@/types/note";
 import { useNoteById } from "@/hooks/note/use-note";
 import { Todo } from "@/types/todo";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 interface NoteCardActionProps {
   note: Note;
@@ -29,6 +28,7 @@ const NoteCardAction = ({ note }: NoteCardActionProps) => {
       <NoteCard key={note.id} note={note} onClick={() => setIsNoteOpen(true)} />
       <NoteViewer
         data-cy="note-viewer"
+        aria-hidden={!isNoteOpen}
         isOpen={isNoteOpen}
         onOpenChange={setIsNoteOpen}
         todo={todoData}

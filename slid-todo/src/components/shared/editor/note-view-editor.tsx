@@ -1,17 +1,8 @@
 import { cn } from "@/utils/cn";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import NoteWriteToolbar from "./note-write-toolbar";
-import Bold from "@tiptap/extension-bold";
-import BulletList from "@tiptap/extension-bullet-list";
-import Document from "@tiptap/extension-document";
-import Paragraph from "@tiptap/extension-paragraph";
-import Text from "@tiptap/extension-text";
 import Underline from "@tiptap/extension-underline";
 import TextAlign from "@tiptap/extension-text-align";
-import Heading from "@tiptap/extension-heading";
-import OrderedList from "@tiptap/extension-ordered-list";
-import ListItem from "@tiptap/extension-list-item";
 import ListKeymap from "@tiptap/extension-list-keymap";
 import TextStyle from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
@@ -25,16 +16,17 @@ const NoteViewEditor = ({ content }: NoteViewEditorProps) => {
     editable: false,
     autofocus: false,
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        bold: {
+          HTMLAttributes: {
+            "font-weight": 900,
+          },
+        },
+      }),
       ListKeymap,
       Underline,
       TextStyle,
       Color,
-      Bold.configure({
-        HTMLAttributes: {
-          "font-weight": 900,
-        },
-      }),
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
