@@ -17,6 +17,7 @@ export const FileButton = ({ url }: FileButtonProps) => {
           className="p-1 hover:bg-gray-100 dark:hover:bg-slate-600 rounded-full aspect-square w-8 h-8"
           title={url}
           aria-label="file-button"
+          data-testid="file-button"
         >
           <a
             href={ensureHttps(url)}

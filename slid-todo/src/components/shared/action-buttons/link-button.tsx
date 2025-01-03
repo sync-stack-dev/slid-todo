@@ -14,6 +14,7 @@ export const LinkButton = ({ url }: LinkButtonProps) => {
         <a
           href={ensureHttps(url)}
           data-cy="link-button"
+          data-testid="link-button"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center p-1 hover:bg-gray-100 dark:hover:bg-slate-600 rounded-full w-8 h-8"
