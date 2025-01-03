@@ -39,7 +39,7 @@ export const AppSidebarFooter = () => {
         className="flex items-center justify-center w-full text-blue-500 text-base bg-white hover:bg-blue-300 dark:bg-blue-800 dark:text-white dark:hover:bg-blue-700"
         data-cy="create-goal-button"
       >
-        <Plus />
+        <Plus aria-label="새 목표 추가" />
         <span>새 목표</span>
       </Button>
     </div>
