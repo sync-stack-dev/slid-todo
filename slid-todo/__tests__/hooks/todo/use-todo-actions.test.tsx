@@ -11,7 +11,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { FC, PropsWithChildren } from "react";
 import { expect } from "@jest/globals";
 import { mockTodoData } from "../../data/todo";
-import { Todo } from "@/types/todo";
 
 jest.mock("@/lib/axios", () => ({
   instance: {
