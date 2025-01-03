@@ -11,6 +11,14 @@ jest.mock("@/hooks/goals/use-dashboard-goals", () => ({
 describe("MyProgress 컴포넌트", () => {
   const queryClient = new QueryClient();
 
+  beforeEach(() => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   // 테스트 환경에서 QueryClientProvider를 설정
   const wrapper = ({ children }: { children: React.ReactNode }) => (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
@@ -18,7 +26,7 @@ describe("MyProgress 컴포넌트", () => {
 
   it("진행률 데이터가 잘 표시되는지 확인", async () => {
     // useProgress 훅이 반환할 데이터 설정
-    (useProgress as jest.Mock).mockReturnValue({ data: 70 });
+    (useProgress as jest.Mock).mockReturnValue({ data: 70, isLoading: false });
 
     // MyProgress 컴포넌트 렌더링
     render(<MyProgress />, { wrapper });
@@ -30,7 +38,7 @@ describe("MyProgress 컴포넌트", () => {
 
   it("진행률이 없을 경우 0으로 표시되는지 확인", async () => {
     // useProgress 훅이 반환할 데이터 설정 (없을 경우 0으로 처리)
-    (useProgress as jest.Mock).mockReturnValue({ data: undefined });
+    (useProgress as jest.Mock).mockReturnValue({ data: undefined, isLoading: false });
 
     // MyProgress 컴포넌트 렌더링
     render(<MyProgress />, { wrapper });
