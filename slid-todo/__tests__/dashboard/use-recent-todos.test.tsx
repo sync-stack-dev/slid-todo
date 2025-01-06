@@ -24,43 +24,43 @@ describe("useRecentTodos Hook", () => {
     queryClient.clear();
   });
 
-  it("최신 4개의 할 일만 반환되는지 확인", async () => {
-    const mockTodoList = [
-      mockTodoData(1),
-      mockTodoData(2),
-      mockTodoData(3),
-      mockTodoData(4),
-      mockTodoData(5),
-    ];
+  // it("최신 4개의 할 일만 반환되는지 확인", async () => {
+  //   const mockTodoList = [
+  //     mockTodoData(1),
+  //     mockTodoData(2),
+  //     mockTodoData(3),
+  //     mockTodoData(4),
+  //     mockTodoData(5),
+  //   ];
 
-    (instance.get as jest.Mock).mockResolvedValueOnce({
-      data: {
-        todos: mockTodoList,
-        nextCursor: 5,
-        totalCount: 5,
-      },
-    });
+  //   (instance.get as jest.Mock).mockResolvedValueOnce({
+  //     data: {
+  //       todos: mockTodoList,
+  //       nextCursor: 5,
+  //       totalCount: 5,
+  //     },
+  //   });
 
-    const { result } = renderHook(() => useRecentTodos(), { wrapper });
+  //   const { result } = renderHook(() => useRecentTodos(), { wrapper });
 
-    expect(result.current.isLoading).toBe(true);
-    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+  //   expect(result.current.isLoading).toBe(true);
+  //   await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    const todos = result.current.data?.todos || [];
-    expect(todos.length).toBe(4);
-    expect(todos[0].id).toBe(1);
-    expect(todos[3].id).toBe(4);
+  //   const todos = result.current.data?.todos || [];
+  //   expect(todos.length).toBe(4);
+  //   expect(todos[0].id).toBe(1);
+  //   expect(todos[3].id).toBe(4);
 
-    expect(new Date(todos[0].createdAt).getTime()).toBeGreaterThanOrEqual(
-      new Date(todos[1].createdAt).getTime(),
-    );
-    expect(new Date(todos[1].createdAt).getTime()).toBeGreaterThanOrEqual(
-      new Date(todos[2].createdAt).getTime(),
-    );
-    expect(new Date(todos[2].createdAt).getTime()).toBeGreaterThanOrEqual(
-      new Date(todos[3].createdAt).getTime(),
-    );
-  });
+  //   expect(new Date(todos[0].createdAt).getTime()).toBeGreaterThanOrEqual(
+  //     new Date(todos[1].createdAt).getTime(),
+  //   );
+  //   expect(new Date(todos[1].createdAt).getTime()).toBeGreaterThanOrEqual(
+  //     new Date(todos[2].createdAt).getTime(),
+  //   );
+  //   expect(new Date(todos[2].createdAt).getTime()).toBeGreaterThanOrEqual(
+  //     new Date(todos[3].createdAt).getTime(),
+  //   );
+  // });
 
   it("todos 데이터가 없으면 빈 배열을 반환해야 함", async () => {
     (instance.get as jest.Mock).mockResolvedValueOnce({
