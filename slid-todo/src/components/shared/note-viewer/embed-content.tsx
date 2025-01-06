@@ -14,7 +14,6 @@ const getEmbedUrl = (url: string) => {
   try {
     const urlObj = new URL(ensureHttps(url));
 
-    // YouTube
     if (urlObj.hostname.includes("youtube.com") || urlObj.hostname.includes("youtu.be")) {
       const videoId = urlObj.hostname.includes("youtu.be")
         ? urlObj.pathname.slice(1)
@@ -22,7 +21,6 @@ const getEmbedUrl = (url: string) => {
       return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
     }
 
-    // Vimeo
     if (urlObj.hostname.includes("vimeo.com")) {
       const videoId = urlObj.pathname.slice(1);
       return videoId ? `https://player.vimeo.com/video/${videoId}` : null;

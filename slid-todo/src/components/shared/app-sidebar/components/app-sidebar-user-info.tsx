@@ -71,7 +71,7 @@ const AppSidebarUserInfo = () => {
     );
   }
 
-  if (isError || !user) return <div>뭔가 잘못됐다.</div>;
+  if (isError || !user) return <div>사용자 정보를 불러오는데 실패했습니다.</div>;
 
   return (
     <div className="px-5 rounded-lg">

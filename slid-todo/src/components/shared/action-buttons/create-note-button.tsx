@@ -1,6 +1,4 @@
-import {
-  FilePlus, // 새 문서
-} from "lucide-react";
+import { FilePlus } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 interface CreateNoteButtonProps {

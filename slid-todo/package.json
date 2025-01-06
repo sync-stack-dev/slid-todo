@@ -15,7 +15,16 @@
     "test:e2e": "npm run build && start cmd /k \"npm run start\" && cypress open",
     "cypress:run": "npm run build && npm run start && cypress run",
     "analyze": "cross-env ANALYZE=true next build",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "jest": {
+      "coverageReporters": [
+        "json",
+        "lcov",
+        "text",
+        "html"
+      ]
+    }
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -94,6 +103,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "autoprefixer": "^10",
+    "axios-mock-adapter": "^2.1.0",
     "cross-env": "^7.0.3",
     "cypress": "^13.16.0",
     "eslint": "^8",

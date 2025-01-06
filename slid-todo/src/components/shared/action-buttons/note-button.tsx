@@ -15,6 +15,7 @@ export const NoteButton = ({ onClick }: NoteButtonProps) => {
           onClick={onClick}
           className="p-1 hover:bg-gray-100 dark:hover:bg-slate-600 rounded-full aspect-square w-8 h-8"
           aria-label="note-button"
+          data-testid="note-button"
         >
           <Notebook className="text-blue-400" data-cy="note-button" aria-label="note-button-icon" />
         </Button>
